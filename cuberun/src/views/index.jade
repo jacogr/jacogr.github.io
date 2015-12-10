@@ -12,8 +12,14 @@ html(lang="en" ng-app="iso")
     
   body.ng-cloak
     .world(ng-controller="worldController as world" ng-class="{ 'dead': world.isDead() }")
-      .info {{world.blocks | number:0}} in {{world.time | number:0}}s @ {{world.blocks / world.time | number:2}}/s
+      .overlay.info {{world.blocks | number:0}} in {{world.time | number:0}}s
       
+      .overlay.menu
+        .text Oops! The idea is to avoid red, sorry, we should have been clear on that. Having said that, you did manage to
+        .text Run through {{world.blocks | number:0}} blocks in {{world.time | number:0}} seconds at and everage rate of {{world.blocks / world.time | number:2}}/second
+        .text All is not lost and dead is not dead-dead, so why don't you just give it another go and improve on what you had?
+        .button(ng-click="world.restart()") Retry
+        
       .container
         .navigation
           .up(ng-click="world.move(-1, 0)" ng-class="{ 'hidden': world.isBlocked(-1, 0) }")

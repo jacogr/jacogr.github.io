@@ -1,6 +1,6 @@
 .world,.world.dead:after{width:100%;height:100%}
 .pos,.pos:after,.pos:before,.world.dead:after{content:'';float:left;position:absolute}
-.navigation .down:after,.navigation .up:after{margin-left:-500px;border-right:500px solid transparent}
+.navigation .down:after,.navigation .up:after{border-right:500px solid transparent;margin-left:-500px}
 .enemy,.world .container{-webkit-transform-style:preserve-3d}
 @-webkit-keyframes glowenemy{50%{box-shadow:inset 0 0 0 .25em rgba(255,100,100,.75)}
 }
@@ -12,7 +12,14 @@
 }
 @-webkit-keyframes pulserev{50%{border-radius:.28125em}
 }
-.world .info{position:absolute;left:1em;top:1em;padding:.5em .75em;border-radius:.5em;color:#fff;background:#000;opacity:.75;z-index:1}
+.world .menu .button,.world .overlay{padding:.5em .75em;border-radius:.5em;opacity:.75}
+.world .overlay{position:absolute;left:1em;top:1em;color:#fff;background:#000;z-index:1}
+.world .info{display:block}
+.world .menu{display:none;max-width:25%;text-align:center}
+.world .menu .text{width:100%;margin-bottom:.5em}
+.world .menu .button{background:#333;margin:0 auto;cursor:pointer}
+.world.dead .menu{display:block}
+.world.dead .info{display:none}
 .world.dead:after{top:0;left:0;opacity:.75;padding:0;background:#000}
 .world .container{width:33.75em;height:33.75em;padding:0;position:absolute;top:1em;left:7.875em;-webkit-transform:rotateX(45deg) rotateZ(45deg)}
 .navigation .down,.navigation .up{padding-left:2.25em;left:14.625em}

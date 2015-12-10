@@ -5,6 +5,98 @@ config(function ($routeProvider, $locationProvider) {// eslint-disable-line pref
   $locationProvider.html5Mode(false);});
 'use strict';angular.
 module('iso').
+controller('worldController', function ($scope, $window, $timeout, $interval, $routeParams, Player, World, FULL) {var _this = this; // eslint-disable-line prefer-arrow-callback
+  var HALF = Math.floor(FULL / 2);
+  var CENTER = FULL * HALF + HALF;
+
+  this.world = World.get(Player.getY(), Player.getX());
+  this.grid = _.range(0, FULL * FULL);
+  this.blocks = 0;
+  this.time = 0;
+  this.start = Date.now();
+
+  this.restart = function () {
+    $window.location.reload();};
+
+
+  this.isDead = function () {
+    return Player.isDead();};
+
+
+  this.hasVisited = function (idx) {
+    return this.world[idx].visited;};
+
+
+  this.isBlocked = function (dy, dx) {
+    var cell = this.world[CENTER + dx + dy * FULL];
+    return Player.isDead() || _.contains(['cube'], cell.type);};
+
+
+  this.move = function (dy, dx) {
+    if (this.isBlocked(dy, dx)) {
+      return;}
+
+
+    this.world[CENTER].type = 'visited-player';
+    Player.incPos(dy, dx);
+
+    this.world = World.get(Player.getY(), Player.getX());
+    if (_.contains(['enemy', 'visited-enemy'], this.world[CENTER].type)) {
+      Player.kill();}
+
+
+    if (!Player.isDead()) {
+      this.world[CENTER].type = 'visited-player';
+      this.blocks++;}};
+
+
+
+  this.getOpacity = function (idx) {
+    var row = Math.floor(idx / FULL);
+    var col = (idx - row * FULL) % FULL;
+    var dist = Math.sqrt(Math.pow(1 + HALF - row, 2) + Math.pow(1 + HALF - col, 2));
+
+    return Math.max(0, 1.0 - dist / (FULL + HALF));};
+
+
+  this.getClass = function (idx) {
+    if (CENTER === idx) {
+      return 'player';}
+
+
+    return this.world[idx].type;};
+
+
+  var keyHandler = function keyHandler(evt) {
+    var x = 0;
+    var y = 0;
+
+    switch (evt.keyCode) {
+      case 37:x--;break;
+      case 38:y--;break;
+      case 39:x++;break;
+      case 40:y++;break;
+      default:break;}
+
+
+    if (x || y) {
+      $timeout(function () {return _this.move(y, x);});}};
+
+
+
+  var $doc = angular.element(document);
+  $doc.on('keydown', keyHandler);
+  $scope.$on('$destroy', function () {
+    $doc.off('keydown', keyHandler);});
+
+
+  $interval(function () {
+    if (!Player.isDead()) {
+      _this.time = (1 + Date.now() - _this.start) / 1000;}}, 
+
+  1000);});
+'use strict';angular.
+module('iso').
 service('Enemy', function ($interval, Player, FULL) {var _this2 = this; // eslint-disable-line prefer-arrow-callback
   var MAXDIST = FULL * 3;
 
@@ -305,91 +397,3 @@ service('World', function (Enemy, FULL) {// eslint-disable-line prefer-arrow-cal
 
 
     return map;};});
-'use strict';angular.
-module('iso').
-controller('worldController', function ($scope, $timeout, $interval, $routeParams, Player, World, FULL) {var _this = this; // eslint-disable-line prefer-arrow-callback
-  var HALF = Math.floor(FULL / 2);
-  var CENTER = FULL * HALF + HALF;
-
-  this.world = World.get(Player.getY(), Player.getX());
-  this.grid = _.range(0, FULL * FULL);
-  this.blocks = 0;
-  this.time = 0;
-  this.start = Date.now();
-
-  this.isDead = function () {
-    return Player.isDead();};
-
-
-  this.hasVisited = function (idx) {
-    return this.world[idx].visited;};
-
-
-  this.isBlocked = function (dy, dx) {
-    var cell = this.world[CENTER + dx + dy * FULL];
-    return Player.isDead() || _.contains(['cube'], cell.type);};
-
-
-  this.move = function (dy, dx) {
-    if (this.isBlocked(dy, dx)) {
-      return;}
-
-
-    this.world[CENTER].type = 'visited-player';
-    Player.incPos(dy, dx);
-
-    this.world = World.get(Player.getY(), Player.getX());
-    if (_.contains(['enemy', 'visited-enemy'], this.world[CENTER].type)) {
-      Player.kill();}
-
-
-    if (!Player.isDead()) {
-      this.world[CENTER].type = 'visited-player';
-      this.blocks++;}};
-
-
-
-  this.getOpacity = function (idx) {
-    var row = Math.floor(idx / FULL);
-    var col = (idx - row * FULL) % FULL;
-    var dist = Math.sqrt(Math.pow(1 + HALF - row, 2) + Math.pow(1 + HALF - col, 2));
-
-    return Math.max(0, 1.0 - dist / (FULL + HALF));};
-
-
-  this.getClass = function (idx) {
-    if (CENTER === idx) {
-      return 'player';}
-
-
-    return this.world[idx].type;};
-
-
-  var keyHandler = function keyHandler(evt) {
-    var x = 0;
-    var y = 0;
-
-    switch (evt.keyCode) {
-      case 37:x--;break;
-      case 38:y--;break;
-      case 39:x++;break;
-      case 40:y++;break;
-      default:break;}
-
-
-    if (x || y) {
-      $timeout(function () {return _this.move(y, x);});}};
-
-
-
-  var $doc = angular.element(document);
-  $doc.on('keydown', keyHandler);
-  $scope.$on('$destroy', function () {
-    $doc.off('keydown', keyHandler);});
-
-
-  $interval(function () {
-    if (!Player.isDead()) {
-      _this.time = (1 + Date.now() - _this.start) / 1000;}}, 
-
-  1000);});

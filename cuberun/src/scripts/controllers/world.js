@@ -1,6 +1,6 @@
 angular
   .module('iso')
-  .controller('worldController', function($scope, $timeout, $interval, $routeParams, Player, World, FULL) { // eslint-disable-line prefer-arrow-callback
+  .controller('worldController', function($scope, $window, $timeout, $interval, $routeParams, Player, World, FULL) { // eslint-disable-line prefer-arrow-callback
     const HALF = Math.floor(FULL / 2);
     const CENTER = (FULL * HALF) + HALF;
 
@@ -9,6 +9,10 @@ angular
     this.blocks = 0;
     this.time = 0;
     this.start = Date.now();
+
+    this.restart = function() {
+      $window.location.reload();
+    };
 
     this.isDead = function() {
       return Player.isDead();
