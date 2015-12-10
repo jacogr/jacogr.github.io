@@ -35,22 +35,6 @@ gulp.task('js-client', function() {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('js-vendor', function() {
-  return gulp
-    .src([
-      'bower_components/angular/angular.min.js',
-      'bower_components/angular-route/angular-route.min.js',
-      'bower_components/lodash/lodash.min.js'
-    ])
-    //.pipe(sourcemaps.init())
-    .pipe(concat('vendor.js'))
-    //.pipe(sourcemaps.write('.', {
-    //  sourceRoot: '.',
-    //  sourceMappingURLPrefix: '.'
-    //}))
-    .pipe(gulp.dest('.'));
-});
-
 gulp.task('lint', function() {
   return gulp
     .src(['src/**/*.js'])
@@ -88,11 +72,7 @@ gulp.task('css', function() {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('bower', function() {
-  return bower();
-});
-
-gulp.task('build', ['lint', 'js-client', 'js-vendor', 'html', 'css']);
+gulp.task('build', ['lint', 'js-client', 'html', 'css']);
 
 gulp.task('watch', ['default'], function() {
   gulp.watch(['src/styles/**/*.scss'], ['css']);
