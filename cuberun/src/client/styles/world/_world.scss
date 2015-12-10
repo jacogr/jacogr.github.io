@@ -1,0 +1,48 @@
+.world {
+  $container-top: 1em;
+  $container-left: $size-cube * ($size-grid - 1) / 4;
+
+  width: 100%;
+  height: 100%;
+
+  .info {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+    padding: 0.5em 0.75em;
+    border-radius: 0.5em;
+    color: white;
+    background: black;
+    opacity: 0.75;
+
+    z-index: 1;
+  }
+
+  &.dead {
+    &:after {
+      content: '';
+      float: left;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0.75;
+      padding: 0;
+      position: absolute;
+      background: #000;
+    }
+  }
+
+  .container {
+    width: $size-grid-em;
+    height: $size-grid-em;
+    padding: 0;
+
+    position: absolute;
+    top: $container-top;
+    left: $container-left;
+
+    -webkit-transform: rotateX(45deg) rotateZ(45deg);
+    -webkit-transform-style: preserve-3d;
+  }
+}

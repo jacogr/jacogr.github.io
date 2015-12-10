@@ -1,0 +1,29 @@
+@-webkit-keyframes glowenemy {
+  50% {
+    box-shadow: inset 0 0 0 .25em rgba(255, 100, 100, 0.75);
+  }
+}
+
+@-webkit-keyframes wave {
+  50% {
+    -webkit-transform: translateZ(1.5 * $size-cube);
+  }
+}
+
+@-webkit-keyframes fade {
+  50% {
+    opacity: 0.75;
+  }
+}
+
+@-webkit-keyframes pulse {
+  50% {
+    border-radius: $size-cube / 2;
+  }
+}
+
+@-webkit-keyframes pulserev {
+  50% {
+    border-radius: $size-cube / 8;
+  }
+}

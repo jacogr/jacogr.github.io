@@ -1,0 +1,51 @@
+.player, .player:after, .player:before {
+  box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .1);
+  border-radius: $size-cube / 2;
+}
+
+.player { // top
+  $color-player-sat: desaturate($color-player, 25%);
+  $color-player-drk: darken($color-player-sat, 10%);
+
+  background-color: $color-player-sat;
+  opacity: 0.9;
+  position: relative;
+
+  -webkit-animation: pulserev 0.75s ease-in-out infinite;
+  -webkit-transform: translateZ($size-cube);
+  -webkit-transform-style: preserve-3d;
+
+  &:after { // mid
+    background-color: $color-player-drk;
+    border-radius: $size-cube / 6;
+
+    -webkit-animation: pulse 0.75s ease-in-out infinite;
+    -webkit-transform: translateZ(-$size-cube / 2);
+    -webkit-transform-style: preserve-3d;
+  }
+
+  &:before { // bottom
+    background-color: $color-player-sat;
+
+    -webkit-animation: pulserev 0.75s ease-in-out infinite;
+    -webkit-transform: translateZ(-$size-cube);
+    -webkit-transform-style: preserve-3d;
+  }
+
+  &.dead {
+    //$color-player-dead-lt: lighten($color-player-dead, 10%);
+
+    //background-color: $color-player-dead;
+    -webkit-animation: none;
+
+    &:after { // mid
+      //background-color: $color-player-dead-lt;
+      -webkit-animation: none;
+    }
+
+    &:before { // bottom
+      //background-color: $color-player-dead;
+      -webkit-animation: none;
+    }
+  }
+}

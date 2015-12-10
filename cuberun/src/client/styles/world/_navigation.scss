@@ -1,0 +1,114 @@
+.navigation {
+  width: 100%;
+  height: 0;
+  overflow: visible;
+
+  div {
+    position: absolute;
+    overflow: hidden;
+    height: 0;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+
+    &:after {
+      content: "";
+      display: block;
+      width: 0;
+      height: 0;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .up {
+    width: $nav-arrow-size;
+    padding-left: $nav-arrow-size;
+    padding-bottom: $nav-arrow-size;
+    top: $nav-spacing-offset;
+    left: $nav-spacing-middle;
+
+    &:after {
+      margin-left: -500px;
+      border-left: 500px solid transparent;
+      border-right: 500px solid transparent;
+      border-bottom: 500px solid $color-nav;
+    }
+
+    &:hover {
+      &:after {
+        border-bottom: 500px solid $color-nav-hover;
+      }
+    }
+  }
+
+  .right {
+    width: 0;
+    padding-top: $nav-arrow-size;
+    padding-bottom: $nav-arrow-size;
+    padding-left: $nav-arrow-size;
+    top: $nav-spacing-middle;
+    right: $nav-spacing-offset;
+
+    &:after {
+      margin-top: -500px;
+      margin-left: -500px;
+      border-top: 500px solid transparent;
+      border-bottom: 500px solid transparent;
+      border-left: 500px solid $color-nav;
+    }
+
+    &:hover {
+      &:after {
+        border-left: 500px solid $color-nav-hover;
+      }
+    }
+  }
+
+  .down {
+    width: $nav-arrow-size;
+    padding-left: $nav-arrow-size;
+    padding-top: $nav-arrow-size;
+    bottom: $nav-spacing-offset;
+    left: $nav-spacing-middle;
+
+    &:after {
+      margin-left: -500px;
+      margin-top: -500px;
+      border-left: 500px solid transparent;
+      border-right: 500px solid transparent;
+      border-top: 500px solid $color-nav;
+    }
+
+    &:hover {
+      &:after {
+        border-top: 500px solid $color-nav-hover;
+      }
+    }
+  }
+
+  .left {
+    width: $nav-arrow-size;
+    padding-top: $nav-arrow-size;
+    padding-bottom: $nav-arrow-size;
+    top: $nav-spacing-middle;
+    left: $nav-spacing-offset;
+
+    &:after {
+      margin-top: -500px;
+      border-top: 500px solid transparent;
+      border-bottom: 500px solid transparent;
+      border-right: 500px solid $color-nav;
+    }
+
+    &:hover {
+      &:after {
+        border-right: 500px solid $color-nav-hover;
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+doctype html
+html(lang="en" ng-app="iso")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="description" content="")
+    meta(name="author" content="")
+    meta(name="viewport" content="width=device-width")
+    title world
+    link(rel="stylesheet" type="text/css" href="client.css")
+    style .ng-cloak { display: none }
+    
+  body.ng-cloak
+    .world(ng-controller="worldController as world" ng-class="{ 'dead': world.isDead() }")
+      .info {{world.blocks | number:0}} in {{world.time | number:0}}s @ {{world.blocks / world.time | number:2}}/s
+      
+      .container
+        .navigation
+          .up(ng-click="world.move(-1, 0)" ng-class="{ 'hidden': world.isBlocked(-1, 0) }")
+          .down(ng-click="world.move(1, 0)" ng-class="{ 'hidden': world.isBlocked(1, 0) }")
+          .left(ng-click="world.move(0, -1)" ng-class="{ 'hidden': world.isBlocked(0, -1) }")
+          .right(ng-click="world.move(0, 1)" ng-class="{ 'hidden': world.isBlocked(0, 1) }")
+      
+      .container
+        .pos(ng-repeat="p in ::world.world" ng-class="world.getClass($index)")
+
+
+    script(src="vendor.js")
+    script(src='client.js')

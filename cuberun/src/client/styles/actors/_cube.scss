@@ -1,0 +1,56 @@
+.cube, .cube:after, .cube:before {
+  box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .1);
+}
+
+.cube { // top
+  background-color: $color-cube;
+  opacity: 0.9;
+  position: relative;
+
+  -webkit-transform: translateZ($size-cube);
+  -webkit-transform-style: preserve-3d;
+
+  &:after { // left
+    background-color: desaturate($color-cube, 25%);
+
+    -webkit-transform: rotateX(-90deg) translateY($size-cube);
+    -webkit-transform-origin: 100% 100%;
+  }
+
+  &:before { // right
+    background-color: darken(desaturate($color-cube, 25%), 10%);
+
+    -webkit-transform: rotateY(90deg) translateX($size-cube);
+    -webkit-transform-origin: 100% 0;
+  }
+}
+
+.visited-player {
+  @extend .cube;
+
+  background-color: $color-player;
+  opacity: 0.15;
+
+  &:after {
+    background-color: desaturate($color-player, 25%);
+  }
+
+  &:before {
+    background-color: darken(desaturate($color-player, 25%), 10%);
+  }
+}
+
+.visited-enemy {
+  @extend .cube;
+
+  background-color: $color-enemy;
+  opacity: 0.9;
+
+  &:after {
+    background-color: desaturate($color-enemy, 25%);
+  }
+
+  &:before {
+    background-color: darken(desaturate($color-enemy, 25%), 10%);
+  }
+}

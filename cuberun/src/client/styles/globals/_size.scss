@@ -1,0 +1,10 @@
+$size-cube: 2.25em;
+
+$size-grid: 15;
+$size-grid-em: $size-grid * $size-cube;
+
+$size-circle: $size-cube / 2;
+
+$nav-arrow-size: $size-cube;
+$nav-spacing-middle: $size-cube * ($size-grid - 2) / 2;
+$nav-spacing-offset: -$nav-arrow-size - 1em;

@@ -1,0 +1,22 @@
+.pos, .pos:after, .pos:before {
+  content: '';
+  float: left;
+  height: $size-cube;
+  width: $size-cube;
+  position: absolute;
+}
+
+.grid, .grid:after, .grid:before {
+  box-shadow: inset 0 0 0 0.1em hsla(0, 0%, 0%, .02);
+  background-color: hsla(0, 0%, 0%, .01);
+
+  &.visited {
+    background-color: $color-player;
+    border-radius: $size-cube / 3;
+    opacity: 0.25;
+  }
+}
+
+.pos {
+  position: relative;
+}
