@@ -9,32 +9,31 @@
     position: absolute;
     left: 1em;
     top: 1em;
-    padding: 0.5em 0.75em;
     border-radius: 0.5em;
     color: white;
     background: black;
     opacity: 0.75;
     z-index: 1;
-  }
 
-  .info {
-    display: block;
-  }
+    &.info {
+      display: block;
+    }
 
-  .menu {
-    display: none;
-    max-width: 25%;
-    text-align: center;
+    &.menu {
+      display: none;
+      max-width: 33%;
+      left: 33%;
+      text-align: center;
+    }
 
     .text {
-      width: 100%;
-      margin-bottom: 0.75em;
+      margin: 1em;
     }
 
     .button {
       background: #333;
       opacity: 0.75;
-      margin: 0 auto;
+      margin: 2em 1em 1em 1em;
       padding: 0.75em 0.75em;
       border-radius: 0.5em;
       cursor: pointer;
@@ -70,10 +69,11 @@
     padding: 0;
 
     position: absolute;
-    top: $container-top;
-    left: $container-left;
+    top: $size-cube;
+    left: 50%;
 
     -webkit-transform: rotateX(45deg) rotateZ(45deg);
+    -webkit-transform-origin: top left;
     -webkit-transform-style: preserve-3d;
   }
 }
