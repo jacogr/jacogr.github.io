@@ -12,7 +12,8 @@ html(lang="en" ng-app="iso")
     
   body.ng-cloak
     .world(ng-controller="worldController as world" ng-class="{ 'dead': world.isDead() }")
-      .overlay.info {{world.blocks | number:0}} in {{world.time | number:0}}s
+      .overlay.info
+        .text {{world.blocks | number:0}} in {{world.time | number:0}}s
       
       .overlay.menu
         .text Oops! The idea is to avoid red, sorry, we should have been clear on that. Having said that, you did manage a total of
@@ -30,6 +31,13 @@ html(lang="en" ng-app="iso")
       .container
         .pos(ng-repeat="p in ::world.world" ng-class="world.getClass($index)")
 
-
-    script(src="vendor.js")
-    script(src='client.js')
+    script.
+      if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {
+          window.location.protocol = 'https:';
+      }
+    
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js")
+      
+    script(src="client.js")
