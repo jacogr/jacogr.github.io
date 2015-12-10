@@ -7,21 +7,21 @@
   opacity: 0.9;
   position: relative;
 
-  -webkit-transform: translateZ($size-cube);
-  -webkit-transform-style: preserve-3d;
+  @include transform(translateZ($size-cube));
+  @include transform-style(preserve-3d);
 
   &:after { // left
     background-color: desaturate($color-cube, 25%);
 
-    -webkit-transform: rotateX(-90deg) translateY($size-cube);
-    -webkit-transform-origin: 100% 100%;
+    @include transform(rotateX(-90deg) translateY($size-cube));
+    @include transform-origin(100% 100%);
   }
 
   &:before { // right
     background-color: darken(desaturate($color-cube, 25%), 10%);
 
-    -webkit-transform: rotateY(90deg) translateX($size-cube);
-    -webkit-transform-origin: 100% 0;
+    @include transform(rotateY(90deg) translateX($size-cube));
+    @include transform-origin(100% 0);
   }
 }
 

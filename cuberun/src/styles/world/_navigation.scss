@@ -7,11 +7,9 @@
     position: absolute;
     overflow: hidden;
     height: 0;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
     cursor: pointer;
+
+    @include user-select(none);
 
     &:after {
       content: "";

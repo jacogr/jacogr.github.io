@@ -10,24 +10,24 @@
   opacity: 0.9;
   position: relative;
 
-  -webkit-animation: pulserev 0.75s ease-in-out infinite;
-  -webkit-transform: translateZ($size-cube);
-  -webkit-transform-style: preserve-3d;
+  @include animation(pulserev 0.75s ease-in-out infinite);
+  @include transform(translateZ($size-cube));
+  @include transform-style(preserve-3d);
 
   &:after { // mid
     background-color: $color-enemy-sat;
     border-radius: $size-cube / 6;
 
-    -webkit-animation: pulse 0.75s ease-in-out infinite;
-    -webkit-transform: translateZ(-$size-cube / 2);
-    -webkit-transform-style: preserve-3d;
+    @include animation(pulse 0.75s ease-in-out infinite);
+    @include transform(translateZ(-$size-cube / 2));
+    @include transform-style(preserve-3d);
   }
 
   &:before { // bottom
     background-color: darken($color-enemy-sat, 10%);
 
-    -webkit-animation: pulserev 0.75s ease-in-out infinite;
-    -webkit-transform: translateZ(-$size-cube);
-    -webkit-transform-style: preserve-3d;
+    @include animation(pulserev 0.75s ease-in-out infinite);
+    @include transform(translateZ(-$size-cube));
+    @include transform-style(preserve-3d);
   }
 }

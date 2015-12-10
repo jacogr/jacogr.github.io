@@ -1,7 +1,4 @@
 .world {
-  $container-top: 1em;
-  $container-left: $size-cube * ($size-grid - 1) / 4;
-
   width: 100%;
   height: 100%;
 
@@ -72,8 +69,8 @@
     top: $size-cube;
     left: 50%;
 
-    -webkit-transform: rotateX(45deg) rotateZ(45deg);
-    -webkit-transform-origin: top left;
-    -webkit-transform-style: preserve-3d;
+    @include transform(rotateX(45deg) rotateZ(45deg));
+    @include transform-origin(top left);
+    @include transform-style(preserve-3d);
   }
 }
