@@ -23,7 +23,7 @@ var errcb = function(err) {
 
 gulp.task('js-client', function() {
   return gulp
-    .src(['src/client/scripts/**/*.js'])
+    .src(['src/scripts/**/*.js'])
     //.pipe(sourcemaps.init())
     .pipe(babel())
     .on('error', errcb)
@@ -60,7 +60,7 @@ gulp.task('lint', function() {
 
 gulp.task('html', function() {
   return gulp
-    .src(['src/client/views/**/*.jade'])
+    .src(['src/views/**/*.jade'])
     .pipe(jade())
     .on('error', errcb)
     .pipe(gulp.dest('.'));
@@ -70,7 +70,7 @@ gulp.task('css', function() {
   var nm = __dirname + '/node_modules';
 
   return gulp
-    .src(['src/client/styles/**/*.scss'])
+    .src(['src/styles/**/*.scss'])
     .pipe(sass({
       indentedSyntax: false,
       sourceComments: 'normal',
@@ -95,9 +95,9 @@ gulp.task('bower', function() {
 gulp.task('build', ['lint', 'js-client', 'js-vendor', 'html', 'css']);
 
 gulp.task('watch', ['default'], function() {
-  gulp.watch(['src/client/styles/**/*.scss'], ['css']);
-  gulp.watch(['src/client/views/**/*.jade'], ['html']);
-  gulp.watch(['src/client/scripts/**/*.js'], ['js-client']);
+  gulp.watch(['src/styles/**/*.scss'], ['css']);
+  gulp.watch(['src/views/**/*.jade'], ['html']);
+  gulp.watch(['src/scripts/**/*.js'], ['js-client']);
 });
 
 gulp.task('default', ['build']);
