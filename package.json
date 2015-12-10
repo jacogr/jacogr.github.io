@@ -1,0 +1,23 @@
+{
+  "name": "jacogr",
+  "version": "1.0.0",
+  "description": "Various things.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://jacogr@github.com/jacogr/jacogr.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacogr/jacogr.github.io/issues"
+  },
+  "homepage": "https://github.com/jacogr/jacogr.github.io#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jade": "^1.1.0"
+  }
+}
