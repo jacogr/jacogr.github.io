@@ -12,12 +12,11 @@
 }
 @-webkit-keyframes pulserev{50%{border-radius:.28125em}
 }
-.world .menu .button,.world .overlay{padding:.5em .75em;border-radius:.5em;opacity:.75}
-.world .overlay{position:absolute;left:1em;top:1em;color:#fff;background:#000;z-index:1}
+.world .overlay{position:absolute;left:1em;top:1em;padding:.5em .75em;border-radius:.5em;color:#fff;background:#000;opacity:.75;z-index:1}
 .world .info{display:block}
 .world .menu{display:none;max-width:25%;text-align:center}
-.world .menu .text{width:100%;margin-bottom:.5em}
-.world .menu .button{background:#333;margin:0 auto;cursor:pointer}
+.world .menu .text{width:100%;margin-bottom:.75em}
+.world .menu .button{background:#333;opacity:.75;margin:0 auto;padding:.75em;border-radius:.5em;cursor:pointer}
 .world.dead .menu{display:block}
 .world.dead .info{display:none}
 .world.dead:after{top:0;left:0;opacity:.75;padding:0;background:#000}
