@@ -5,6 +5,7 @@
   },
   "globals": {
     "angular": false,
+    "require": false,
     "_": false
   },
   "ecmaFeatures": {

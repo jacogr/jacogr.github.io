@@ -3,18 +3,13 @@
 /* eslint no-var:0 */
 var gulp = require('gulp');
 var babel = require('gulp-babel');
-var bower = require('gulp-bower');
 var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
 var eslint = require('gulp-eslint');
 var ignore = require('gulp-ignore');
 var jade = require('gulp-jade');
-var lcovmerger = require('lcov-result-merger');
-var newer = require('gulp-newer');
-var replace = require('gulp-replace');
-var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
-var karma = require('karma');
+var uglify = require('gulp-uglify');
 
 var errcb = function(err) {
   console.error(err.stack || err.message || err);
@@ -24,13 +19,9 @@ var errcb = function(err) {
 gulp.task('js-client', function() {
   return gulp
     .src(['src/scripts/**/*.js'])
-    //.pipe(sourcemaps.init())
     .pipe(babel())
     .on('error', errcb)
-    /*.pipe(sourcemaps.write('.', {
-      sourceRoot: '.',
-      sourceMappingURLPrefix: '.'
-    }))*/
+    .pipe(uglify())
     .pipe(concat('client.js'))
     .pipe(gulp.dest('.'));
 });
@@ -60,7 +51,7 @@ gulp.task('css', function() {
       sourceComments: 'normal',
       outputStyle: 'nested',
       includePaths: ['bourbon', 'bourbon-neat'].map(function(p) {
-        return nm + '/' + p + '/app/assets/stylesheets';
+        return nm + '/' + p + '/app/assets/stylesheets'; // eslint-disable-line prefer-template
       })
     }))
     .on('error', errcb)
