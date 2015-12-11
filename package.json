@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jacogr/jacogr.github.io#readme",
   "devDependencies": {
+    "eslint": "^1.10.3",
     "gulp": "^3.9.0",
     "gulp-jade": "^1.1.0"
   }
