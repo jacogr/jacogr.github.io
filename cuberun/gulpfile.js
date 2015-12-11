@@ -2,6 +2,7 @@
 
 /* eslint no-var:0 */
 var gulp = require('gulp');
+var annotate = require('gulp-ng-annotate');
 var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
@@ -21,6 +22,7 @@ gulp.task('js-client', function() {
     .src(['src/scripts/**/*.js'])
     .pipe(babel())
     .on('error', errcb)
+    .pipe(annotate())
     .pipe(uglify())
     .pipe(concat('client.js'))
     .pipe(gulp.dest('.'));
