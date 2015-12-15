@@ -1,10 +1,10 @@
 'use strict';angular.
-module('play', ['ngRoute']).
+module('cuberoom', ['ngRoute']).
 constant('SIZE_DISPLAY', 21).
 config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {// eslint-disable-line prefer-arrow-callback
   $locationProvider.html5Mode(false);}]);
 'use strict';angular.
-module('play').
+module('cuberoom').
 controller('worldController', ["$scope", "$timeout", "SIZE_DISPLAY", "Player", "Rooms", function ($scope, $timeout, SIZE_DISPLAY, Player, Rooms) {var _this = this;
   this.pos = { room: {} };
 
@@ -82,7 +82,7 @@ controller('worldController', ["$scope", "$timeout", "SIZE_DISPLAY", "Player", "
   $scope.$on('$destroy', function () {
     $doc.off('keydown', keyHandler);});}]);
 'use strict';angular.
-module('play').
+module('cuberoom').
 service('Cells', function () {
   var DISPLAY = { 
     crate: { one: 'crate', two: 'crate' }, 
@@ -122,7 +122,7 @@ service('Cells', function () {
     cell.blocked = true;
     return cell;};});
 'use strict';angular.
-module('play').
+module('cuberoom').
 service('Objects', ["SIZE_DISPLAY", "Cells", "Random", function (SIZE_DISPLAY, Cells, Random) {
   var SIZE = { 
     CRATE: 3, 
@@ -210,7 +210,7 @@ service('Objects', ["SIZE_DISPLAY", "Cells", "Random", function (SIZE_DISPLAY, C
     this.wallTop(room, doors.top);
     this.wallRight(room, doors.right);};}]);
 'use strict';angular.
-module('play').
+module('cuberoom').
 service('Player', ["SIZE_DISPLAY", function (SIZE_DISPLAY) {
   var HALF = Math.floor(SIZE_DISPLAY / 2);
 
@@ -235,7 +235,7 @@ service('Player', ["SIZE_DISPLAY", function (SIZE_DISPLAY) {
   this.kill = function () {
     this.dead = true;};}]);
 'use strict';angular.
-module('play').
+module('cuberoom').
 service('Random', function () {
   /*
     simplified Angularised MersenneTwister
@@ -324,7 +324,7 @@ service('Random', function () {
 
   this.setSeed(this.seed);});
 'use strict';angular.
-module('play').
+module('cuberoom').
 service('Rooms', ["SIZE_DISPLAY", "Cells", "Objects", "Random", function (SIZE_DISPLAY, Cells, Objects, Random) {
   var COLORS = ['default', 'blue', 'gray', 'red'];
   var rooms = {};
