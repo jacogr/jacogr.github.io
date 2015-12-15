@@ -1,0 +1,17 @@
+.row {
+  height: $size-cube;
+  width: $size-row;
+  float: left;
+  position: relative;
+}
+
+.cell {
+  height: $size-cube;
+  width: $size-cube;
+  float: left;
+  position: relative;
+
+  &.overlay {
+    margin: 0;
+  }
+}

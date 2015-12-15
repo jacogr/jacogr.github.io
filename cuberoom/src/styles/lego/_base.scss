@@ -1,0 +1,34 @@
+.cell {
+  div, div:after, div:before {
+    height: $size-cube;
+    width: $size-cube;
+    content: '';
+    float: left;
+    position: absolute;
+  }
+
+  .zero {
+    z-index: 0;
+    @include transform(translateZ(0 * $size-cube));
+  }
+
+  .one {
+    z-index: 1;
+    @include transform(translateZ(1 * $size-cube));
+  }
+
+  .two {
+    z-index: 1;
+    @include transform(translateZ(2 * $size-cube));
+  }
+
+  .three {
+    z-index: 1;
+    @include transform(translateZ(3 * $size-cube));
+  }
+
+  .four {
+    z-index: 1;
+    @include transform(translateZ(4 * $size-cube));
+  }
+}

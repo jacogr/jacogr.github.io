@@ -1,0 +1,39 @@
+doctype html
+html(lang="en" ng-app="cuberoom")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="description" content="")
+    meta(name="author" content="")
+    meta(name="viewport" content="width=device-width")
+    title cuberoom
+    link(rel="stylesheet" type="text/css" href="client.css")
+    style .ng-cloak { display: none }
+    
+  body.ng-cloak
+    .world(ng-controller="worldController as world")
+      .container(ng-class="world.room.color")
+        .row(ng-repeat="row in world.room.cells")
+          .cell(ng-repeat="cell in row")
+            .zero(ng-if="cell.display.zero" ng-class="cell.display.zero")
+            .one(ng-if="cell.display.one || cell.player" ng-class="cell.player ? 'player' : cell.display.one")
+            .two(ng-if="cell.display.two" ng-class="cell.display.two")
+            .three(ng-if="cell.display.three" ng-class="cell.display.three")
+            .four(ng-if="cell.display.four" ng-class="cell.display.four")
+      
+      .overlay
+        .box
+          .text
+            div Room: ({{world.pos.room.y}}, {{world.pos.room.x}})
+            div Player: ({{world.pos.pos.y}}, {{world.pos.pos.x}})
+      
+    script.
+      if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {
+          window.location.protocol = 'https:';
+      }
+    
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js")
+      
+    script(src="client.js")

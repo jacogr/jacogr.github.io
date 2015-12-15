@@ -1,0 +1,16 @@
+.box {
+  margin: $size-cube $size-cube $size-cube auto;
+  width: 20%;
+  background: rgba(0, 0, 0, 0.75);
+  border-radius: $size-cube / 2;
+  color: white;
+
+  .text {
+    padding: $size-cube / 2;
+    text-align: right;
+
+    div+div {
+      margin-top: $size-cube / 4;
+    }
+  }
+}

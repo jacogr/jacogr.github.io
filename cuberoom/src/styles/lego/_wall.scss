@@ -1,0 +1,9 @@
+.wall, .wall:after, .wall:before {
+  // box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .1);
+}
+
+.wall {
+  @include isoblock(wall);
+}
+
+@include isocolors(wall);

@@ -1,0 +1,84 @@
+@mixin isocolor($color) {
+  $_color: color($color);
+  $_color_sat: desaturate($_color, 25%);
+  $_color_drk: darken($_color_sat, 10%);
+
+  background-color: $_color;
+
+  &:after {
+    background-color: $_color_sat;
+  }
+
+  &:before {
+    background-color: $_color_drk;
+  }
+}
+
+@mixin isocolors($class, $color: null) {
+  @if ($color == null) {
+    $color: $class;
+  }
+
+  @each $type in $color-types {
+    .#{$class}.#{$type}, .#{$type} .#{$class} {
+      @include isocolor(#{$color}-#{$type});
+    }
+  }
+}
+
+@mixin isoblock($color) {
+  @include isocolor($color);
+  @include transform(translateZ($size-cube));
+  @include transform-style(preserve-3d);
+
+  &.glass {
+    opacity: 0.2;
+  }
+
+  &:after { // left
+    @include transform(rotateX(-90deg) translateY($size-cube));
+    @include transform-origin(100% 100%);
+  }
+
+  &:before { // right
+    @include transform(rotateY(90deg) translateX($size-cube));
+    @include transform-origin(100% 0);
+  }
+}
+
+@mixin isoactor($color) {
+  $_actor_anim_speed: 0.75s;
+  $_actor_margin: ($size-actor - $size-cube) / 2;
+
+  box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .1);
+  border-radius: $size-actor / 2;
+  width: $size-actor !important;
+  height: $size-actor !important;
+  left: -$_actor_margin;
+  top: -$_actor_margin;
+
+  @include isocolor($color);
+  @include animation(pulserevactor $_actor_anim_speed ease-in-out infinite);
+  @include transform(translateZ($size-actor) !important);
+  @include transform-style(preserve-3d);
+
+  &:after { // mid
+    box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .1);
+    border-radius: $size-actor / 6;
+    width: $size-actor !important;
+    height: $size-actor !important;
+
+    @include animation(pulseactor $_actor_anim_speed ease-in-out infinite);
+    @include transform(translateZ(-$size-actor / 2) !important);
+  }
+
+  &:before { // bottom
+    box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .1);
+    border-radius: $size-actor / 2;
+    width: $size-actor !important;
+    height: $size-actor !important;
+
+    @include animation(pulserevactor $_actor_anim_speed ease-in-out infinite);
+    @include transform(translateZ(-$size-actor) !important);
+  }
+}

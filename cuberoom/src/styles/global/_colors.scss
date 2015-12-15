@@ -1,0 +1,48 @@
+$_color_player: #39ff14;
+
+$_color_crate: #da4;
+$_color_crate_blue: #a4d;
+$_color_crate_gray: grayscale($_color_crate);
+$_color_crate_red: #d4a;
+
+$_color_floor: #876;
+$_color_floor_blue: #678;
+$_color_floor_gray: grayscale($_color_floor);
+$_color_floor_red: #867;
+
+$_color_wall: #fc6;
+$_color_wall_blue: #67f;
+$_color_wall_gray: grayscale($_color_wall);
+$_color_wall_red: #f67;
+
+$color-types: (blue, gray, red);
+$color-values: (
+  'player': $_color_player,
+
+  'crate': $_color_crate,
+  'crate-blue': $_color_crate_blue,
+  'crate-gray': $_color_crate_gray,
+  'crate-red': $_color_crate_red,
+
+  'entrance': darken($_color_floor, 10%),
+  'entrance-blue': darken($_color_floor_blue, 10%),
+  'entrance-gray': darken($_color_floor_gray, 10%),
+  'entrance-red': darken($_color_floor_red, 10%),
+
+  'floor': $_color_floor,
+  'floor-blue': $_color_floor_blue,
+  'floor-gray': $_color_floor_gray,
+  'floor-red': $_color_floor_red,
+
+  'wall': $_color_wall,
+  'wall-blue': $_color_wall_blue,
+  'wall-gray': $_color_wall_gray,
+  'wall-red': $_color_wall_red
+);
+
+@function color($key) {
+  @if not map-has-key($color-values, $key) {
+    @warn "Color #{$key} not found";
+  }
+  @return map-get($color-values, $key);
+}

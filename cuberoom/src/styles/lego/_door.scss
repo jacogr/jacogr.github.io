@@ -1,0 +1,15 @@
+.door-top { // top
+  @include isoblock(wall);
+
+  &:after { // left
+    height: $size-cube / 2 !important;
+    @include transform-origin(100% 200%);
+  }
+
+  &:before { // right
+    width: $size-cube / 2 !important;
+    @include transform-origin(200% 0);
+  }
+}
+
+@include isocolors(door-top, wall);

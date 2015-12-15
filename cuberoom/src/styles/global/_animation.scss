@@ -1,0 +1,41 @@
+@include keyframes(glowenemy) {
+  50% {
+    box-shadow: inset 0 0 0 .25em rgba(255, 100, 100, 0.75);
+  }
+}
+
+@include keyframes(wave) {
+  50% {
+    @include transform(translateZ(1.5 * $size-cube));
+  }
+}
+
+@include keyframes(fade) {
+  50% {
+    opacity: 0.75;
+  }
+}
+
+@include keyframes(pulse) {
+  50% {
+    border-radius: $size-cube / 2;
+  }
+}
+
+@include keyframes(pulserev) {
+  50% {
+    border-radius: $size-cube / 8;
+  }
+}
+
+@include keyframes(pulseactor) {
+  50% {
+    border-radius: $size-actor / 2;
+  }
+}
+
+@include keyframes(pulserevactor) {
+  50% {
+    border-radius: $size-actor / 8;
+  }
+}

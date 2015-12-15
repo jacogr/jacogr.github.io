@@ -1,0 +1,13 @@
+.floor {
+  background-color: color(floor);
+  // box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .1);
+
+  @include transform(translateZ(0));
+  @include transform-style(preserve-3d);
+
+  &:after, &:before {
+    display: none;
+  }
+}
+
+@include isocolors(floor);

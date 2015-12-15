@@ -1,0 +1,12 @@
+.entrance {
+  background-color: color(entrance);
+
+  @include transform(translateZ(0));
+  @include transform-style(preserve-3d);
+
+  &:after, &:before {
+    display: none;
+  }
+}
+
+@include isocolors(entrance);
