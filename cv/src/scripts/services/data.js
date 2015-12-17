@@ -5,6 +5,8 @@ angular
       return { year: year, month: month };
     };
 
+    this.name = 'Jaco Greeff';
+    this.position = 'Chief Technology Officer';
     this.summary = `Technology Executive, Strategist & Architect.
 
 Focused technical manager with architecture, project and operational experience over a wide range of industries and companies ranging from start-up to large corporates. 20-years of industry experience with a track record of leading effective global teams to deliver on company objectives.

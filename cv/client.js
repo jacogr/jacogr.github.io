@@ -7,8 +7,7 @@ module('cv').
 controller('cvController', ["$location", "Data", function ($location, Data) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  this.positions = Data.positions;
-  this.summary = Data.summary;
+  this.data = Data;
 
   this.entry = this.prevEntry = undefined;
 
@@ -30,6 +29,12 @@ controller('cvController', ["$location", "Data", function ($location, Data) {
     var end = entry.end ? months[entry.end.month - 1] + ' ' + entry.end.year : 'Current';
 
     return start + ' - ' + end;};
+
+
+  this.getYear = function (entry) {
+    var year = ('' + (entry.end ? entry.end.year : new Date().getFullYear())).slice(-2);
+
+    return '\'' + year;};
 
 
   if ($location.path() === '') {
@@ -57,6 +62,8 @@ service('Data', function () {
     return { year: year, month: month };};
 
 
+  this.name = 'Jaco Greeff';
+  this.position = 'Chief Technology Officer';
   this.summary = 'Technology Executive, Strategist & Architect.\n\nFocused technical manager with architecture, project and operational experience over a wide range of industries and companies ranging from start-up to large corporates. 20-years of industry experience with a track record of leading effective global teams to deliver on company objectives.\n\n* Management experience in high-pressure environments across multiple countries, cultures and timezones\n* Experience in defining and delivering on strategies whilst prioritizing tactical solutions as necessary for maximum efficiency\n* A strong architecture and design background and application of technical problem-solving into the improvement of processes and systems';
 
 

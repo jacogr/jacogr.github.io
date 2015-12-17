@@ -3,9 +3,8 @@ angular
   .controller('cvController', function($location, Data) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    this.positions = Data.positions;
-    this.summary = Data.summary;
-
+    this.data = Data;
+    
     this.entry = this.prevEntry = undefined;
 
     this.isPath = function(path) {
@@ -26,6 +25,12 @@ angular
       const end = entry.end ? `${months[entry.end.month - 1]} ${entry.end.year}` : 'Current';
 
       return `${start} - ${end}`;
+    };
+
+    this.getYear = function(entry) {
+      const year = `${(entry.end ? entry.end.year : new Date().getFullYear())}`.slice(-2);
+
+      return `'${year}`;
     };
 
     if ($location.path() === '') {

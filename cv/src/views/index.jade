@@ -12,28 +12,31 @@ html(lang="en" ng-app="cv")
     style .ng-cloak { display: none }
     
   body.ng-cloak(ng-controller="cvController as cv" ng-class="cv.isPath('/print') && 'extended'")
-    .menu.no-print
-      a.item(href="#/summary" ng-class="cv.isPath('/summary') && 'selected'") Summary
-      a.item(href="#/print" ng-class="cv.isPath('/print') && 'selected'") Print
+    .menu
+      .cv CV
+      .person
+        p {{cv.data.name}}
+        p {{cv.data.position}}
+      .items
+        a.item(href="#/summary" ng-class="cv.isPath('/summary') && 'selected'") Summary
+        a.item(href="#/print" ng-class="cv.isPath('/print') && 'selected'") Print
       
     .content
-      .introduction(markdown="cv.summary")
+      .introduction(markdown="cv.data.summary")
       
       .positions
-        .position(ng-repeat="pos in cv.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos }")
+        .position(ng-repeat="pos in cv.data.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos }")
           .summary(ng-click="cv.show(pos)")
-            .action.fa(ng-class="{ 'fa-external-link-square': cv.entry != pos, 'fa-times': cv.entry == pos }")
+            .action.fa(ng-class="{ 'fa-level-down': cv.entry != pos, 'fa-level-up': cv.entry == pos }")
             .title {{pos.position}}
             .company {{pos.company}}
             .sub
               .location {{pos.location}}
               .fromto  {{cv.getDate(pos)}}
+            .year {{cv.getYear(pos)}}
           
-          .expanded.show(ng-if="cv.isPath('/print')")
+          .expanded(ng-class="{ 'show': cv.isPath('/print') || cv.entry == pos }")
             .section(markdown="pos.description")
-      
-      .expanded(ng-if="cv.isPath('/summary')" ng-click="cv.show()" ng-class="{ 'show': cv.entry }")
-        .section(markdown="(cv.entry || cv.prevEntry).description")
       
     script.
       if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {
