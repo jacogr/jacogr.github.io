@@ -91,7 +91,8 @@ As a South African-based CTO for an Indian-owned company (Cura was founded in ZA
         description: `# Company
 Self-employed Architecture consultant, working with a number of clients from the immediate network.
 
-# RoleConsulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.
+# Role
+Consulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.
 
 # Clients
 * HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward
@@ -129,7 +130,8 @@ Discovery Health is South Africa’s largest medical insurance company with a hi
         description: `# Company
 HealthBridge is an innovative transaction switch with a focus on the medical industry. Since it inception in 1999, the company has expanded into the TradeBridge group covering markets such as debt consolidation and mobile payments.
 
-# Responsibilities* Day-to-day management and mentoring of the development team
+# Responsibilities
+* Day-to-day management and mentoring of the development team
 * Setting up the development team, growing from 0 to 12
 * Management of 3rd party development (Internet Solutions & Dimension Data)
 * Management of the software budget in conjunction with the CIO

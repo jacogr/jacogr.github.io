@@ -129,7 +129,8 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'Consultant', 
     level: 'management', 
-    description: '# Company\nSelf-employed Architecture consultant, working with a number of clients from the immediate network.\n\n# RoleConsulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.\n\n# Clients\n* HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward\n* Discovery Health (Johannesburg, South Africa): Architecture evaluation for re-designed claims and payment consolidation systems\n* Infinite Illusions (Tallahassee, USA): Design of on-line store flow/checkout, video streaming (live web TV channels), forum and payment solutions\n* Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings' }, 
+    description: '# Company\nSelf-employed Architecture consultant, working with a number of clients from the immediate network.\n\n# Role\nConsulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.\n\n# Clients\n* HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward\n* Discovery Health (Johannesburg, South Africa): Architecture evaluation for re-designed claims and payment consolidation systems\n* Infinite Illusions (Tallahassee, USA): Design of on-line store flow/checkout, video streaming (live web TV channels), forum and payment solutions\n* Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings' }, 
+
 
 
 
@@ -167,7 +168,8 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'Technical Manager', 
     level: 'management', 
-    description: '# Company\nHealthBridge is an innovative transaction switch with a focus on the medical industry. Since it inception in 1999, the company has expanded into the TradeBridge group covering markets such as debt consolidation and mobile payments.\n\n# Responsibilities* Day-to-day management and mentoring of the development team\n* Setting up the development team, growing from 0 to 12\n* Management of 3rd party development (Internet Solutions & Dimension Data)\n* Management of the software budget in conjunction with the CIO\n* Representing HealthBridge on industry committees on transaction standards\n* Feedback on projects and software initiatives to HealthBridge MANCO' }, 
+    description: '# Company\nHealthBridge is an innovative transaction switch with a focus on the medical industry. Since it inception in 1999, the company has expanded into the TradeBridge group covering markets such as debt consolidation and mobile payments.\n\n# Responsibilities\n* Day-to-day management and mentoring of the development team\n* Setting up the development team, growing from 0 to 12\n* Management of 3rd party development (Internet Solutions & Dimension Data)\n* Management of the software budget in conjunction with the CIO\n* Representing HealthBridge on industry committees on transaction standards\n* Feedback on projects and software initiatives to HealthBridge MANCO' }, 
+
 
 
 
