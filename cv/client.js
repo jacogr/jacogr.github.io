@@ -8,7 +8,7 @@ controller('cvController', ["Data", function (Data) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   this.positions = Data.cv;
-  this.sections = { company: 'Company', role: 'Role', tasks: 'Responsibilities', exit: 'Leaving' };
+  this.sections = Data.sections;
   this.entry = undefined;
 
   this.show = function (entry) {
@@ -41,6 +41,13 @@ module('cv').
 service('Data', function () {
   var _date = function _date(year, month) {
     return { year: year, month: month };};
+
+
+  this.sections = { 
+    company: 'Company', 
+    role: 'Role', 
+    tasks: 'Responsibilities', 
+    exit: 'Leaving' };
 
 
   this.cv = [

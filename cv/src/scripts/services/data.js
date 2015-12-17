@@ -5,6 +5,13 @@ angular
       return { year: year, month: month };
     };
 
+    this.sections = {
+      company: 'Company',
+      role: 'Role',
+      tasks: 'Responsibilities',
+      exit: 'Leaving'
+    };
+
     this.cv = [
       {
         start: _date(2012, 10),
