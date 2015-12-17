@@ -11,7 +11,7 @@ html(lang="en" ng-app="cv")
     link(rel="stylesheet" type="text/css" href="client.css")
     style .ng-cloak { display: none }
     
-  body.ng-cloak(ng-controller="cvController as cv" ng-class="cv.isPath('/print') && 'extended'")
+  body.ng-cloak(ng-controller="cvController as cv" ng-class="cv.isPath('/print') && 'print'")
     .menu
       .cv CV
       .person

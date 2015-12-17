@@ -18,7 +18,7 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;col
 [markdown] h1,[markdown] h2{font-size:1em;margin:2em 0 .5em}
 [markdown] h1:first-child,[markdown] h2:first-child{margin-top:1em}
 .introduction{display:none}
-.expanded,.extended .introduction,.extended .position,.position,.positions{display:block;float:left}
+.expanded,.position,.positions,.print .introduction,.print .position{display:block;float:left}
 .positions{padding:1em 1em 0;margin-right:2.35765%;width:100%}
 .positions:last-child{margin-right:0}
 .position{opacity:1;margin-bottom:1em;max-height:10em;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s;margin-right:2.35765%;width:100%}
@@ -59,15 +59,15 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;col
 .expanded:last-child{margin-right:0}
 }
 .expanded .section{padding:0 1em;margin-bottom:1.75em;background:0 0;border-radius:.5em}
-.extended .introduction{padding:1em;margin-right:2.35765%;width:100%}
-.extended .introduction:last-child{margin-right:0}
-.extended .position{text-align:left;max-height:none;margin-right:2.35765%;width:100%}
-.extended .position:last-child{margin-right:0}
-.extended .position .summary{color:#323232;background:0 0;border-radius:0;border-bottom:1px solid #aaa}
-.extended .position .summary .sub{position:absolute;top:1em;right:1em}
-.extended .position .summary .action,.extended .position .summary .year{display:none}
-.extended .expanded{opacity:1;float:left;display:block;margin-right:2.35765%;width:100%}
-.extended .expanded:last-child{margin-right:0}
+.print .introduction{padding:1em;margin-right:2.35765%;width:100%}
+.print .introduction:last-child{margin-right:0}
+.print .position{text-align:left;max-height:none;margin-right:2.35765%;width:100%}
+.print .position:last-child{margin-right:0}
+.print .position .summary{color:#323232;background:0 0;border-radius:0;border-bottom:1px solid #aaa}
+.print .position .summary .sub{position:absolute;top:1em;right:1em}
+.print .position .summary .action,.print .position .summary .year{display:none}
+.print .expanded{opacity:1;float:left;display:block;margin-right:2.35765%;width:100%}
+.print .expanded:last-child{margin-right:0}
 @media print{.menu{display:block}
 .menu .items,.no-print{display:none!important}
 }
