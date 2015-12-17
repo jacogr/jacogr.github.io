@@ -8,7 +8,6 @@ controller('cvController', ["Data", function (Data) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   this.positions = Data.positions;
-  this.sections = Data.sections;
   this.summary = Data.summary;
 
   this.entry = this.prevEntry = undefined;
@@ -44,13 +43,6 @@ module('cv').
 service('Data', function () {
   var _date = function _date(year, month) {
     return { year: year, month: month };};
-
-
-  this.sections = { 
-    company: 'Company', 
-    role: 'Role', 
-    tasks: 'Responsibilities', 
-    exit: 'Leaving' };
 
 
   this.summary = 'Technology Executive, Strategist & Architect. Focused technical manager with architecture, project and operational experience over a wide range of industries and companies ranging from start-up to large corporates. 20-years of industry experience with a track record of leading effective global teams to deliver on company objectives.\n\n* Management experience in high-pressure environments across multiple countries, cultures and timezones\n* Experience in defining and delivering on strategies whilst prioritizing tactical solutions as necessary for maximum efficiency\n* A strong architecture and design background and application of technical problem-solving into the improvement of processes and systems';

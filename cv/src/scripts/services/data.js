@@ -5,13 +5,6 @@ angular
       return { year: year, month: month };
     };
 
-    this.sections = {
-      company: 'Company',
-      role: 'Role',
-      tasks: 'Responsibilities',
-      exit: 'Leaving'
-    };
-
     this.summary = `Technology Executive, Strategist & Architect. Focused technical manager with architecture, project and operational experience over a wide range of industries and companies ranging from start-up to large corporates. 20-years of industry experience with a track record of leading effective global teams to deliver on company objectives.
 
 * Management experience in high-pressure environments across multiple countries, cultures and timezones
