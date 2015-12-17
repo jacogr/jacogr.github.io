@@ -10,8 +10,13 @@ $anim-time: 0.25s;
 $pad-content: 1em;
 $border-rad: $pad-content / 2;
 
-$break-small: new-breakpoint(max-width 800px);
-$break-tiny: new-breakpoint(max-width 640px);
+$break-large: new-breakpoint(min-width 800px);
+$break-small: new-breakpoint(min-width 640px);
+
+@mixin omega-reset($nth) {
+  &:nth-child(#{$nth}) { margin-right: flex-gutter(); }
+  &:nth-child(#{$nth}+1) { clear: none }
+}
 
 body {
   background: $color-content-text;
@@ -35,17 +40,20 @@ body {
   opacity: 1;
 
   @include transition(all $anim-time);
-  @include span-columns(4);
-  @include omega(3n);
+
+  @include span-columns(12);
+  @include omega(1n);
 
   @include media($break-small) {
     @include span-columns(6);
+    @include omega-reset(1n);
     @include omega(2n);
   }
 
-  @include media($break-tiny) {
-    @include span-columns(12);
-    @include omega(1n);
+  @include media($break-large) {
+    @include span-columns(4);
+    @include omega-reset(2n);
+    @include omega(3n);
   }
 
   &.hide {
@@ -57,7 +65,7 @@ body {
   }
 }
 
-.content {
+.summary {
   color: $color-content-text;
   background: $color-content-bg;
   border-radius: $border-rad;
@@ -81,13 +89,13 @@ body {
     color: $color-content-light;
   }
 
-  .duration {
+  .fromto {
     font-size: 0.8em;
     padding: 0 0 0 0;
     color: $color-content-light;
   }
 
-  .fa {
+  .action {
     position: absolute;
     top: $pad-content / 2;
     right: $pad-content / 2;
@@ -99,25 +107,10 @@ body {
   }
 }
 
-.text {
-  background: transparent;
-  color: $color-text;
-  border-radius: $border-rad;
-  padding: $pad-content;
-  position: relative;
-  cursor: pointer;
-
-  li {
-    margin: $pad-content / 2 0;
-  }
-
-  p {
-    margin: $pad-content 0;
-  }
-}
-
 .expanded {
   padding: 0 $pad-content;
+  cursor: pointer;
+  opacity: 0;
 
   @include span-columns(12);
   @include transform(scale(0, 0));
@@ -137,15 +130,26 @@ body {
     .text, .header {
       background: transparent;
       color: $color-text;
-      padding: 0 $pad-content * 6;
+      padding: 0 $pad-content;
 
-      @include media($break-small) {
-        padding: 0 $pad-content;
+      @include media($break-large) {
+        padding: 0 $pad-content * 6;
       }
     }
 
     .text {
       margin-bottom: 1.75 * $pad-content;
+      background: transparent;
+      color: $color-text;
+      border-radius: $border-rad;
+
+      li {
+        margin: $pad-content / 2 0;
+      }
+
+      p {
+        margin: $pad-content 0;
+      }
     }
   }
 }

@@ -11,15 +11,15 @@ html(lang="en" ng-app="cv")
     link(rel="stylesheet" type="text/css" href="client.css")
     style .ng-cloak { display: none }
     
-  body.ng-cloak(ng-controller="cvController as cv")  
+  body.ng-cloak(ng-controller="cvController as cv")
     .positions
       .position(ng-repeat="pos in cv.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos }")
-        .content(ng-click="cv.show(pos)")
-          i.fa(ng-class="{ 'fa-external-link-square': cv.entry != pos, 'fa-times': cv.entry == pos }")
+        .summary(ng-click="cv.show(pos)")
+          .action.fa(ng-class="{ 'fa-external-link-square': cv.entry != pos, 'fa-times': cv.entry == pos }")
           .title {{pos.position}}
           .company {{pos.company}}
           .location {{pos.location}}
-          .duration  {{cv.getDate(pos)}}
+          .fromto  {{cv.getDate(pos)}}
     
     .expanded(ng-click="cv.show()" ng-class="{ 'show': cv.entry }")
       .section(ng-repeat="(name, description) in cv.sections" ng-if="cv.entry.description[name]")

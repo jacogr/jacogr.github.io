@@ -59,7 +59,8 @@ angular
 * Board presentations on technology, inclusive of product strategy, roadmap and budget tracking
 * Management of the global R&D team across continents
 * Direct-line responsibility over technical middle-management, including Global Support Manager, Global Product Managers, Directors of Engineering (SA and India), Development Managers and Lead Architects
-* Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients`
+* Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients`,
+          exit: `As a South African-based CTO for an Indian-owned company (Cura was founded in ZA, but sold to a IN company), the travel and focus overheads leads a large number of inefficiencies.`
         }
       },
       {

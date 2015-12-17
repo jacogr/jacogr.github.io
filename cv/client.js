@@ -93,11 +93,12 @@ service('Data', function () {
     description: { 
       company: 'Cura is a GRC (Governance, Risk & Compliance) company listed on the BSE (Mumbai). Rated by Gartner as one of the Visionaries in GRC, the company has grown from a South African software start-up to a global force with offices in Boston (Head Office), Johannesburg, London, Melbourne and Hyderabad.', 
       role: 'Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsible for the critical design and implementation of the next generation product architecture. As CTO, he had the overall responsibility for product design and delivery, managing a global team between South Africa (established, 30 staff) & India (new, 100 staff).', 
-      tasks: '* Feedback on technology matters & product progress as member of the Global EXCO (CEO, County MD’s & CTO) and MANCOs in South Africa and India\n* Board presentations on technology, inclusive of product strategy, roadmap and budget tracking\n* Management of the global R&D team across continents\n* Direct-line responsibility over technical middle-management, including Global Support Manager, Global Product Managers, Directors of Engineering (SA and India), Development Managers and Lead Architects\n* Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients' } }, 
+      tasks: '* Feedback on technology matters & product progress as member of the Global EXCO (CEO, County MD’s & CTO) and MANCOs in South Africa and India\n* Board presentations on technology, inclusive of product strategy, roadmap and budget tracking\n* Management of the global R&D team across continents\n* Direct-line responsibility over technical middle-management, including Global Support Manager, Global Product Managers, Directors of Engineering (SA and India), Development Managers and Lead Architects\n* Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients', 
 
 
 
 
+      exit: 'As a South African-based CTO for an Indian-owned company (Cura was founded in ZA, but sold to a IN company), the travel and focus overheads leads a large number of inefficiencies.' } }, 
 
 
   { 
