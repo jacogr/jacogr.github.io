@@ -1,0 +1,128 @@
+@import "bourbon";
+@import "neat";
+
+$color-text: rgb(50, 50, 50);
+$color-content-text: #fff;
+$color-content-light: #aaa;
+$color-content-bg: rgba(50, 50, 50, 0.75);
+
+$anim-time: 0.5s;
+$pad-content: 1em;
+$border-rad: $pad-content / 2;
+
+$break-small: new-breakpoint(max-width 1024px);
+$break-mobile: new-breakpoint(max-width 500px);
+
+body {
+  background: $color-content-text;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0;
+  position: relative;
+
+  @include outer-container;
+}
+
+.positions {
+  padding: $pad-content;
+
+  @include span-columns(12);
+  @include transition(all $anim-time ease-in-out);
+}
+
+.position {
+  text-align: center;
+  margin-bottom: $pad-content;
+  max-height: $pad-content * 8;
+  opacity: 1;
+
+  @include transition(all $anim-time);
+  @include span-columns(4);
+  @include omega(3n);
+
+  @include media($break-small) {
+    @include span-columns(6);
+    @include omega(2n);
+  }
+
+  @include media($break-mobile) {
+    @include span-columns(12);
+    @include omega(1n);
+  }
+
+  &.hide {
+    overflow: hidden;
+    max-height: 0;
+    width: 0;
+    margin: 0;
+    opacity: 0;
+  }
+}
+
+.content {
+  color: $color-content-text;
+  background: $color-content-bg;
+  border-radius: $border-rad;
+  padding: $pad-content;
+  position: relative;
+  cursor: pointer;
+
+  .title {
+    font-weight: bold;
+    padding: 0 0 $pad-content / 4 0;
+  }
+
+  .company {
+    font-weight: bold;
+    padding: 0 0 $pad-content / 2 0;
+  }
+
+  .location {
+    font-size: 0.8em;
+    padding: 0 0 $pad-content / 4 0;
+    color: $color-content-light;
+  }
+
+  .duration {
+    font-size: 0.8em;
+    padding: 0 0 0 0;
+    color: $color-content-light;
+  }
+
+  .fa {
+    position: absolute;
+    top: $pad-content;
+    right: $pad-content;
+    color: $color-content-light;
+
+    &:hover {
+      color: $color-content-text;
+    }
+  }
+}
+
+.expanded {
+  opacity: 0;
+  position: absolute;
+
+  top: $pad-content;
+  left: $pad-content;
+
+  @include shift(1);
+  @include span-columns(10);
+  @include transform(scale(0, 0));
+  @include transition(all $anim-time);
+
+  &.show {
+    opacity: 1;
+
+    @include transform(scale(1, 1));
+  }
+
+  .content {
+    background: transparent;
+
+    color: $color-text;
+    padding-top: $pad-content * 8;
+  }
+}
