@@ -4,6 +4,7 @@ angular
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     this.positions = Data.cv;
+    this.sections = { company: 'Company', role: 'Role', tasks: 'Responsibilities', exit: 'Leaving' };
     this.entry = undefined;
 
     this.show = function(entry) {

@@ -120,25 +120,36 @@ body {
 .expanded {
   opacity: 0;
   position: absolute;
-  top: $pad-content;
+  top: 0;
   left: 0;
 
   @include transform(scale(0, 0));
   @include transition(all $anim-time);
 
   &.show {
+    top: $pad-content * 10;
     opacity: 1;
 
     @include transform(scale(1, 1));
   }
 
-  .text {
-    background: transparent;
-    color: $color-text;
-    padding: $pad-content * 8 $pad-content * 6;
+  .section {
+    .header {
+      font-weight: bold;
+    }
 
-    @include media($break-small) {
-      padding: $pad-content * 8 $pad-content;
+    .text, .header {
+      background: transparent;
+      color: $color-text;
+      padding: 0 $pad-content * 6;
+
+      @include media($break-small) {
+        padding: 0 $pad-content;
+      }
+    }
+
+    .text {
+      margin-bottom: 1.75 * $pad-content;
     }
   }
 }
