@@ -258,6 +258,12 @@ body {
       border-radius: 0;
       border-bottom: 1px solid $color-content-light;
 
+      &:hover {
+        background: transparent;
+        padding: 1em;
+        margin: 0;
+      }
+
       .sub {
         position: absolute;
         top: $pad-content;

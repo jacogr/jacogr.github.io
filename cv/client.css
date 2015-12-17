@@ -64,6 +64,7 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;col
 .print .position{text-align:left;max-height:none;margin-right:2.35765%;width:100%}
 .print .position:last-child{margin-right:0}
 .print .position .summary{color:#323232;background:0 0;border-radius:0;border-bottom:1px solid #aaa}
+.print .position .summary:hover{background:0 0;padding:1em;margin:0}
 .print .position .summary .sub{position:absolute;top:1em;right:1em}
 .print .position .summary .action,.print .position .summary .year{display:none}
 .print .expanded{opacity:1;float:left;display:block;margin-right:2.35765%;width:100%}
