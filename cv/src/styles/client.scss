@@ -37,7 +37,7 @@ body {
   opacity: 1;
   text-align: center;
   margin-bottom: $pad-content;
-  max-height: $pad-content * 8;
+  max-height: $pad-content * 15;
 
   @include transition(all $anim-time);
 
