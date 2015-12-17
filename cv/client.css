@@ -40,7 +40,7 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;col
 }
 .position.hide{overflow:hidden;max-height:0;width:0;margin:0;opacity:0}
 .summary{color:#323232;background:rgba(230,230,210,.75);border-radius:.5em;padding:1em;position:relative;cursor:pointer}
-.summary:hover{background:rgba(250,250,180,.75)}
+.summary:hover{background:rgba(250,250,180,.75);padding:1.25em;margin:-.25em}
 .summary .title{font-weight:700;padding:0 0 .25em}
 .summary .company{font-weight:700;padding:0 0 .5em}
 .summary .sub{font-size:.8em;color:#aaa}
