@@ -53,9 +53,7 @@ service('Data', function () {
     level: 'executive', 
     description: { 
       company: 'CQS is a provider of products for Audit and Accounting practices, growing to capture a commanding 80% marketshare in certain product categories. In addition to selling and supporting the CaseWare suite of products, it builds custom templates on the various CaseWare platforms (both desktop and Cloud) and supplies a line of BackOffice products for the management of Secretarial and Tax processes.', 
-      role: 'As CTO Jaco was tasked with a new initiative to grow the use and distribution of the CaseWare Cloud platform. Managed as a startup-within-CQS initiatives around building Cloud products, establishment of the Cloud team and infrastructure management forms part of the portfolio. The vision is to look forward and re-define not only the way of building products, but also the way the customers operate.', 
-      tasks: undefined, 
-      exit: undefined } }, 
+      role: 'As CTO Jaco was tasked with a new initiative to grow the use and distribution of the CaseWare Cloud platform. Managed as a startup-within-CQS initiatives around building Cloud products, establishment of the Cloud team and infrastructure management forms part of the portfolio. The vision is to look forward and re-define not only the way of building products, but also the way the customers operate.' } }, 
 
 
   { 
@@ -74,7 +72,7 @@ service('Data', function () {
 
 
 
-      exit: 'The Company and the technology assets were aquired in Aug 2012, after growing to an average of 25,000 DAU managed by a permanent team of 5 staff members and a further compliment of 5 contracting resources.' } }, 
+      exit: 'The Company and the technology assets were aquired in Aug 2012. At this point the company has grown to an average of 25,000 DAU and the underlying technology platform was used by a further 4 startups. The company was staffed by a permanent team of 5 and a further compliment of 5 contracting resources.' } }, 
 
 
   { 
