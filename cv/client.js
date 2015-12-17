@@ -4,7 +4,7 @@ config(["$locationProvider", function ($locationProvider) {
   $locationProvider.html5Mode(false);}]);
 'use strict';angular.
 module('cv').
-controller('cvController', ["$location", "Data", function ($location, Data) {
+controller('cvController', ["$location", "$scope", "$timeout", "Data", function ($location, $scope, $timeout, Data) {var _this = this;
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   this.data = Data;
@@ -16,6 +16,14 @@ controller('cvController', ["$location", "Data", function ($location, Data) {
 
   this.show = function (entry) {
     this.entry = entry !== this.entry ? entry : undefined;};
+
+
+  $scope.$on('$locationChangeSuccess', function (evt, url) {
+    _this.show();
+
+    if (url.indexOf('#/print') !== -1) {
+      $timeout(function () {return window.print();}, 1000);}});
+
 
 
   this.getDate = function (entry) {

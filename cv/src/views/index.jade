@@ -18,7 +18,7 @@ html(lang="en" ng-app="cv")
         p(ng-repeat="type in ['name', 'position']") {{cv.data[type]}}
       .items
         a.item(href="#/summary" ng-class="cv.isPath('/summary') && 'selected'") Summary
-        a.item(href="#/print" ng-class="cv.isPath('/print') && 'selected'" ng-click="cv.show()") Print
+        a.item(href="#/print" ng-class="cv.isPath('/print') && 'selected'") Print
       
     .content
       .introduction(markdown="cv.data.summary")
@@ -43,6 +43,7 @@ html(lang="en" ng-app="cv")
       }
     
     script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js")
+      script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.4.8/angular-sanitize.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.3.0/showdown.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js")

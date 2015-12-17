@@ -1,6 +1,6 @@
 angular
   .module('cv')
-  .controller('cvController', function($location, Data) {
+  .controller('cvController', function($location, $scope, $timeout, Data) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     this.data = Data;
@@ -13,6 +13,14 @@ angular
     this.show = function(entry) {
       this.entry = entry !== this.entry ? entry : undefined;
     };
+
+    $scope.$on('$locationChangeSuccess', (evt, url) => {
+      this.show();
+
+      if (url.indexOf('#/print') !== -1) {
+        $timeout(() => window.print(), 1000);
+      }
+    });
 
     this.getDate = function(entry) {
       const start = `${months[entry.start.month - 1]} ${entry.start.year}`;
