@@ -4,8 +4,7 @@ angular
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     this.data = Data;
-
-    this.entry = this.prevEntry = undefined;
+    this.entry = undefined;
 
     this.isPath = function(path) {
       return $location.path() === path;
@@ -16,7 +15,6 @@ angular
         return;
       }
 
-      this.prevEntry = this.entry;
       this.entry = entry !== this.entry ? entry : undefined;
     };
 
