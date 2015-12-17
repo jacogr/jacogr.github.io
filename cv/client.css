@@ -9,11 +9,11 @@ body::after{clear:both;content:"";display:table}
 .position{text-align:center;margin-bottom:1em;max-height:8em;opacity:1;-webkit-transition:all .25s;-moz-transition:all .25s;transition:all .25s;margin-right:2.35765%;width:31.76157%}
 .position:last-child,.position:nth-child(3n){margin-right:0}
 .position:nth-child(3n+1){clear:left}
-@media screen and (max-width:1024px){.position{float:left;display:block;margin-right:2.35765%;width:48.82117%}
+@media screen and (max-width:800px){.position{float:left;display:block;margin-right:2.35765%;width:48.82117%}
 .position:last-child,.position:nth-child(2n){margin-right:0}
 .position:nth-child(2n+1){clear:left}
 }
-@media screen and (max-width:500px){.position{float:left;display:block;margin-right:2.35765%;width:100%}
+@media screen and (max-width:640px){.position{float:left;display:block;margin-right:2.35765%;width:100%}
 .position:last-child,.position:nth-child(1n){margin-right:0}
 .position:nth-child(1n+1){clear:left}
 }

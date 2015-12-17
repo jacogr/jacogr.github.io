@@ -10,8 +10,8 @@ $anim-time: 0.25s;
 $pad-content: 1em;
 $border-rad: $pad-content / 2;
 
-$break-small: new-breakpoint(max-width 1024px);
-$break-mobile: new-breakpoint(max-width 500px);
+$break-small: new-breakpoint(max-width 800px);
+$break-tiny: new-breakpoint(max-width 640px);
 
 body {
   background: $color-content-text;
@@ -45,7 +45,7 @@ body {
     @include omega(2n);
   }
 
-  @include media($break-mobile) {
+  @include media($break-tiny) {
     @include span-columns(12);
     @include omega(1n);
   }
