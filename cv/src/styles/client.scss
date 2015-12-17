@@ -234,10 +234,6 @@ body {
     margin-bottom: 1.75 * $pad-content;
     background: transparent;
     border-radius: $border-rad;
-
-    @include media($break-large) {
-      padding: 0 $pad-content * 6;
-    }
   }
 }
 
