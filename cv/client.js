@@ -5,6 +5,8 @@ config(["$locationProvider", function ($locationProvider) {
 'use strict';angular.
 module('cv').
 controller('cvController', ["Data", function (Data) {
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
   this.positions = Data.cv;
   this.entry = undefined;
 
@@ -12,45 +14,11 @@ controller('cvController', ["Data", function (Data) {
     this.entry = entry !== this.entry ? entry : undefined;};
 
 
-  this.getClass = function (entry) {
-    return '' + entry.type;};
-
-
   this.getDate = function (entry) {
-    var start = this.months[entry.start.month - 1] + ' ' + entry.start.year;
-    var end = 'Current';
+    var start = months[entry.start.month - 1] + ' ' + entry.start.year;
+    var end = entry.end ? months[entry.end.month - 1] + ' ' + entry.end.year : 'Current';
 
-    if (entry.end) {
-      end = this.months[entry.end.month - 1] + ' ' + entry.end.year;}
-
-
-    return start + ' - ' + end;};
-
-
-  this._initRange = function () {var _this = this;
-    var now = new Date();
-
-    this.currentYear = now.getFullYear();
-    this.currentMonth = now.getMonth() + 1;
-
-    this.startYear = now.getFullYear() + 1;
-    this.startMonth = 13;
-
-    this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    _.each(Data.cv, function (entry) {
-      if (entry.start.year < _this.startYear) {
-        _this.startYear = entry.start.year;
-        _this.startMonth = entry.start.month;} else 
-      if (entry.start.month <= _this.startMonth) {
-        _this.startMonth = entry.start.Month;}});
-
-
-
-    this.years = _.range(this.currentYear, this.startYear - 1, -1);};
-
-
-  this._initRange();}]);
+    return start + ' - ' + end;};}]);
 'use strict';angular.
 module('cv').
 directive('markdown', ["$sanitize", function ($sanitize) {
