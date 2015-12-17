@@ -26,7 +26,7 @@ body {
   padding: $pad-content;
 
   @include span-columns(12);
-  @include transition(all $anim-time ease-in-out);
+  @include transform(scale(1, 1));
 }
 
 .position {
@@ -90,13 +90,30 @@ body {
 
   .fa {
     position: absolute;
-    top: $pad-content;
-    right: $pad-content;
+    top: $pad-content / 2;
+    right: $pad-content / 2;
     color: $color-content-light;
 
     &:hover {
       color: $color-content-text;
     }
+  }
+}
+
+.text {
+  background: transparent;
+  color: $color-text;
+  border-radius: $border-rad;
+  padding: $pad-content;
+  position: relative;
+  cursor: pointer;
+
+  li {
+    margin: $pad-content / 2 0;
+  }
+
+  p {
+    margin: $pad-content 0;
   }
 }
 
@@ -106,15 +123,8 @@ body {
   top: $pad-content;
   left: 0;
 
-  @include shift(1);
-  @include span-columns(10);
   @include transform(scale(0, 0));
   @include transition(all $anim-time);
-
-  @include media($break-small) {
-    @include shift(0);
-    @include span-columns(12);
-  }
 
   &.show {
     opacity: 1;
@@ -122,9 +132,13 @@ body {
     @include transform(scale(1, 1));
   }
 
-  .content {
+  .text {
     background: transparent;
     color: $color-text;
-    padding-top: $pad-content * 8;
+    padding: $pad-content * 8 $pad-content * 6;
+
+    @include media($break-small) {
+      padding: $pad-content * 8 $pad-content;
+    }
   }
 }

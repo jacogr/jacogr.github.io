@@ -1,9 +1,13 @@
 angular
   .module('cv')
   .service('Data', function() {
+    const _date = function(year, month) {
+      return { year: year, month: month };
+    };
+
     this.cv = [
       {
-        start: { year: 2012, month: 10 },
+        start: _date(2012, 10),
         type: 'employed',
         company: 'CQS Technology Holdings',
         location: 'Johannesburg, ZA',
@@ -14,8 +18,8 @@ angular
 As CTO Jaco was tasked with a new initiative to grow the use and distribution of the CaseWare Cloud platform. Managed as a startup-within-CQS initiatives around building Cloud products, establishment of the Cloud team and infrastructure management forms part of the portfolio. The vision is to look forward and re-define not only the way of building products, but also the way the customers operate.`
       },
       {
-        start: { year: 2011, month: 7 },
-        end: { year: 2012, month: 9 },
+        start: _date(2011, 7),
+        end: _date(2012, 9),
         type: 'founded',
         company: 'Tabula',
         location: 'Johannesburg, ZA',
@@ -27,13 +31,13 @@ As CTO & Founder the responsibilities of company growth, financing, product deve
 
 * Defining the overall vision and roadmap for the products
 * Defining the product architectures and driving the implementation thereof with the development team in Ukraine
-* Engagement with angel-investors for financing, product feedback nd monthly board reporting
+* Engagement with angel-investors for financing, product feedback and monthly board reporting
 * Performing product marketing and liaison with other companies around the use of the real-time platform
 * Coordination of closed-beta teams (South Africa, USA & France)`
       },
       {
-        start: { year: 2008, month: 9 },
-        end: { year: 2011, month: 6 },
+        start: _date(2008, 9),
+        end: _date(2011, 6),
         type: 'employed',
         company: 'Cura Software Solutions',
         location: 'Johannesburg, ZA & Hyderabad, IN',
@@ -50,8 +54,8 @@ Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsibl
 * Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients`
       },
       {
-        start: { year: 2007, month: 7 },
-        end: { year: 2008, month: 8 },
+        start: _date(2007, 7),
+        end: _date(2008, 8),
         type: 'founded',
         company: 'Various',
         location: 'Johannesburg, ZA',
@@ -65,8 +69,8 @@ Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsibl
 * Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings`
       },
       {
-        start: { year: 2003, month: 4 },
-        end: { year: 2007, month: 6 },
+        start: _date(2003, 4),
+        end: _date(2007, 6),
         type: 'employed',
         company: 'Discovery Health',
         location: 'Johannesburg, ZA',
@@ -82,8 +86,8 @@ Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsibl
 * Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health`
       },
       {
-        start: { year: 1999, month: 4 },
-        end: { year: 2003, month: 3 },
+        start: _date(1999, 4),
+        end: _date(2003, 3),
         type: 'employed',
         company: 'healthbridge',
         location: 'Johannesburg, ZA',
@@ -99,8 +103,8 @@ Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsibl
 * Feedback on projects and software initiatives to HealthBridge MANCO`
       },
       {
-        start: { year: 1998, month: 10 },
-        end: { year: 1999, month: 3 },
+        start: _date(1998, 10),
+        end: _date(1999, 3),
         type: 'employed',
         company: 'Internet Solutions',
         location: 'Johannesburg, ZA',
@@ -113,8 +117,8 @@ Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsibl
 * Dimension Data Healthcare led to the formation of HealthBridge`
       },
       {
-        start: { year: 1998, month: 1 },
-        end: { year: 1998, month: 10 },
+        start: _date(1998, 1),
+        end: _date(1998, 10),
         type: 'employed',
         company: 'Crusader Systems',
         location: 'Stellenbosch & Pretoria, ZA',
@@ -126,8 +130,8 @@ Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsibl
 * Consulting to Richard’s Bay Mineral and Karee Platinum mines on process optimization using the ModelGen toolset`
       },
       {
-        start: { year: 1996, month: 1 },
-        end: { year: 1997, month: 12 },
+        start: _date(1996, 1),
+        end: _date(1997, 12),
         type: 'employed',
         company: 'Grinaker Electronics',
         location: 'Tokai, ZA',
@@ -139,8 +143,8 @@ Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsibl
 * Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR as part of a new radio communications platform`
       },
       {
-        start: { year: 1992, month: 1 },
-        end: { year: 1995, month: 12 },
+        start: _date(1992, 1),
+        end: _date(1995, 12),
         type: 'education',
         company: 'University of Stellenbosch',
         location: 'Stellenbosh, ZA',

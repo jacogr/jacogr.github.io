@@ -13,7 +13,7 @@ html(lang="en" ng-app="cv")
     
   body.ng-cloak(ng-controller="cvController as cv")
     .expanded(ng-class="{ 'show': cv.entry }")
-      .content(ng-click="cv.show()" markdown="cv.entry.description")
+      .text(ng-click="cv.show()" markdown="cv.entry.description")
     
     .positions
       .position(ng-repeat="pos in cv.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos }")
@@ -23,6 +23,7 @@ html(lang="en" ng-app="cv")
           .company {{pos.company}}
           .location {{pos.location}}
           .duration  {{cv.getDate(pos)}}
+        //.text(markdown="cv.entry.description")
       
     script.
       if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {

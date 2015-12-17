@@ -70,9 +70,13 @@ directive('markdown', ["$sanitize", function ($sanitize) {
 'use strict';angular.
 module('cv').
 service('Data', function () {
+  var _date = function _date(year, month) {
+    return { year: year, month: month };};
+
+
   this.cv = [
   { 
-    start: { year: 2012, month: 10 }, 
+    start: _date(2012, 10), 
     type: 'employed', 
     company: 'CQS Technology Holdings', 
     location: 'Johannesburg, ZA', 
@@ -83,14 +87,14 @@ service('Data', function () {
 
 
   { 
-    start: { year: 2011, month: 7 }, 
-    end: { year: 2012, month: 9 }, 
+    start: _date(2011, 7), 
+    end: _date(2012, 9), 
     type: 'founded', 
     company: 'Tabula', 
     location: 'Johannesburg, ZA', 
     position: 'CTO & Founder', 
     level: 'executive', 
-    description: 'Tabula is a early-stage technology company with a primary focus on developing a prediction platform for social person-to-person predictions. In addition the scalable real-time back-end platform (PaaS) was made available to other startups in the online nReduce incubator to speed up their initiatives.\n\nAs CTO & Founder the responsibilities of company growth, financing, product development and driving a culture of taking responsibility for all areas were at the forefront. The Company and the technology assets were aquired in Aug 2012, after growing to an average of 25,000 DAU managed by a permanent team of 5 staff members and a further compliment of 5 contracting resources.\n\n* Defining the overall vision and roadmap for the products\n* Defining the product architectures and driving the implementation thereof with the development team in Ukraine\n* Engagement with angel-investors for financing, product feedback nd monthly board reporting\n* Performing product marketing and liaison with other companies around the use of the real-time platform\n* Coordination of closed-beta teams (South Africa, USA & France)' }, 
+    description: 'Tabula is a early-stage technology company with a primary focus on developing a prediction platform for social person-to-person predictions. In addition the scalable real-time back-end platform (PaaS) was made available to other startups in the online nReduce incubator to speed up their initiatives.\n\nAs CTO & Founder the responsibilities of company growth, financing, product development and driving a culture of taking responsibility for all areas were at the forefront. The Company and the technology assets were aquired in Aug 2012, after growing to an average of 25,000 DAU managed by a permanent team of 5 staff members and a further compliment of 5 contracting resources.\n\n* Defining the overall vision and roadmap for the products\n* Defining the product architectures and driving the implementation thereof with the development team in Ukraine\n* Engagement with angel-investors for financing, product feedback and monthly board reporting\n* Performing product marketing and liaison with other companies around the use of the real-time platform\n* Coordination of closed-beta teams (South Africa, USA & France)' }, 
 
 
 
@@ -101,8 +105,8 @@ service('Data', function () {
 
 
   { 
-    start: { year: 2008, month: 9 }, 
-    end: { year: 2011, month: 6 }, 
+    start: _date(2008, 9), 
+    end: _date(2011, 6), 
     type: 'employed', 
     company: 'Cura Software Solutions', 
     location: 'Johannesburg, ZA & Hyderabad, IN', 
@@ -119,8 +123,8 @@ service('Data', function () {
 
 
   { 
-    start: { year: 2007, month: 7 }, 
-    end: { year: 2008, month: 8 }, 
+    start: _date(2007, 7), 
+    end: _date(2008, 8), 
     type: 'founded', 
     company: 'Various', 
     location: 'Johannesburg, ZA', 
@@ -134,8 +138,8 @@ service('Data', function () {
 
 
   { 
-    start: { year: 2003, month: 4 }, 
-    end: { year: 2007, month: 6 }, 
+    start: _date(2003, 4), 
+    end: _date(2007, 6), 
     type: 'employed', 
     company: 'Discovery Health', 
     location: 'Johannesburg, ZA', 
@@ -151,8 +155,8 @@ service('Data', function () {
 
 
   { 
-    start: { year: 1999, month: 4 }, 
-    end: { year: 2003, month: 3 }, 
+    start: _date(1999, 4), 
+    end: _date(2003, 3), 
     type: 'employed', 
     company: 'healthbridge', 
     location: 'Johannesburg, ZA', 
@@ -168,8 +172,8 @@ service('Data', function () {
 
 
   { 
-    start: { year: 1998, month: 10 }, 
-    end: { year: 1999, month: 3 }, 
+    start: _date(1998, 10), 
+    end: _date(1999, 3), 
     type: 'employed', 
     company: 'Internet Solutions', 
     location: 'Johannesburg, ZA', 
@@ -182,8 +186,8 @@ service('Data', function () {
 
 
   { 
-    start: { year: 1998, month: 1 }, 
-    end: { year: 1998, month: 10 }, 
+    start: _date(1998, 1), 
+    end: _date(1998, 10), 
     type: 'employed', 
     company: 'Crusader Systems', 
     location: 'Stellenbosch & Pretoria, ZA', 
@@ -195,8 +199,8 @@ service('Data', function () {
 
 
   { 
-    start: { year: 1996, month: 1 }, 
-    end: { year: 1997, month: 12 }, 
+    start: _date(1996, 1), 
+    end: _date(1997, 12), 
     type: 'employed', 
     company: 'Grinaker Electronics', 
     location: 'Tokai, ZA', 
@@ -208,8 +212,8 @@ service('Data', function () {
 
 
   { 
-    start: { year: 1992, month: 1 }, 
-    end: { year: 1995, month: 12 }, 
+    start: _date(1992, 1), 
+    end: _date(1995, 12), 
     type: 'education', 
     company: 'University of Stellenbosch', 
     location: 'Stellenbosh, ZA', 
