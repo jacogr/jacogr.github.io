@@ -53,7 +53,7 @@ service('Data', function () {
     level: 'executive', 
     description: { 
       company: 'CQS is a provider of products for Audit and Accounting practices, growing to capture a commanding 80% marketshare in certain product categories. In addition to selling and supporting the CaseWare suite of products, it builds custom templates on the various CaseWare platforms (both desktop and Cloud) and supplies a line of BackOffice products for the management of Secretarial and Tax processes.', 
-      role: 'As CTO Jaco was tasked with a new initiative to grow the use and distribution of the CaseWare Cloud platform. Managed as a startup-within-CQS initiatives around building Cloud products, establishment of the Cloud team and infrastructure management forms part of the portfolio. The vision is to look forward and re-define not only the way of building products, but also the way the customers operate.' } }, 
+      role: 'As CTO Jaco was tasked with a new initiative, CQS Cloud, to grow the use and distribution of the CaseWare Cloud and related products. Managed as a startup-within-CQS, the initiatives around building Cloud products, establishment of the Cloud team and infrastructure management forms part of the portfolio. The vision is to look forward and re-define not only the way of building products, but also the way the customers operate.' } }, 
 
 
   { 
@@ -65,7 +65,7 @@ service('Data', function () {
     position: 'CTO & Founder', 
     level: 'executive', 
     description: { 
-      company: 'Tabula is a early-stage technology company with a primary focus on developing a prediction platform for social person-to-person predictions. In addition the scalable real-time back-end platform (PaaS) was made available to other startups in the online nReduce incubator to speed up their initiatives.', 
+      company: 'Tabula was an early-stage technology company with a primary focus on developing a prediction platform for social person-to-person predictions. In addition the scalable real-time back-end platform (PaaS) was made available to other startups in the online nReduce incubator to speed up their initiatives.', 
       role: 'As CTO & Founder the responsibilities of company growth, financing, product development and driving a culture of taking responsibility for all areas were at the forefront.', 
       tasks: '* Defining the overall vision and roadmap for the products\n* Defining the product architectures and driving the implementation thereof with the development team in Ukraine\n* Engagement with angel-investors for financing, product feedback and monthly board reporting\n* Performing product marketing and liaison with other companies around the use of the real-time platform\n* Coordination of closed-beta teams (South Africa, USA & France)', 
 
