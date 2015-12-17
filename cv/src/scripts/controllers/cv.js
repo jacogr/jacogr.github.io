@@ -1,6 +1,6 @@
 angular
   .module('cv')
-  .controller('cvController', function(Data) {
+  .controller('cvController', function($location, Data) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     this.positions = Data.positions;
@@ -8,7 +8,15 @@ angular
 
     this.entry = this.prevEntry = undefined;
 
+    this.isPath = function(path) {
+      return $location.path() === path;
+    };
+
     this.show = function(entry) {
+      if (!this.isPath('/summary')) {
+        return;
+      }
+
       this.prevEntry = this.entry;
       this.entry = entry !== this.entry ? entry : undefined;
     };
@@ -19,4 +27,8 @@ angular
 
       return `${start} - ${end}`;
     };
+
+    if ($location.path() === '') {
+      $location.path('/summary');
+    }
   });

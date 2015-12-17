@@ -1,18 +1,22 @@
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
-body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;margin:0 auto;-webkit-text-size-adjust:100%;max-width:68em}
-body::after{clear:both;content:"";display:table}
-.expanded,.introduction,.position,.positions{float:left;display:block}
+body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;margin:0;-webkit-text-size-adjust:100%}
+.menu{display:none}
+@media screen and (min-width:800px){.menu{display:block;padding:1em;background:rgba(50,50,50,.75)}
+}
+.menu .item{display:inline;cursor:pointer;color:#aaa!important;text-decoration:none;margin-right:1em}
+.menu .item.selected{color:#fff!important}
+.content{max-width:68em;margin-left:auto;margin-right:auto}
+.content::after{clear:both;content:"";display:table}
 [markdown] li{margin:.5em 0}
 [markdown] p{margin:1em 0}
 [markdown] h1,[markdown] h2{font-size:1em;margin:2em 0 .5em}
 [markdown] h1:first-child,[markdown] h2:first-child{margin-top:1em}
-.introduction{padding:1em;margin-right:2.35765%;width:100%;-webkit-transform:scale(1,1);-moz-transform:scale(1,1);-ms-transform:scale(1,1);-o-transform:scale(1,1);transform:scale(1,1)}
-.introduction:last-child{margin-right:0}
-.introduction.hide{-webkit-transform:scale(0,0);-moz-transform:scale(0,0);-ms-transform:scale(0,0);-o-transform:scale(0,0);transform:scale(0,0)}
-.positions{padding:1em 1em 0;margin-right:2.35765%;width:100%}
+.introduction{display:none}
+.position,.positions{float:left;display:block;width:100%}
+.positions{padding:1em 1em 0;margin-right:2.35765%}
 .positions:last-child{margin-right:0}
-.position{opacity:1;text-align:center;margin-bottom:1em;max-height:10em;-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s;margin-right:2.35765%;width:100%}
+.position{opacity:1;text-align:center;margin-bottom:1em;max-height:10em;-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s;margin-right:2.35765%}
 .position:last-child,.position:nth-child(1n){margin-right:0}
 .position:nth-child(1n+1){clear:left}
 @media screen and (min-width:640px){.position{float:left;display:block;margin-right:2.35765%;width:48.82117%}
@@ -30,16 +34,26 @@ body::after{clear:both;content:"";display:table}
 .position:nth-child(3n+1){clear:left}
 }
 .position.hide{overflow:hidden;max-height:0;width:0;margin:0;opacity:0}
+.expanded,.extended .introduction,.extended .position{float:left;display:block;width:100%}
 .summary{color:#fff;background:rgba(50,50,50,.75);border-radius:.5em;padding:1em;position:relative;cursor:pointer}
 .summary .title{font-weight:700;padding:0 0 .25em}
 .summary .company{font-weight:700;padding:0 0 .5em}
-.summary .location{font-size:.8em;padding:0 0 .25em;color:#aaa}
-.summary .fromto{font-size:.8em;padding:0;color:#aaa}
+.summary .sub{font-size:.8em;color:#aaa}
+.summary .sub .location{padding:0 0 .25em}
+.summary .sub .fromto{padding:0}
 .summary .action{position:absolute;top:.5em;right:.5em;color:#aaa}
 .summary .action:hover{color:#fff}
-.expanded{padding:0 1em;cursor:pointer;margin-right:2.35765%;width:100%;-webkit-transform:scale(0,0);-moz-transform:scale(0,0);-ms-transform:scale(0,0);-o-transform:scale(0,0);transform:scale(0,0);-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s}
+.expanded{padding:0 1em;cursor:pointer;margin-right:2.35765%;-webkit-transform:scale(0,0);-moz-transform:scale(0,0);-ms-transform:scale(0,0);-o-transform:scale(0,0);transform:scale(0,0);-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s}
 .expanded:last-child{margin-right:0}
 .expanded.show{-webkit-transform:scale(1,1);-moz-transform:scale(1,1);-ms-transform:scale(1,1);-o-transform:scale(1,1);transform:scale(1,1)}
 .expanded .section{padding:0 1em;margin-bottom:1.75em;background:0 0;color:#323232;border-radius:.5em}
 @media screen and (min-width:800px){.expanded .section{padding:0 6em}
+}
+.extended .introduction{padding:1em;margin-right:2.35765%}
+.extended .introduction:last-child{margin-right:0}
+.extended .position{text-align:left;max-height:none;margin-right:2.35765%}
+.extended .position:last-child{margin-right:0}
+.extended .position .sub{position:absolute;top:1em;right:1em}
+.extended .position .action{display:none}
+@media print{.no-print{display:none!important}
 }

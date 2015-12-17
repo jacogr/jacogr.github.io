@@ -4,7 +4,7 @@ config(["$locationProvider", function ($locationProvider) {
   $locationProvider.html5Mode(false);}]);
 'use strict';angular.
 module('cv').
-controller('cvController', ["Data", function (Data) {
+controller('cvController', ["$location", "Data", function ($location, Data) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   this.positions = Data.positions;
@@ -12,7 +12,15 @@ controller('cvController', ["Data", function (Data) {
 
   this.entry = this.prevEntry = undefined;
 
+  this.isPath = function (path) {
+    return $location.path() === path;};
+
+
   this.show = function (entry) {
+    if (!this.isPath('/summary')) {
+      return;}
+
+
     this.prevEntry = this.entry;
     this.entry = entry !== this.entry ? entry : undefined;};
 
@@ -21,7 +29,11 @@ controller('cvController', ["Data", function (Data) {
     var start = months[entry.start.month - 1] + ' ' + entry.start.year;
     var end = entry.end ? months[entry.end.month - 1] + ' ' + entry.end.year : 'Current';
 
-    return start + ' - ' + end;};}]);
+    return start + ' - ' + end;};
+
+
+  if ($location.path() === '') {
+    $location.path('/summary');}}]);
 'use strict';angular.
 module('cv').
 directive('markdown', ["$sanitize", function ($sanitize) {
@@ -45,7 +57,9 @@ service('Data', function () {
     return { year: year, month: month };};
 
 
-  this.summary = 'Technology Executive, Strategist & Architect. Focused technical manager with architecture, project and operational experience over a wide range of industries and companies ranging from start-up to large corporates. 20-years of industry experience with a track record of leading effective global teams to deliver on company objectives.\n\n* Management experience in high-pressure environments across multiple countries, cultures and timezones\n* Experience in defining and delivering on strategies whilst prioritizing tactical solutions as necessary for maximum efficiency\n* A strong architecture and design background and application of technical problem-solving into the improvement of processes and systems';
+  this.summary = 'Technology Executive, Strategist & Architect.\n\nFocused technical manager with architecture, project and operational experience over a wide range of industries and companies ranging from start-up to large corporates. 20-years of industry experience with a track record of leading effective global teams to deliver on company objectives.\n\n* Management experience in high-pressure environments across multiple countries, cultures and timezones\n* Experience in defining and delivering on strategies whilst prioritizing tactical solutions as necessary for maximum efficiency\n* A strong architecture and design background and application of technical problem-solving into the improvement of processes and systems';
+
+
 
 
 

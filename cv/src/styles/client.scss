@@ -24,7 +24,31 @@ body {
   margin: 0;
 
   -webkit-text-size-adjust: 100%; // don't adjust iPhone fonts
+}
 
+.menu {
+  display: none;
+
+  @include media($break-large) {
+    display: block;
+    padding: $pad-content;
+    background: $color-content-bg;
+  }
+
+  .item {
+    display: inline;
+    cursor: pointer;
+    color: $color-content-light !important;
+    text-decoration: none;
+    margin-right: $pad-content;
+
+    &.selected {
+      color: $color-content-text !important;
+    }
+  }
+}
+
+.content {
   @include outer-container;
 }
 
@@ -48,14 +72,7 @@ body {
 }
 
 .introduction {
-  padding: $pad-content;
-
-  @include span-columns(12);
-  @include transform(scale(1, 1));
-
-  &.hide {
-    @include transform(scale(0, 0));
-  }
+  display: none;
 }
 
 .positions {
@@ -114,16 +131,17 @@ body {
     padding: 0 0 $pad-content / 2 0;
   }
 
-  .location {
+  .sub {
     font-size: 0.8em;
-    padding: 0 0 $pad-content / 4 0;
     color: $color-content-light;
-  }
 
-  .fromto {
-    font-size: 0.8em;
-    padding: 0 0 0 0;
-    color: $color-content-light;
+    .location {
+      padding: 0 0 $pad-content / 4 0;
+    }
+
+    .fromto {
+      padding: 0 0 0 0;
+    }
   }
 
   .action {
@@ -162,5 +180,39 @@ body {
     @include media($break-large) {
       padding: 0 $pad-content * 6;
     }
+  }
+}
+
+.extended {
+  .introduction {
+    padding: $pad-content;
+
+    @include span-columns(12);
+  }
+
+  .position {
+    text-align: left;
+    max-height: none;
+
+    @include span-columns(12);
+
+    .sub {
+      position: absolute;
+      top: $pad-content;;
+      right: $pad-content;
+    }
+
+    .action {
+      display: none;
+    }
+  }
+
+  .expanded {
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
   }
 }
