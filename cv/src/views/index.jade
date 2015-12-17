@@ -19,7 +19,7 @@ html(lang="en" ng-app="cv")
         p {{cv.data.position}}
       .items
         a.item(href="#/summary" ng-class="cv.isPath('/summary') && 'selected'") Summary
-        a.item(href="#/print" ng-class="cv.isPath('/print') && 'selected'") Print
+        a.item(href="#/print" ng-class="cv.isPath('/print') && 'selected'" ng-click="cv.show()") Print
       
     .content
       .introduction(markdown="cv.data.summary")

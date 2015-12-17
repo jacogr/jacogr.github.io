@@ -4,7 +4,7 @@ angular
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     this.data = Data;
-    
+
     this.entry = this.prevEntry = undefined;
 
     this.isPath = function(path) {
