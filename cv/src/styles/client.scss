@@ -40,7 +40,7 @@ body {
     cursor: pointer;
     color: $color-content-light !important;
     text-decoration: none;
-    margin-right: $pad-content;
+    margin-right: 1.5 * $pad-content;
 
     &.selected {
       color: $color-content-text !important;
@@ -196,14 +196,21 @@ body {
 
     @include span-columns(12);
 
-    .sub {
-      position: absolute;
-      top: $pad-content;;
-      right: $pad-content;
-    }
+    .summary {
+      color: $color-text;
+      background: transparent;
+      border-radius: 0;
+      border-bottom: 1px solid $color-content-light;
 
-    .action {
-      display: none;
+      .sub {
+        position: absolute;
+        top: $pad-content;
+        right: $pad-content;
+      }
+
+      .action {
+        display: none;
+      }
     }
   }
 
