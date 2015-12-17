@@ -4,22 +4,6 @@ config(["$locationProvider", function ($locationProvider) {
   $locationProvider.html5Mode(false);}]);
 'use strict';angular.
 module('cv').
-directive('markdown', ["$sanitize", function ($sanitize) {
-  var conv = new showdown.Converter(); // eslint-disable-line no-undef
-
-  return { 
-    restrict: 'AE', 
-    link: function link(scope, element, attrs) {
-      if (attrs.markdown) {
-        scope.$watch(attrs.markdown, function (newVal) {
-          var html = newVal ? $sanitize(conv.makeHtml(newVal)) : '';
-          element.html(html);});} else 
-
-      {
-        var html = $sanitize(conv.makeHtml(element.text()));
-        element.html(html);}} };}]);
-'use strict';angular.
-module('cv').
 controller('cvController', ["$location", "Data", function ($location, Data) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -31,10 +15,6 @@ controller('cvController', ["$location", "Data", function ($location, Data) {
 
 
   this.show = function (entry) {
-    if (!this.isPath('/summary')) {
-      return;}
-
-
     this.entry = entry !== this.entry ? entry : undefined;};
 
 
@@ -53,6 +33,22 @@ controller('cvController', ["$location", "Data", function ($location, Data) {
 
   if ($location.path() === '') {
     $location.path('/summary');}}]);
+'use strict';angular.
+module('cv').
+directive('markdown', ["$sanitize", function ($sanitize) {
+  var conv = new showdown.Converter(); // eslint-disable-line no-undef
+
+  return { 
+    restrict: 'AE', 
+    link: function link(scope, element, attrs) {
+      if (attrs.markdown) {
+        scope.$watch(attrs.markdown, function (newVal) {
+          var html = newVal ? $sanitize(conv.makeHtml(newVal)) : '';
+          element.html(html);});} else 
+
+      {
+        var html = $sanitize(conv.makeHtml(element.text()));
+        element.html(html);}} };}]);
 'use strict';angular.
 module('cv').
 service('Data', function () {

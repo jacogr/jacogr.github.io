@@ -11,10 +11,6 @@ angular
     };
 
     this.show = function(entry) {
-      if (!this.isPath('/summary')) {
-        return;
-      }
-
       this.entry = entry !== this.entry ? entry : undefined;
     };
 
