@@ -208,12 +208,14 @@ body {
   padding: 0 $pad-content;
   cursor: pointer;
   max-height: 0;
+  opacity: 0;
 
   @include span-columns(12);
   @include transform(scale(0, 0));
   @include transition(all $anim-time);
 
   &.show {
+    opacity: 1;
     max-height: 1000em;
     @include transform(scale(1, 1));
   }
@@ -271,6 +273,7 @@ body {
   }
 
   .expanded {
+    opacity: 1;
     @include span-columns(12);
   }
 }
