@@ -18,7 +18,7 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;col
 [markdown] h1,[markdown] h2{font-size:1em;margin:2em 0 .5em}
 [markdown] h1:first-child,[markdown] h2:first-child{margin-top:1em}
 .introduction{display:none}
-.expanded,.extended .introduction,.extended .position,.position,.positions{float:left;display:block}
+.expanded,.extended .introduction,.extended .position,.position,.positions{display:block;float:left}
 .positions{padding:1em 1em 0;margin-right:2.35765%;width:100%}
 .positions:last-child{margin-right:0}
 .position{opacity:1;margin-bottom:1em;max-height:10em;-webkit-transition:all .5s;-moz-transition:all .5s;transition:all .5s;margin-right:2.35765%;width:100%}
@@ -67,6 +67,8 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;col
 .extended .position .summary{color:#323232;background:0 0;border-radius:0;border-bottom:1px solid #aaa}
 .extended .position .summary .sub{position:absolute;top:1em;right:1em}
 .extended .position .summary .action,.extended .position .summary .year{display:none}
+.extended .expanded{float:left;display:block;margin-right:2.35765%;width:100%}
+.extended .expanded:last-child{margin-right:0}
 @media print{.menu{display:block}
 .menu .items,.no-print{display:none!important}
 }
