@@ -140,6 +140,7 @@ body {
     width: 0;
     margin: 0;
     opacity: 0;
+    font-size: 0;
   }
 
   &.show {
@@ -218,15 +219,17 @@ body {
   width: 0;
   overflow: hidden;
   opacity: 0;
+  font-size: 0;
 
   @include transition(all $anim-time);
 
   &.show {
     opacity: 1;
     max-height: 1000em;
+    font-size: inherit;
 
     @include span-columns(12);
-    
+
     @include media($break-small) {
       @include span-columns(24);
     }
