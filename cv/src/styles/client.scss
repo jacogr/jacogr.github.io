@@ -17,7 +17,6 @@ body {
   background: $color-content-text;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: 0;
-  position: relative;
 
   @include outer-container;
 }
@@ -118,11 +117,9 @@ body {
 }
 
 .expanded {
-  opacity: 0;
-  position: absolute;
-  top: $pad-content * 10;
-  left: 0;
+  padding: 0 $pad-content;
 
+  @include span-columns(12);
   @include transform(scale(0, 0));
   @include transition(all $anim-time);
 
