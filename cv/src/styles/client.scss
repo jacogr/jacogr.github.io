@@ -34,10 +34,10 @@ body {
 }
 
 .position {
+  opacity: 1;
   text-align: center;
   margin-bottom: $pad-content;
   max-height: $pad-content * 8;
-  opacity: 1;
 
   @include transition(all $anim-time);
 
