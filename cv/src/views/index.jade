@@ -15,8 +15,7 @@ html(lang="en" ng-app="cv")
     .menu
       .cv CV
       .person
-        p {{cv.data.name}}
-        p {{cv.data.position}}
+        p(ng-repeat="type in ['name', 'position']") {{cv.data[type]}}
       .items
         a.item(href="#/summary" ng-class="cv.isPath('/summary') && 'selected'") Summary
         a.item(href="#/print" ng-class="cv.isPath('/print') && 'selected'" ng-click="cv.show()") Print
@@ -32,7 +31,7 @@ html(lang="en" ng-app="cv")
             .company {{pos.company}}
             .sub
               .location {{pos.location}}
-              .fromto  {{cv.getDate(pos)}}
+              .fromto {{cv.getDate(pos)}}
             .year {{cv.getYear(pos)}}
           
           .expanded(ng-class="{ 'show': cv.isPath('/print') || cv.entry == pos }")
