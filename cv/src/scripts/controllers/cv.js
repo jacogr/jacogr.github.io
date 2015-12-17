@@ -3,8 +3,10 @@ angular
   .controller('cvController', function(Data) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    this.positions = Data.cv;
+    this.positions = Data.positions;
     this.sections = Data.sections;
+    this.summary = Data.summary;
+
     this.entry = this.prevEntry = undefined;
 
     this.show = function(entry) {

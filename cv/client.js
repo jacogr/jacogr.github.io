@@ -7,8 +7,10 @@ module('cv').
 controller('cvController', ["Data", function (Data) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  this.positions = Data.cv;
+  this.positions = Data.positions;
   this.sections = Data.sections;
+  this.summary = Data.summary;
+
   this.entry = this.prevEntry = undefined;
 
   this.show = function (entry) {
@@ -51,7 +53,13 @@ service('Data', function () {
     exit: 'Leaving' };
 
 
-  this.cv = [
+  this.summary = 'Technology Executive, Strategist & Architect. Focused technical manager with architecture, project and operational experience over a wide range of industries and companies ranging from start-up to large corporates. 20-years of industry experience with a track record of leading effective global teams to deliver on company objectives.\n\n* Management experience in high-pressure environments across multiple countries, cultures and timezones\n* Experience in defining and delivering on strategies whilst prioritizing tactical solutions as necessary for maximum efficiency\n* A strong architecture and design background and application of technical problem-solving into the improvement of processes and systems';
+
+
+
+
+
+  this.positions = [
   { 
     start: _date(2012, 10), 
     type: 'employed', 
@@ -59,9 +67,10 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'CTO', 
     level: 'executive', 
-    description: { 
-      company: 'CQS is a provider of products for Audit and Accounting practices, growing to capture a commanding 80% marketshare in certain product categories. In addition to selling and supporting the CaseWare suite of products, it builds custom templates on the various CaseWare platforms (both desktop and Cloud) and supplies a line of BackOffice products for the management of Secretarial and Tax processes.', 
-      role: 'As CTO Jaco was tasked with a new initiative, CQS Cloud, to grow the use and distribution of the CaseWare Cloud and related products. Managed as a startup-within-CQS, the initiatives around building Cloud products, establishment of the Cloud team and infrastructure management forms part of the portfolio. The vision is to look forward and re-define not only the way of building products, but also the way the customers operate.' } }, 
+    description: '# Company\nCQS is a provider of products for Audit and Accounting practices, growing to capture a commanding 80% marketshare in certain product categories. In addition to selling and supporting the CaseWare suite of products, it builds custom templates on the various CaseWare platforms (both desktop and Cloud) and supplies a line of BackOffice products for the management of Secretarial and Tax processes.\n\n# Role\nAs CTO Jaco was tasked with a new initiative, CQS Cloud, to grow the use and distribution of the CaseWare Cloud and related products. Managed as a startup-within-CQS, the initiatives around building Cloud products, establishment of the Cloud team and infrastructure management forms part of the portfolio. The vision is to look forward and re-define not only the way of building products, but also the way the customers operate.' }, 
+
+
+
 
 
   { 
@@ -72,15 +81,20 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'CTO & Founder', 
     level: 'executive', 
-    description: { 
-      company: 'Tabula was an early-stage technology company with a primary focus on developing a prediction platform for social person-to-person predictions. In addition the scalable real-time back-end platform (PaaS) was made available to other startups in the online nReduce incubator to speed up their initiatives.', 
-      role: 'As CTO & Founder the responsibilities of company growth, financing, product development and driving a culture of taking responsibility for all areas were at the forefront.', 
-      tasks: '* Defining the overall vision and roadmap for the products\n* Defining the product architectures and driving the implementation thereof with the development team in Ukraine\n* Engagement with angel-investors for financing, product feedback and monthly board reporting\n* Performing product marketing and liaison with other companies around the use of the real-time platform\n* Coordination of closed-beta teams (South Africa, USA & France)', 
+    description: '# Company\nTabula was an early-stage technology company with a primary focus on developing a prediction platform for social person-to-person predictions. In addition the scalable real-time back-end platform (PaaS) was made available to other startups in the online nReduce incubator to speed up their initiatives.\n\n# Role\nAs CTO & Founder the responsibilities of company growth, financing, product development and driving a culture of taking responsibility for all areas were at the forefront.\n\n# Responsibilities\n* Defining the overall vision and roadmap for the products\n* Defining the product architectures and driving the implementation thereof with the development team in Ukraine\n* Engagement with angel-investors for financing, product feedback and monthly board reporting\n* Performing product marketing and liaison with other companies around the use of the real-time platform\n* Coordination of closed-beta teams (South Africa, USA & France)\n\n# Exit\nThe Company and the technology assets were aquired in Aug 2012. At this point the company has grown to an average of 25,000 DAU and the underlying technology platform was used by a further 4 startups. The company was staffed by a permanent team of 5 and a further compliment of 5 contracting resources.' }, 
 
 
 
 
-      exit: 'The Company and the technology assets were aquired in Aug 2012. At this point the company has grown to an average of 25,000 DAU and the underlying technology platform was used by a further 4 startups. The company was staffed by a permanent team of 5 and a further compliment of 5 contracting resources.' } }, 
+
+
+
+
+
+
+
+
+
 
 
   { 
@@ -91,15 +105,20 @@ service('Data', function () {
     location: 'Johannesburg, ZA & Hyderabad, IN', 
     position: 'CTO', 
     level: 'executive', 
-    description: { 
-      company: 'Cura is a GRC (Governance, Risk & Compliance) company listed on the BSE (Mumbai). Rated by Gartner as one of the Visionaries in GRC, the company has grown from a South African software start-up to a global force with offices in Boston (Head Office), Johannesburg, London, Melbourne and Hyderabad.', 
-      role: 'Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsible for the critical design and implementation of the next generation product architecture. As CTO, he had the overall responsibility for product design and delivery, managing a global team between South Africa (established, 30 staff) & India (new, 100 staff).', 
-      tasks: '* Feedback on technology matters & product progress as member of the Global EXCO (CEO, County MD’s & CTO) and MANCOs in South Africa and India\n* Board presentations on technology, inclusive of product strategy, roadmap and budget tracking\n* Management of the global R&D team across continents\n* Direct-line responsibility over technical middle-management, including Global Support Manager, Global Product Managers, Directors of Engineering (SA and India), Development Managers and Lead Architects\n* Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients', 
+    description: '# Company\nCura is a GRC (Governance, Risk & Compliance) company listed on the BSE (Mumbai). Rated by Gartner as one of the Visionaries in GRC, the company has grown from a South African software start-up to a global force with offices in Boston (Head Office), Johannesburg, London, Melbourne and Hyderabad.\n\n# Role\nInitially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsible for the critical design and implementation of the next generation product architecture. As CTO, he had the overall responsibility for product design and delivery, managing a global team between South Africa (established, 30 staff) & India (new, 100 staff).\n\n# Responsibilities\n* Feedback on technology matters & product progress as member of the Global EXCO (CEO, County MD’s & CTO) and MANCOs in South Africa and India\n* Board presentations on technology, inclusive of product strategy, roadmap and budget tracking\n* Management of the global R&D team across continents\n* Direct-line responsibility over technical middle-management, including Global Support Manager, Global Product Managers, Directors of Engineering (SA and India), Development Managers and Lead Architects\n* Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients\n\n# Leaving\nAs a South African-based CTO for an Indian-owned company (Cura was founded in ZA, but sold to a IN company), the travel and focus overheads leads a large number of inefficiencies.' }, 
 
 
 
 
-      exit: 'As a South African-based CTO for an Indian-owned company (Cura was founded in ZA, but sold to a IN company), the travel and focus overheads leads a large number of inefficiencies.' } }, 
+
+
+
+
+
+
+
+
+
 
 
   { 
@@ -110,10 +129,12 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'Consultant', 
     level: 'management', 
-    description: { 
-      company: 'Self-employed Archirecture consultant, working with a number of clients from the immediate network.', 
-      role: 'Consulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.', 
-      tasks: '* HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward\n* Discovery Health (Johannesburg, South Africa): Architecture evaluation for re-designed claims and payment consolidation systems\n* Infinite Illusions (Tallahassee, USA): Design of on-line store flow/checkout, video streaming (live web TV channels), forum and payment solutions\n* Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings' } }, 
+    description: '# Company\nSelf-employed Architecture consultant, working with a number of clients from the immediate network.\n\n# RoleConsulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.\n\n# Clients\n* HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward\n* Discovery Health (Johannesburg, South Africa): Architecture evaluation for re-designed claims and payment consolidation systems\n* Infinite Illusions (Tallahassee, USA): Design of on-line store flow/checkout, video streaming (live web TV channels), forum and payment solutions\n* Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings' }, 
+
+
+
+
+
 
 
 
@@ -127,9 +148,10 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'Senior Architect', 
     level: 'management', 
-    description: { 
-      company: 'Discovery Health is South Africa’s largest medical insurance company with a history of innovative and disruptive products.', 
-      tasks: '* Representing Health Systems on the Health Claims Operations EXCO\n* Representing Architects on Health Systems MANCO and Program Management forums\n* Performance review and employment of 14 area-specific System Architects\n* Responsible for the overall systems architecture of all clinical systems inside Discovery (Claims Processing, Discovery Care, Electronic Transaction Management, New Business, Member Administration)\n* Work with the System Architects (area/system specific) to align the clinical architectures across Health Systems, including overall reviews and setting standards for the 120+ development team\n* Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health' } }, 
+    description: '# Company\nDiscovery Health is South Africa’s largest medical insurance company with a history of innovative and disruptive products.\n\n# Responsibilities\n* Representing Health Systems on the Health Claims Operations EXCO\n* Representing Architects on Health Systems MANCO and Program Management forums\n* Performance review and employment of 14 area-specific System Architects\n* Responsible for the overall systems architecture of all clinical systems inside Discovery (Claims Processing, Discovery Care, Electronic Transaction Management, New Business, Member Administration)\n* Work with the System Architects (area/system specific) to align the clinical architectures across Health Systems, including overall reviews and setting standards for the 120+ development team\n* Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health' }, 
+
+
+
 
 
 
@@ -145,9 +167,9 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'Technical Manager', 
     level: 'management', 
-    description: { 
-      company: 'HealthBridge is an innovative transaction switch with a focus on the medical industry. Since it inception in 1999, the company has expanded into the TradeBridge group covering markets such as debt consolidation and mobile payments.', 
-      tasks: '* Day-to-day management and mentoring of the development team\n* Setting up the development team, growing from 0 to 12\n* Management of 3rd party development (Internet Solutions & Dimension Data)\n* Management of the software budget in conjunction with the CIO\n* Representing HealthBridge on industry committees on transaction standards\n* Feedback on projects and software initiatives to HealthBridge MANCO' } }, 
+    description: '# Company\nHealthBridge is an innovative transaction switch with a focus on the medical industry. Since it inception in 1999, the company has expanded into the TradeBridge group covering markets such as debt consolidation and mobile payments.\n\n# Responsibilities* Day-to-day management and mentoring of the development team\n* Setting up the development team, growing from 0 to 12\n* Management of 3rd party development (Internet Solutions & Dimension Data)\n* Management of the software budget in conjunction with the CIO\n* Representing HealthBridge on industry committees on transaction standards\n* Feedback on projects and software initiatives to HealthBridge MANCO' }, 
+
+
 
 
 
@@ -163,9 +185,10 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'Senior Developer', 
     level: 'staff', 
-    description: { 
-      company: 'Internet Solution is a leading ISP in ZA. In addition to the traditional ISP business, they also did project-based work for clients with Internet deployments and website development.', 
-      tasks: '* Team Lead for the Dimension Data Healthcare project\n* Design and development of a real-time messaging switch for the Dimension Data Healthcare initiative\n* Dimension Data Healthcare led to the formation of HealthBridge' } }, 
+    description: '# Company\nInternet Solution is a leading ISP in ZA. In addition to the traditional ISP business, they also did project-based work for clients with Internet deployments and website development.\n\n# Responsibilities\n* Team Lead for the Dimension Data Healthcare project\n* Design and development of a real-time messaging switch for the Dimension Data Healthcare initiative\n* Dimension Data Healthcare led to the formation of HealthBridge' }, 
+
+
+
 
 
 
@@ -178,9 +201,10 @@ service('Data', function () {
     location: 'Stellenbosch & Pretoria, ZA', 
     position: 'Developer', 
     level: 'staff', 
-    description: { 
-      company: 'Crusader System is an Artificial Intelligence consulting company with a large focus on process optimization in the mining industry.', 
-      tasks: '* Development of the first-generation AI modeling tool, ModelGen\n* Consulting to Richard’s Bay Mineral and Karee Platinum mines on process optimization using the ModelGen toolset' } }, 
+    description: '# Company\nCrusader System is an Artificial Intelligence consulting company with a large focus on process optimization in the mining industry.\n\n# Responsibilities\n* Development of the first-generation AI modeling tool, ModelGen\n* Consulting to Richard’s Bay Mineral and Karee Platinum mines on process optimization using the ModelGen toolset' }, 
+
+
+
 
 
 
@@ -192,9 +216,10 @@ service('Data', function () {
     location: 'Tokai, ZA', 
     position: 'Developer', 
     level: 'staff', 
-    description: { 
-      company: 'Grinaker Electronics is a project-based company in the commercial sector (vehicle tracking) along with the implementation of projects for defense agencies such as ARMSCOR.', 
-      tasks: '* Development and maintenance of the G-Track vehicle tracking system\n* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR as part of a new radio communications platform' } }, 
+    description: '# Company\nGrinaker Electronics is a project-based company in the commercial sector (vehicle tracking) along with the implementation of projects for defense agencies such as ARMSCOR.\n\n# Responsibilities\n* Development and maintenance of the G-Track vehicle tracking system\n* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR as part of a new radio communications platform' }, 
+
+
+
 
 
 

@@ -12,6 +12,8 @@ html(lang="en" ng-app="cv")
     style .ng-cloak { display: none }
     
   body.ng-cloak(ng-controller="cvController as cv")
+    //.introduction(markdown="cv.summary" ng-class="{ 'hide': cv.entry && cv.entry != pos }")
+      
     .positions
       .position(ng-repeat="pos in cv.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos }")
         .summary(ng-click="cv.show(pos)")
@@ -22,9 +24,7 @@ html(lang="en" ng-app="cv")
           .fromto  {{cv.getDate(pos)}}
     
     .expanded(ng-click="cv.show()" ng-class="{ 'show': cv.entry }")
-      .section(ng-repeat="(name, description) in cv.sections" ng-if="(cv.entry || cv.prevEntry).description[name]")
-        .header {{description}}
-        .text(markdown="(cv.entry || cv.prevEntry).description[name]")
+      .section(markdown="(cv.entry || cv.prevEntry).description")
       
     script.
       if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {

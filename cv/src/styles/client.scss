@@ -28,11 +28,40 @@ body {
   @include outer-container;
 }
 
-.positions {
+[markdown] {
+  li {
+    margin: $pad-content / 2 0;
+  }
+
+  p {
+    margin: $pad-content 0;
+  }
+
+  h1, h2 {
+    font-size: 1em;
+    margin: 2 * $pad-content 0 0.5 * $pad-content 0;
+
+    &:first-child {
+      margin-top: $pad-content;
+    }
+  }
+}
+
+.introduction {
   padding: $pad-content;
 
   @include span-columns(12);
   @include transform(scale(1, 1));
+
+  &.hide {
+    @include transform(scale(0, 0));
+  }
+}
+
+.positions {
+  padding: $pad-content $pad-content 0 $pad-content;
+
+  @include span-columns(12);
 }
 
 .position {
@@ -122,33 +151,16 @@ body {
   }
 
   .section {
-    .header {
-      font-weight: bold;
-    }
+    background: transparent;
+    color: $color-text;
+    padding: 0 $pad-content;
+    margin-bottom: 1.75 * $pad-content;
+    background: transparent;
+    color: $color-text;
+    border-radius: $border-rad;
 
-    .text, .header {
-      background: transparent;
-      color: $color-text;
-      padding: 0 $pad-content;
-
-      @include media($break-large) {
-        padding: 0 $pad-content * 6;
-      }
-    }
-
-    .text {
-      margin-bottom: 1.75 * $pad-content;
-      background: transparent;
-      color: $color-text;
-      border-radius: $border-rad;
-
-      li {
-        margin: $pad-content / 2 0;
-      }
-
-      p {
-        margin: $pad-content 0;
-      }
+    @include media($break-large) {
+      padding: 0 $pad-content * 6;
     }
   }
 }
