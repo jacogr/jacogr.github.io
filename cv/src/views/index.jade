@@ -24,7 +24,7 @@ html(lang="en" ng-app="cv")
       .introduction(markdown="cv.data.summary")
       
       .positions
-        .position(ng-repeat="pos in cv.data.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos }")
+        .position(ng-repeat="pos in cv.data.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos, 'show': cv.entry && cv.entry == pos }")
           .summary(ng-click="cv.show(pos)")
             .action.fa(ng-class="{ 'fa-level-down': cv.entry != pos, 'fa-level-up': cv.entry == pos }")
             .title {{pos.position}}

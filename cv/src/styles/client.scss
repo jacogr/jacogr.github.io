@@ -141,6 +141,12 @@ body {
     margin: 0;
     opacity: 0;
   }
+
+  &.show {
+    .summary:hover {
+      box-shadow: none;
+    }
+  }
 }
 
 .summary {
@@ -152,9 +158,8 @@ body {
   cursor: pointer;
 
   &:hover {
-    background: $color-content-bg-hover;
-    padding: 1.25em;
-    margin: -0.25em;
+    //background: $color-content-bg-hover;
+    box-shadow: 0 0 0.75em 0.25em rgba(0, 0, 0, 0.15);
   }
 
   .title {
@@ -257,11 +262,11 @@ body {
       background: transparent;
       border-radius: 0;
       border-bottom: 1px solid $color-content-light;
+      cursor: default;
 
       &:hover {
+        box-shadow: none;
         background: transparent;
-        padding: 1em;
-        margin: 0;
       }
 
       .sub {
@@ -278,6 +283,8 @@ body {
 
   .expanded {
     opacity: 1;
+    cursor: default;
+
     @include span-columns(12);
   }
 }

@@ -39,8 +39,9 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;col
 .position:nth-child(3n+1){clear:left}
 }
 .position.hide{overflow:hidden;max-height:0;width:0;margin:0;opacity:0}
+.position.show .summary:hover{box-shadow:none}
 .summary{color:#323232;background:rgba(230,230,210,.75);border-radius:.5em;padding:1em;position:relative;cursor:pointer}
-.summary:hover{background:rgba(250,250,180,.75);padding:1.25em;margin:-.25em}
+.summary:hover{box-shadow:0 0 .75em .25em rgba(0,0,0,.15)}
 .summary .title{font-weight:700;padding:0 0 .25em}
 .summary .company{font-weight:700;padding:0 0 .5em}
 .summary .sub{font-size:.8em;color:#aaa}
@@ -63,11 +64,11 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;col
 .print .introduction:last-child{margin-right:0}
 .print .position{text-align:left;max-height:none;margin-right:2.35765%;width:100%}
 .print .position:last-child{margin-right:0}
-.print .position .summary{color:#323232;background:0 0;border-radius:0;border-bottom:1px solid #aaa}
-.print .position .summary:hover{background:0 0;padding:1em;margin:0}
+.print .position .summary{color:#323232;background:0 0;border-radius:0;border-bottom:1px solid #aaa;cursor:default}
+.print .position .summary:hover{box-shadow:none;background:0 0}
 .print .position .summary .sub{position:absolute;top:1em;right:1em}
 .print .position .summary .action,.print .position .summary .year{display:none}
-.print .expanded{opacity:1;float:left;display:block;margin-right:2.35765%;width:100%}
+.print .expanded{opacity:1;cursor:default;float:left;display:block;margin-right:2.35765%;width:100%}
 .print .expanded:last-child{margin-right:0}
 @media print{.menu{display:block}
 .menu .items,.no-print{display:none!important}
