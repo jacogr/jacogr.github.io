@@ -5,9 +5,10 @@ angular
 
     this.positions = Data.cv;
     this.sections = Data.sections;
-    this.entry = undefined;
+    this.entry = this.prevEntry = undefined;
 
     this.show = function(entry) {
+      this.prevEntry = this.entry;
       this.entry = entry !== this.entry ? entry : undefined;
     };
 

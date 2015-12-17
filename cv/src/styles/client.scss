@@ -6,7 +6,7 @@ $color-content-text: #fff;
 $color-content-light: #aaa;
 $color-content-bg: rgba(50, 50, 50, 0.75);
 
-$anim-time: 0.25s;
+$anim-time: 0.5s;
 $pad-content: 1em;
 $border-rad: $pad-content / 2;
 
@@ -110,15 +110,12 @@ body {
 .expanded {
   padding: 0 $pad-content;
   cursor: pointer;
-  opacity: 0;
 
   @include span-columns(12);
   @include transform(scale(0, 0));
   @include transition(all $anim-time);
 
   &.show {
-    opacity: 1;
-
     @include transform(scale(1, 1));
   }
 

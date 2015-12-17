@@ -72,7 +72,8 @@ angular
         position: 'Consultant',
         level: 'management',
         description: {
-          company: `Consulting to various companies on architecture and implementations. Clients and projects include:`,
+          company: `Self-employed Archirecture consultant, working with a number of clients from the immediate network.`,
+          role: `Consulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.`,
           tasks: `* HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward
 * Discovery Health (Johannesburg, South Africa): Architecture evaluation for re-designed claims and payment consolidation systems
 * Infinite Illusions (Tallahassee, USA): Design of on-line store flow/checkout, video streaming (live web TV channels), forum and payment solutions
