@@ -215,24 +215,25 @@ body {
   padding: 0;
   cursor: pointer;
   max-height: 0;
+  width: 0;
+  overflow: hidden;
   opacity: 0;
 
-  @include span-columns(12);
-  @include transform(scale(0, 0));
   @include transition(all $anim-time);
 
   &.show {
     opacity: 1;
     max-height: 1000em;
-    @include transform(scale(1, 1));
-  }
 
-  @include media($break-small) {
-    @include span-columns(24);
-  }
+    @include span-columns(12);
+    
+    @include media($break-small) {
+      @include span-columns(24);
+    }
 
-  @include media($break-large) {
-    @include span-columns(36);
+    @include media($break-large) {
+      @include span-columns(36);
+    }
   }
 
   .section {
