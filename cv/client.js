@@ -136,7 +136,10 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'Consultant', 
     level: 'management', 
-    description: '# Company\nSelf-employed Architecture consultant, working with a number of clients from the immediate network.\n\n# Role\nConsulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.\n\n# Clients\n* HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward\n* Discovery Health (Johannesburg, South Africa): Architecture evaluation for re-designed claims and payment consolidation systems\n* Infinite Illusions (Tallahassee, USA): Design of on-line store flow/checkout, video streaming (live web TV channels), forum and payment solutions\n* Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings' }, 
+    description: '# Company\nSelf-employed Architecture consultant, working with a number of clients from the immediate network.\n\n# Role\nConsulting to a variety of companies on architecture, implementation and product design. Skills such as evaluation, mentoring and technical design were heavily used for a number of successful implementations.\n\n# Clients\n* HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward\n* Discovery Health (Johannesburg, South Africa): Architecture evaluation for re-designed claims and payment consolidation systems\n* Infinite Illusions (Tallahassee, USA): Design of on-line store flow/checkout, video streaming (live web TV channels), forum and payment solutions\n* Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings\n\n# Leaving\nAs an single independent consultant, reach, impact and execution capabilities are limited to the number of available hours in each day. Change is faster and more impactful with a like-minded team.' }, 
+
+
+
 
 
 
@@ -156,7 +159,13 @@ service('Data', function () {
     location: 'Johannesburg, ZA', 
     position: 'Senior Architect', 
     level: 'management', 
-    description: '# Company\nDiscovery Health is South Africa’s largest medical insurance company with a history of innovative and disruptive products.\n\n# Responsibilities\n* Representing Health Systems on the Health Claims Operations EXCO\n* Representing Architects on Health Systems MANCO and Program Management forums\n* Performance review and employment of 14 area-specific System Architects\n* Responsible for the overall systems architecture of all clinical systems inside Discovery (Claims Processing, Discovery Care, Electronic Transaction Management, New Business, Member Administration)\n* Work with the System Architects (area/system specific) to align the clinical architectures across Health Systems, including overall reviews and setting standards for the 120+ development team\n* Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health' }, 
+    description: '# Company\nDiscovery Health is South Africa’s largest medical insurance company with a history of innovative and disruptive products.\n\n# Role\nAs Senior Architect & Divisional Manager, Jaco was responsible for the overall architecture alignment and direction accross the Health System division, the company\'s flagship. With a wide variety of technologies, new as well as legacy systems, 14 teams with different short and medium term deliverables and high-volume transaction processing with direct impacts on the client-base, the role was critical to the overall success of the product suite.\n\n# Responsibilities\n* Representing Health Systems on the Health Claims Operations EXCO\n* Representing Architects on Health Systems MANCO and Program Management forums\n* Performance review and employment of 14 area-specific System Architects\n* Responsible for the overall systems architecture of all clinical systems inside Discovery (Claims Processing, Discovery Care, Electronic Transaction Management, New Business, Member Administration)\n* Work with the System Architects (area/system specific) to align the clinical architectures across Health Systems, including overall reviews and setting standards for the 120+ development team\n* Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health\n\n# Leaving\nWhile the reach was immense and the impact directly beneficial to the lives of ordinary people, large companies and the slower speed was not 100% suitable.' }, 
+
+
+
+
+
+
 
 
 

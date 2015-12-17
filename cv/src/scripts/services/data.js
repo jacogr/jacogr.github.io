@@ -95,7 +95,10 @@ Consulting to a variety of companies on architecture, implementation and product
 * HealthBridge (Johannesburg, South Africa): Technical evaluation of Web 2.0 RIA technologies and definition of the solutions architecture; Mentoring of In-house Architect to take the solution forward
 * Discovery Health (Johannesburg, South Africa): Architecture evaluation for re-designed claims and payment consolidation systems
 * Infinite Illusions (Tallahassee, USA): Design of on-line store flow/checkout, video streaming (live web TV channels), forum and payment solutions
-* Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings`
+* Private (Orlando, USA): Design and architecture definition for integrated inventory control mechanisms for Amazon listings
+
+# Leaving
+As an single independent consultant, reach, impact and execution capabilities are limited to the number of available hours in each day. Change is faster and more impactful with a like-minded team.`
       },
       {
         start: _date(2003, 4),
@@ -108,13 +111,19 @@ Consulting to a variety of companies on architecture, implementation and product
         description: `# Company
 Discovery Health is South Africa’s largest medical insurance company with a history of innovative and disruptive products.
 
+# Role
+As Senior Architect & Divisional Manager, Jaco was responsible for the overall architecture alignment and direction accross the Health System division, the company's flagship. With a wide variety of technologies, new as well as legacy systems, 14 teams with different short and medium term deliverables and high-volume transaction processing with direct impacts on the client-base, the role was critical to the overall success of the product suite.
+
 # Responsibilities
 * Representing Health Systems on the Health Claims Operations EXCO
 * Representing Architects on Health Systems MANCO and Program Management forums
 * Performance review and employment of 14 area-specific System Architects
 * Responsible for the overall systems architecture of all clinical systems inside Discovery (Claims Processing, Discovery Care, Electronic Transaction Management, New Business, Member Administration)
 * Work with the System Architects (area/system specific) to align the clinical architectures across Health Systems, including overall reviews and setting standards for the 120+ development team
-* Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health`
+* Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health
+
+# Leaving
+While the reach was immense and the impact directly beneficial to the lives of ordinary people, large companies and the slower speed was not 100% suitable.`
       },
       {
         start: _date(1999, 4),
