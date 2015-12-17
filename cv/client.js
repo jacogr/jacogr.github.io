@@ -75,7 +75,7 @@ service('Data', function () {
     start: { year: 2012, month: 10 }, 
     type: 'employed', 
     company: 'CQS Technology Holdings', 
-    location: 'Johannesburg, South Africa', 
+    location: 'Johannesburg, ZA', 
     position: 'CTO' }, 
 
   { 
@@ -83,7 +83,7 @@ service('Data', function () {
     end: { year: 2012, month: 9 }, 
     type: 'founded', 
     company: 'Tabula', 
-    location: 'Johannesburg, South Africa', 
+    location: 'Johannesburg, ZA', 
     position: 'CTO & Founder' }, 
 
   { 
@@ -91,7 +91,7 @@ service('Data', function () {
     end: { year: 2011, month: 6 }, 
     type: 'employed', 
     company: 'Cura Software Solutions', 
-    location: 'Johannesburg, South Africa & Hyderabad, India', 
+    location: 'Johannesburg, ZA & Hyderabad, IN', 
     position: 'CTO' }, 
 
   { 
@@ -99,7 +99,7 @@ service('Data', function () {
     end: { year: 2008, month: 8 }, 
     type: 'founded', 
     company: 'Various', 
-    location: 'Johannesburg, South Africa', 
+    location: 'Johannesburg, ZA', 
     position: 'Consultant' }, 
 
   { 
@@ -107,7 +107,7 @@ service('Data', function () {
     end: { year: 2007, month: 6 }, 
     type: 'employed', 
     company: 'Discovery Health', 
-    location: 'Johannesburg, South Africa', 
+    location: 'Johannesburg, ZA', 
     position: 'Senior Architect' }, 
 
   { 
@@ -115,7 +115,7 @@ service('Data', function () {
     end: { year: 2003, month: 3 }, 
     type: 'employed', 
     company: 'healthbridge', 
-    location: 'Johannesburg, South Africa', 
+    location: 'Johannesburg, ZA', 
     position: 'Technical Manager' }, 
 
   { 
@@ -123,9 +123,9 @@ service('Data', function () {
     end: { year: 1999, month: 3 }, 
     type: 'employed', 
     company: 'Internet Solutions', 
-    location: 'Johannesburg, South Africa', 
+    location: 'Johannesburg, ZA', 
     position: 'Senior Developer', 
-    description: 'Internet Solution is a leading ISP in South Africa. In addition to the traditional ISP business, they also did project-based work for clients with Internet deployments and website development.\n* Team Lead for the Dimension Data Healthcare project\n* Design and development of a real-time messaging switch for the Dimension Data Healthcare initiative\n* Dimension Data Healthcare led to the formation of HealthBridge' }, 
+    description: 'Internet Solution is a leading ISP in ZA. In addition to the traditional ISP business, they also did project-based work for clients with Internet deployments and website development.\n* Team Lead for the Dimension Data Healthcare project\n* Design and development of a real-time messaging switch for the Dimension Data Healthcare initiative\n* Dimension Data Healthcare led to the formation of HealthBridge' }, 
 
 
 
@@ -135,7 +135,7 @@ service('Data', function () {
     end: { year: 1998, month: 10 }, 
     type: 'employed', 
     company: 'Crusader Systems', 
-    location: 'Stellenbosch & Pretoria, South Africa', 
+    location: 'Stellenbosch & Pretoria, ZA', 
     position: 'Developer', 
     description: 'Crusader System is an Artificial Intelligence consulting company with a large focus on process optimization in the mining industry.\n* Development of the first-generation AI modeling tool, ModelGen\n* Consulting to Richard’s Bay Mineral and Karee Platinum mines on process optimization using the ModelGen toolset' }, 
 
@@ -146,7 +146,7 @@ service('Data', function () {
     end: { year: 1997, month: 12 }, 
     type: 'employed', 
     company: 'Grinaker Electronics', 
-    location: 'Tokai, South Africa', 
+    location: 'Tokai, ZA', 
     position: 'Developer', 
     description: 'Grinaker Electronics is a project-based company in the commercial sector (vehicle tracking) along with the implementation of projects for defense agencies such as ARMSCOR.\n* Development and maintenance of the G-Track vehicle tracking system\n* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR as part of a new radio communications platform' }, 
 
@@ -157,5 +157,5 @@ service('Data', function () {
     end: { year: 1995, month: 12 }, 
     type: 'education', 
     company: 'University of Stellenbosch', 
-    location: 'Stellenbosh, South Africa', 
+    location: 'Stellenbosh, ZA', 
     position: 'B.Eng (Electronic)' }];});
