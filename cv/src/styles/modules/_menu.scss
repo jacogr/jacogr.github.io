@@ -1,10 +1,11 @@
-.menu {
+menu {
   display: none;
   position: relative;
 
   @include media($break-large) {
     display: block;
     padding: 1em;
+    margin: 0;
     background: $color-menu-bg;
   }
 

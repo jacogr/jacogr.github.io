@@ -7,7 +7,6 @@ module('cv').
 controller('cvController', ["$location", "$scope", "$timeout", "Data", function ($location, $scope, $timeout, Data) {var _this = this;
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  this.menu = [{ url: '/summary', title: 'Summary' }, { url: '/print', title: 'Print' }];
   this.data = Data;
   this.entry = undefined;
 
@@ -58,6 +57,36 @@ directive('markdown', ["$sanitize", function ($sanitize) {
       {
         var html = $sanitize(conv.makeHtml(element.text()));
         element.html(html);}} };}]);
+'use strict';angular.
+module('cv').
+directive('menu', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'menuController', 
+    scope: { 
+      data: '=data' }, 
+
+    template: '\n        <div class="cv">CV</div>\n        <div class="person">\n          <p>{{ data.name }}</p>\n          <p>{{ data.position }}</p>\n        </div>\n        <div class="items">\n          <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" ng-class="isPath(item.url) && \'selected\'">\n            {{ item.title }}\n          </a>\n        </div>' };}).
+
+
+
+
+
+
+
+
+
+
+
+
+controller('menuController', ["$location", "$scope", function ($location, $scope) {
+  $scope.menu = [
+  { url: '/summary', title: 'Summary' }, 
+  { url: '/print', title: 'Print' }];
+
+
+  $scope.isPath = function (url) {
+    return $location.path() === url;};}]);
 'use strict';angular.
 module('cv').
 service('Data', function () {

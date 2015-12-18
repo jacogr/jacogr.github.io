@@ -12,10 +12,7 @@ html(lang="en" ng-app="cv")
     style .ng-cloak { display: none }
     
   body.ng-cloak(ng-controller="cvController as cv" ng-class="cv.isPath('/print') && 'print'")
-    .menu
-      .cv CV
-      .person: p(ng-repeat="type in ['name', 'position']") {{cv.data[type]}}
-      .items: a.item(ng-repeat="menu in cv.menu" ng-href="#{{menu.url}}" ng-class="cv.isPath(menu.url) && 'selected'") {{menu.title}}
+    menu(data="cv.data")
       
     .content
       .introduction(markdown="cv.data.summary")

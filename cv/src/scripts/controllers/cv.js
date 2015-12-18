@@ -3,7 +3,6 @@ angular
   .controller('cvController', function($location, $scope, $timeout, Data) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    this.menu = [{ url: '/summary', title: 'Summary' }, { url: '/print', title: 'Print' }];
     this.data = Data;
     this.entry = undefined;
 
