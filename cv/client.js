@@ -91,7 +91,7 @@ directive('position', function () {
       data: '=data' }, 
 
     replace: true, 
-    template: '\n        <div class="position" ng-class="isHidden() && \'hide\'" ng-click="show()">\n          <div class="summary">\n            <div class="action hover fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n            <div class="title">{{ data.position }}</div>\n            <div class="company">{{ data.company }}</div>\n            <div class="sub">\n              <div class="location">{{ data.location }}</div>\n              <div class="fromto">{{ getDate() }}</div>\n            </div>\n            <div class="year hover">\'{{ getShortYear() }}</div>\n          </div>\n          <div class="expanded" ng-class="isExtended() && \'show\'">\n            <div class="section" markdown="data.description"></div>\n          </div>\n        </div>' };}).
+    template: '\n        <div class="position" ng-class="isHidden() && \'hide\'" ng-click="show()">\n          <div class="summary">\n            <div class="action fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n            <div class="title">{{ data.position }}</div>\n            <div class="company">{{ data.company }}</div>\n            <div class="sub">\n              <div class="location">{{ data.location }}</div>\n              <div class="fromto">{{ getDate() }}</div>\n            </div>\n            <div class="year">\'{{ getShortYear() }}</div>\n          </div>\n          <div class="expanded" ng-class="isExtended() && \'show\'">\n            <div class="section" markdown="data.description"></div>\n          </div>\n        </div>' };}).
 
 
 

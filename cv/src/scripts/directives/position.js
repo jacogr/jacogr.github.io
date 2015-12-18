@@ -11,14 +11,14 @@ angular
       template: `
         <div class="position" ng-class="isHidden() && 'hide'" ng-click="show()">
           <div class="summary">
-            <div class="action hover fa" ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'"></div>
+            <div class="action fa" ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'"></div>
             <div class="title">{{ data.position }}</div>
             <div class="company">{{ data.company }}</div>
             <div class="sub">
               <div class="location">{{ data.location }}</div>
               <div class="fromto">{{ getDate() }}</div>
             </div>
-            <div class="year hover">'{{ getShortYear() }}</div>
+            <div class="year">'{{ getShortYear() }}</div>
           </div>
           <div class="expanded" ng-class="isExtended() && 'show'">
             <div class="section" markdown="data.description"></div>
