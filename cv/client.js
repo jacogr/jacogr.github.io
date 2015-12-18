@@ -1,18 +1,10 @@
 'use strict';angular.
 module('cv', ['ngSanitize']).
 config(["$locationProvider", function ($locationProvider) {
-  $locationProvider.html5Mode(false);}]);
-'use strict';angular.
-module('cv').
-controller('cvController', ["$location", "$scope", "$timeout", "CVData", function ($location, $scope, $timeout, CVData) {
-  this.data = CVData;
-  this.entry = undefined;
+  $locationProvider.html5Mode(false);}]).
 
-  this.isPath = function (path) {
-    return $location.path() === path;};
-
-
-  $scope.$on('$locationChangeSuccess', function (evt, url) {
+run(["$location", "$rootScope", "$timeout", function ($location, $rootScope, $timeout) {
+  $rootScope.$on('$locationChangeSuccess', function (evt, url) {
     if (url.indexOf('#/print') !== -1) {
       $timeout(function () {return window.print();}, 1000);}});
 
@@ -20,6 +12,27 @@ controller('cvController', ["$location", "$scope", "$timeout", "CVData", functio
 
   if ($location.path() === '') {
     $location.path('/summary');}}]);
+'use strict';angular.
+module('cv').
+directive('cv', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'cvController', 
+    replace: true, 
+    template: '\n        <div class="content" ng-class="isPrint() && \'print\'">\n          <div class="introduction" markdown="data.summary"></div>\n          <div class="positions">\n            <position ng-repeat="position in data.positions" data="position"></position>\n          </div>\n        </div>' };}).
+
+
+
+
+
+
+
+
+controller('cvController', ["$location", "$scope", "CVData", function ($location, $scope, CVData) {
+  $scope.data = CVData;
+
+  $scope.isPrint = function () {
+    return $location.path() === '/print';};}]);
 'use strict';angular.
 module('cv').
 directive('markdown', ["$sanitize", function ($sanitize) {
@@ -42,10 +55,8 @@ directive('menu', function () {
   return { 
     restrict: 'E', 
     controller: 'menuController', 
-    scope: { 
-      data: '=data' }, 
-
-    template: '\n        <div class="cv">CV</div>\n        <div class="person">\n          <p>{{ data.name }}</p>\n          <p>{{ data.position }}</p>\n        </div>\n        <div class="items">\n          <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" ng-class="isPath(item.url) && \'selected\'">\n            {{ item.title }}\n          </a>\n        </div>' };}).
+    replace: true, 
+    template: '\n        <div class="menu">\n          <div class="cv">CV</div>\n          <div class="person">\n            <p>{{ data.name }}</p>\n            <p>{{ data.position }}</p>\n          </div>\n          <div class="items">\n            <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" ng-class="isPath(item.url) && \'selected\'">\n              {{ item.title }}\n            </a>\n          </div>\n        </div>' };}).
 
 
 
@@ -58,11 +69,15 @@ directive('menu', function () {
 
 
 
-controller('menuController', ["$location", "$scope", function ($location, $scope) {
+
+
+controller('menuController', ["$location", "$scope", "CVData", function ($location, $scope, CVData) {
   $scope.menu = [
   { url: '/summary', title: 'Summary' }, 
   { url: '/print', title: 'Print' }];
 
+
+  $scope.data = CVData;
 
   $scope.isPath = function (url) {
     return $location.path() === url;};}]);
@@ -76,7 +91,7 @@ directive('position', function () {
       data: '=data' }, 
 
     replace: true, 
-    template: '\n        <div class="position" ng-class="isHidden() && \'hide\'" ng-click="show()">\n          <div class="summary">\n            <div class="action fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n            <div class="title">{{ data.position }}</div>\n            <div class="company">{{ data.company }}</div>\n            <div class="sub">\n              <div class="location">{{ data.location }}</div>\n              <div class="fromto">{{ getDate() }}</div>\n            </div>\n            <div class="year">\'{{ getShortYear() }}</div>\n          </div>\n          <div class="expanded" ng-class="isExtended() && \'show\'">\n            <div class="section" markdown="data.description"></div>\n          </div>\n        </div>' };}).
+    template: '\n        <div class="position" ng-class="isHidden() && \'hide\'" ng-click="show()">\n          <div class="summary">\n            <div class="action hover fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n            <div class="title">{{ data.position }}</div>\n            <div class="company">{{ data.company }}</div>\n            <div class="sub">\n              <div class="location">{{ data.location }}</div>\n              <div class="fromto">{{ getDate() }}</div>\n            </div>\n            <div class="year hover">\'{{ getShortYear() }}</div>\n          </div>\n          <div class="expanded" ng-class="isExtended() && \'show\'">\n            <div class="section" markdown="data.description"></div>\n          </div>\n        </div>' };}).
 
 
 
@@ -96,8 +111,9 @@ directive('position', function () {
 
 controller('positionController', ["$scope", "$location", function ($scope, $location) {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var viewPath = '/view/' + $scope.data.id;
+  var viewPath = '/' + $scope.data.id;
   var summaryPath = '/summary';
+  var printPath = '/print';
 
   $scope.show = function () {
     var path = $location.path();
@@ -110,12 +126,11 @@ controller('positionController', ["$scope", "$location", function ($scope, $loca
 
 
   $scope.isExtended = function () {
-    return _.contains(['/print', viewPath], $location.path());};
+    return _.contains([printPath, viewPath], $location.path());};
 
 
   $scope.isHidden = function () {
-    var path = $location.path();
-    return path.indexOf('/view') === 0 && path !== viewPath;};
+    return !_.contains([printPath, summaryPath, viewPath], $location.path());};
 
 
   $scope.getDate = function () {
