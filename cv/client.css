@@ -24,7 +24,7 @@ body{background:#f8f8f8;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 .print .introduction{padding:1em;float:left;display:block;margin-right:2.35765%;width:100%}
 .print .introduction:last-child{margin-right:0}
 .menu{display:none;position:relative}
-@media screen and (min-width:920px){.menu{display:block;padding:1em;margin:0;background:rgba(50,50,50,.75)}
+@media screen and (min-width:920px){.menu{display:block;padding:.75em 1em;margin:0;background:rgba(50,50,50,.75)}
 }
 .menu .cv,.menu .person{display:inline-block;color:#f8f8f8}
 .menu .cv{font-size:2.5em;font-weight:700;margin-right:.25em}

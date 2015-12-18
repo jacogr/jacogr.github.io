@@ -4,7 +4,7 @@
 
   @include media($break-large) {
     display: block;
-    padding: 1em;
+    padding: 0.75em 1em;
     margin: 0;
     background: $color-menu-bg;
   }
