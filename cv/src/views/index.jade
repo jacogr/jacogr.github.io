@@ -16,20 +16,8 @@ html(lang="en" ng-app="cv")
       
     .content
       .introduction(markdown="cv.data.summary")
-      
       .positions
-        .position(ng-repeat="pos in cv.data.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos, 'show': cv.entry && cv.entry == pos }" ng-click="cv.show(pos)")
-          .summary
-            .action.fa(ng-class="cv.entry == pos ? 'fa-level-up' : 'fa-level-down'")
-            .title {{pos.position}}
-            .company {{pos.company}}
-            .sub
-              .location {{pos.location}}
-              .fromto {{cv.getDate(pos)}}
-            .year {{cv.getYear(pos)}}
-          
-          .expanded(ng-class="{ 'show': cv.isPath('/print') || cv.entry == pos }")
-            .section(markdown="pos.description")
+        position(ng-repeat="pos in cv.data.positions" data="pos")
       
     script.
       if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {
