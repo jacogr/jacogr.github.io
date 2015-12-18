@@ -1,0 +1,9 @@
+@media print {
+  .menu {
+    display: block;
+  }
+
+  .no-print, .menu .items {
+    display: none !important;
+  }
+}

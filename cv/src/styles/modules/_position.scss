@@ -1,0 +1,72 @@
+.positions {
+  padding: 1em 1em 0 1em;
+
+  @include span-columns(12);
+}
+
+.position {
+  opacity: 1;
+  margin-bottom: 1em;
+  max-height: 1em * 10;
+
+  @include transition(all $anim-time);
+
+  @include span-columns(12);
+  @include omega(1n);
+
+  @include media($break-small) {
+    @include span-columns(6);
+    @include omega-reset(1n);
+    @include omega(2n);
+  }
+
+  @include media($break-large) {
+    @include span-columns(4);
+    @include omega-reset(2n);
+    @include omega(3n);
+  }
+
+  &.hide {
+    overflow: hidden;
+    max-height: 0;
+    width: 0;
+    margin: 0;
+    opacity: 0;
+    font-size: 0;
+  }
+
+  &.show {
+    .summary:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+.print .position {
+  text-align: left;
+  max-height: none;
+
+  @include span-columns(12);
+
+  .summary {
+    color: $color-text;
+    background: transparent;
+    border-radius: 0;
+    cursor: default;
+
+    &:hover {
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .sub {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+    }
+
+    .action, .year {
+      display: none;
+    }
+  }
+}

@@ -1,304 +1,35 @@
 @import "bourbon";
 @import "neat";
 
-$color-text: rgb(50, 50, 50);
-$color-content-text: $color-text;
-$color-content-light: #aaa;
-$color-content-bg: rgba(230, 230, 210, 0.75);
-$color-content-bg-hover: rgba(250, 250, 180, 0.75);
-$color-menu-bg: rgba(50, 50, 50, 0.75);
-$color-menu-text: $color-content-light;
-$color-menu-text-selected: white;
-$color-body-bg: white;
-
 $anim-time: 0.75s;
-$pad-content: 1em;
-$border-rad: $pad-content / 2;
 
 $break-large: new-breakpoint(min-width 920px);
 $break-small: new-breakpoint(min-width 640px);
+
+$color-text: rgb(50, 50, 50);
+$color-content-text: $color-text;
+$color-content-light: #aaa;
+$color-content-bg: rgba(248, 248, 248, 1);
+$color-content-bg-hover: $color-content-bg;
+$color-menu-bg: rgba(50, 50, 50, 0.75);
+$color-menu-bg-selected: white;
+$color-menu-text: $color-content-light;
+$color-menu-text-selected: $color-text;
+$color-body-bg: white;
 
 @mixin omega-reset($nth) {
   &:nth-child(#{$nth}) { margin-right: flex-gutter(); }
   &:nth-child(#{$nth}+1) { clear: none }
 }
 
-body {
-  background: $color-body-bg;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: $color-text;
-  margin: 0;
+@import "elements/body";
+@import "elements/markdown";
 
-  -webkit-text-size-adjust: 100%; // don't adjust iPhone fonts
-}
+@import "modules/content";
+@import "modules/expanded";
+@import "modules/introduction";
+@import "modules/menu";
+@import "modules/position";
+@import "modules/summary";
 
-.menu {
-  display: none;
-  position: relative;
-
-  @include media($break-large) {
-    display: block;
-    padding: $pad-content;
-    background: $color-menu-bg;
-  }
-
-  .cv {
-    font-size: 2.5em;
-    font-weight: bold;
-    margin-right: 0.25em;
-    display: inline-block;
-    color: $color-menu-text-selected;
-  }
-
-  .person {
-    display: inline-block;
-    color: $color-menu-text-selected;
-
-    & p {
-      margin: 0;
-      padding: 0;
-    }
-  }
-
-  .items {
-    position: absolute;
-    top: 1em;
-    right: 1em;
-
-    .item {
-      display: inline;
-      cursor: pointer;
-      color: $color-menu-text !important;
-      text-decoration: none;
-      margin-left: 1.5em;
-
-      &.selected {
-        color: $color-menu-text-selected !important;
-      }
-    }
-  }
-}
-
-.content {
-  @include outer-container;
-}
-
-[markdown] {
-  li {
-    margin: $pad-content / 2 0;
-  }
-
-  p {
-    margin: $pad-content 0;
-  }
-
-  h1, h2 {
-    font-size: 1em;
-    margin: 2 * $pad-content 0 0.5 * $pad-content 0;
-
-    &:first-child {
-      margin-top: $pad-content;
-    }
-  }
-}
-
-.introduction {
-  display: none;
-}
-
-.positions {
-  padding: $pad-content $pad-content 0 $pad-content;
-
-  @include span-columns(12);
-}
-
-.position {
-  opacity: 1;
-  margin-bottom: $pad-content;
-  max-height: $pad-content * 10;
-
-  @include transition(all $anim-time);
-
-  @include span-columns(12);
-  @include omega(1n);
-
-  @include media($break-small) {
-    @include span-columns(6);
-    @include omega-reset(1n);
-    @include omega(2n);
-  }
-
-  @include media($break-large) {
-    @include span-columns(4);
-    @include omega-reset(2n);
-    @include omega(3n);
-  }
-
-  &.hide {
-    overflow: hidden;
-    max-height: 0;
-    width: 0;
-    margin: 0;
-    opacity: 0;
-    font-size: 0;
-  }
-
-  &.show {
-    .summary:hover {
-      box-shadow: none;
-    }
-  }
-}
-
-.summary {
-  color: $color-content-text;
-  background: $color-content-bg;
-  border-radius: $border-rad;
-  padding: $pad-content;
-  position: relative;
-  cursor: pointer;
-
-  &:hover {
-    //background: $color-content-bg-hover;
-    box-shadow: 0 0 0.75em 0.25em rgba(0, 0, 0, 0.15);
-  }
-
-  .title {
-    font-weight: bold;
-    padding: 0 0 $pad-content / 4 0;
-  }
-
-  .company {
-    font-weight: bold;
-    padding: 0 0 $pad-content / 2 0;
-  }
-
-  .sub {
-    font-size: 0.8em;
-    color: $color-content-light;
-
-    .location {
-      padding: 0 0 $pad-content / 4 0;
-    }
-
-    .fromto {
-      padding: 0 0 0 0;
-    }
-  }
-
-  .year {
-    position: absolute;
-    top: $pad-content / 2;
-    right: $pad-content / 2;
-    color: $color-content-light;
-    width: 3em;
-    height: 3em;
-    padding: 0.75em 0;
-    border-radius: 1.5em;
-    border: 0.25em solid $color-content-light;
-    text-align: center;
-    vertical-align: middle;
-  }
-
-  .action {
-    position: absolute;
-    bottom: $pad-content / 2;
-    right: $pad-content / 2;
-    color: $color-content-light;
-
-    &:hover {
-      color: $color-content-text;
-    }
-  }
-}
-
-.expanded {
-  padding: 0;
-  cursor: pointer;
-  max-height: 0;
-  width: 0;
-  overflow: hidden;
-  opacity: 0;
-  font-size: 0;
-
-  @include transition(all $anim-time);
-
-  &.show {
-    opacity: 1;
-    max-height: 1000em;
-    font-size: inherit;
-
-    @include span-columns(12);
-
-    @include media($break-small) {
-      @include span-columns(24);
-    }
-
-    @include media($break-large) {
-      @include span-columns(36);
-    }
-  }
-
-  .section {
-    background: transparent;
-    padding: 0 $pad-content;
-    margin-bottom: 1.75 * $pad-content;
-    background: transparent;
-    border-radius: $border-rad;
-  }
-}
-
-.print {
-  .introduction {
-    padding: $pad-content;
-
-    @include span-columns(12);
-  }
-
-  .position {
-    text-align: left;
-    max-height: none;
-
-    @include span-columns(12);
-
-    .summary {
-      color: $color-text;
-      background: transparent;
-      border-radius: 0;
-      border-bottom: 1px solid $color-content-light;
-      cursor: default;
-
-      &:hover {
-        box-shadow: none;
-        background: transparent;
-      }
-
-      .sub {
-        position: absolute;
-        top: $pad-content;
-        right: $pad-content;
-      }
-
-      .action, .year {
-        display: none;
-      }
-    }
-  }
-
-  .expanded {
-    opacity: 1;
-    cursor: default;
-
-    @include span-columns(12);
-  }
-}
-
-@media print {
-  .menu {
-    display: block;
-  }
-
-  .no-print, .menu .items {
-    display: none !important;
-  }
-}
+@import "media/print";

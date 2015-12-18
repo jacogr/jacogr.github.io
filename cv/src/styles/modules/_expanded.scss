@@ -1,0 +1,42 @@
+.expanded {
+  padding: 0;
+  max-height: 0;
+  width: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-size: 0;
+  background: $color-content-bg;
+  border-radius: 0 0.5em 0.5em 0.5em;
+
+  @include transition(all $anim-time);
+
+  &.show {
+    opacity: 1;
+    max-height: 1000em;
+    font-size: inherit;
+
+    @include span-columns(12);
+
+    @include media($break-small) {
+      @include span-columns(24);
+    }
+
+    @include media($break-large) {
+      @include span-columns(36);
+    }
+  }
+
+  .section {
+    padding: 0 1em;
+    margin-bottom: 1.75 * 1em;
+    border-radius: 0.5em;
+  }
+}
+
+.print .expanded {
+  opacity: 1;
+  border-top: 1px solid $color-content-light;
+  border-radius: 0 0 0.5em 0.5em;
+
+  @include span-columns(12);
+}
