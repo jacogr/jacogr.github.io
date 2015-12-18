@@ -1,5 +1,8 @@
+$fa-font-path: "https://netdna.bootstrapcdn.com/font-awesome/4.5.0/fonts" !default;
+
 @import "bourbon";
 @import "neat";
+@import "font-awesome";
 
 $anim-time: 0.75s;
 
@@ -21,6 +24,19 @@ $color-menu-text-selected: $color-text;
 @mixin omega-reset($nth) {
   &:nth-child(#{$nth}) { margin-right: flex-gutter(); }
   &:nth-child(#{$nth}+1) { clear: none }
+}
+
+@mixin icon($name) {
+  &:before {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: inherit;
+    margin-right: 0.4em;
+  }
+
+  @extend .fa-#{$name};
 }
 
 @import "elements/body";

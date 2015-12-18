@@ -1,6 +1,7 @@
 'use strict';
 
 /* eslint no-var:0 */
+var path = require('path');
 var gulp = require('gulp');
 var annotate = require('gulp-ng-annotate');
 var babel = require('gulp-babel');
@@ -44,7 +45,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('css', function() {
-  var nm = __dirname + '/node_modules';
+  var nm = path.join(__dirname, '/node_modules'); // eslint-disable-line no-undef
 
   return gulp
     .src(['src/styles/**/*.scss'])
@@ -52,9 +53,11 @@ gulp.task('css', function() {
       indentedSyntax: false,
       sourceComments: 'normal',
       outputStyle: 'nested',
-      includePaths: ['bourbon', 'bourbon-neat'].map(function(p) {
-        return nm + '/' + p + '/app/assets/stylesheets'; // eslint-disable-line prefer-template
-      })
+      includePaths: [
+        path.join(nm, '/bourbon/app/assets/stylesheets'),
+        path.join(nm, '/bourbon-neat/app/assets/stylesheets'),
+        path.join(nm, '/font-awesome/scss')
+      ]
     }))
     .on('error', errcb)
     .pipe(ignore.exclude('*.css.map'))
