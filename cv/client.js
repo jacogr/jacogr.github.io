@@ -7,6 +7,7 @@ module('cv').
 controller('cvController', ["$location", "$scope", "$timeout", "Data", function ($location, $scope, $timeout, Data) {var _this = this;
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+  this.menu = [{ url: '/summary', title: 'Summary' }, { url: '/print', title: 'Print' }];
   this.data = Data;
   this.entry = undefined;
 

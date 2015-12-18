@@ -6,7 +6,7 @@
   opacity: 0;
   font-size: 0;
   background: $color-content-bg;
-  border-radius: 0 0.5em 0.5em 0.5em;
+  border-radius: 0.5em;
 
   @include transition(all $anim-time);
 
@@ -35,8 +35,9 @@
 
 .print .expanded {
   opacity: 1;
-  border-top: 1px solid $color-content-light;
+  border-top: 1px solid $color-content-border;
   border-radius: 0 0 0.5em 0.5em;
+  margin-bottom: 1.5em;
 
   @include span-columns(12);
 }

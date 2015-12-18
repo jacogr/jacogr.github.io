@@ -6,7 +6,6 @@
 
 .position {
   opacity: 1;
-  margin-bottom: 1em;
   max-height: 1em * 10;
 
   @include transition(all $anim-time);
@@ -36,9 +35,6 @@
   }
 
   &.show {
-    .summary:hover {
-      box-shadow: none;
-    }
   }
 }
 
@@ -47,26 +43,4 @@
   max-height: none;
 
   @include span-columns(12);
-
-  .summary {
-    color: $color-text;
-    background: transparent;
-    border-radius: 0;
-    cursor: default;
-
-    &:hover {
-      box-shadow: none;
-      background: transparent;
-    }
-
-    .sub {
-      position: absolute;
-      top: 1em;
-      right: 1em;
-    }
-
-    .action, .year {
-      display: none;
-    }
-  }
 }

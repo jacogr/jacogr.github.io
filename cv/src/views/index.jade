@@ -14,19 +14,16 @@ html(lang="en" ng-app="cv")
   body.ng-cloak(ng-controller="cvController as cv" ng-class="cv.isPath('/print') && 'print'")
     .menu
       .cv CV
-      .person
-        p(ng-repeat="type in ['name', 'position']") {{cv.data[type]}}
-      .items
-        a.item(href="#/summary" ng-class="cv.isPath('/summary') && 'selected'") Summary
-        a.item(href="#/print" ng-class="cv.isPath('/print') && 'selected'") Print
+      .person: p(ng-repeat="type in ['name', 'position']") {{cv.data[type]}}
+      .items: a.item(ng-repeat="menu in cv.menu" ng-href="#{{menu.url}}" ng-class="cv.isPath(menu.url) && 'selected'") {{menu.title}}
       
     .content
       .introduction(markdown="cv.data.summary")
       
       .positions
-        .position(ng-repeat="pos in cv.data.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos, 'show': cv.entry && cv.entry == pos }")
-          .summary(ng-click="cv.show(pos)")
-            .action.fa(ng-class="{ 'fa-level-down': cv.entry != pos, 'fa-level-up': cv.entry == pos }")
+        .position(ng-repeat="pos in cv.data.positions" ng-class="{ 'hide': cv.entry && cv.entry != pos, 'show': cv.entry && cv.entry == pos }" ng-click="cv.show(pos)")
+          .summary
+            .action.fa(ng-class="cv.entry == pos ? 'fa-level-up' : 'fa-level-down'")
             .title {{pos.position}}
             .company {{pos.company}}
             .sub

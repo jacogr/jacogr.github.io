@@ -6,16 +6,17 @@ $anim-time: 0.75s;
 $break-large: new-breakpoint(min-width 920px);
 $break-small: new-breakpoint(min-width 640px);
 
+$color-body-bg: rgba(248, 248, 248, 1);
 $color-text: rgb(50, 50, 50);
 $color-content-text: $color-text;
 $color-content-light: #aaa;
-$color-content-bg: rgba(248, 248, 248, 1);
+$color-content-bg: white;
 $color-content-bg-hover: $color-content-bg;
+$color-content-border: #eee;
 $color-menu-bg: rgba(50, 50, 50, 0.75);
-$color-menu-bg-selected: white;
+$color-menu-bg-selected: $color-body-bg;
 $color-menu-text: $color-content-light;
 $color-menu-text-selected: $color-text;
-$color-body-bg: white;
 
 @mixin omega-reset($nth) {
   &:nth-child(#{$nth}) { margin-right: flex-gutter(); }
