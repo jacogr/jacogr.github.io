@@ -156,11 +156,18 @@ HealthBridge is an innovative transaction switch with a focus on the medical ind
       position: 'Senior Developer',
       level: 'staff',
       description: `# Company
-Internet Solution is a leading ISP in ZA. In addition to the traditional ISP business, they also did project-based work for clients with Internet deployments and website development.
+Internet Solution is a leading ISP in ZA. In addition to the traditional ISP business, they also did project-based work for clients around website development.
+
+# Role
+Employed as a C++ developer, the focus was on developing a real-time switch for the healhcare industry. It was mplemented as a full-stack solution from the ground-up, with a HTTP-server and self-signed PKI infrastructure backing secure messages.
+
 # Responsibilities
 * Team Lead for the Dimension Data Healthcare project
-* Design and development of a real-time messaging switch for the Dimension Data Healthcare initiative
-* Dimension Data Healthcare led to the formation of HealthBridge`
+* Design and development of a real-time, secure messaging switch
+* Consultation on scalability & growth of the switch for the applicability for a new venture
+
+# Leaving
+The real-time switch project was spun-off into a seperate company, HealthBridge as a 100%-owned Internet Solutions subsidiary.`
     });
 
     this._add({

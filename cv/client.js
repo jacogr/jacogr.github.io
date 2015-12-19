@@ -14,135 +14,6 @@ run(["$location", "$rootScope", "$timeout", function ($location, $rootScope, $ti
     $location.path('/summary');}}]);
 'use strict';angular.
 module('cv').
-directive('cv', function () {
-  return { 
-    restrict: 'E', 
-    controller: 'cvController', 
-    replace: true, 
-    template: '\n        <div class="content" ng-class="isPrint() && \'print\'">\n          <markdown class="introduction" data="data.summary"></markdown>\n          <div class="positions">\n            <position ng-repeat="position in data.positions" data="position"></position>\n          </div>\n        </div>' };}).
-
-
-
-
-
-
-
-
-controller('cvController', ["$location", "$scope", "CVData", function ($location, $scope, CVData) {
-  $scope.data = CVData;
-
-  $scope.isPrint = function () {
-    return $location.path() === '/print';};}]);
-'use strict';angular.
-module('cv').
-directive('markdown', function () {
-  return { 
-    restrict: 'E', 
-    controller: 'markdownController', 
-    replace: true, 
-    scope: { 
-      data: '=data' }, 
-
-    template: '<div class="markdown" ng-bind-html="html"></div>' };}).
-
-
-controller('markdownController', ["$scope", function ($scope) {
-  var conv = new showdown.Converter(); // eslint-disable-line no-undef
-
-  $scope.html = conv.makeHtml($scope.data);}]);
-'use strict';angular.
-module('cv').
-directive('menu', function () {
-  return { 
-    restrict: 'E', 
-    controller: 'menuController', 
-    replace: true, 
-    template: '\n        <div class="menu">\n          <div class="cv">CV</div>\n          <div class="person">\n            <p>{{ data.name }}</p>\n            <p>{{ data.position }}</p>\n          </div>\n          <div class="items">\n            <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" ng-class="isPath(item.url) && \'selected\'">\n              {{ item.title }}\n            </a>\n          </div>\n        </div>' };}).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-controller('menuController', ["$location", "$scope", "CVData", function ($location, $scope, CVData) {
-  $scope.menu = [
-  { url: '/summary', title: 'Summary' }, 
-  { url: '/print', title: 'Print' }];
-
-
-  $scope.data = CVData;
-
-  $scope.isPath = function (url) {
-    return $location.path() === url;};}]);
-'use strict';angular.
-module('cv').
-directive('position', function () {
-  return { 
-    restrict: 'E', 
-    controller: 'positionController', 
-    scope: { 
-      data: '=data' }, 
-
-    replace: true, 
-    template: '\n        <div class="position" ng-class="(isHidden() && \'hide\') || (isExtended() && \'show\')" ng-click="show()">\n          <div class="summary">\n            <div class="action fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n            <div class="title">{{ data.position }}</div>\n            <div class="company">{{ data.company }}</div>\n            <div class="sub">\n              <div class="location">{{ data.location }}</div>\n              <div class="fromto">{{ getDate() }}</div>\n            </div>\n            <div class="year">\'{{ getShortYear() }}</div>\n          </div>\n          <markdown class="expanded" data="data.description" ng-class="isExtended() && \'show\'"></markdown>\n        </div>' };}).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-controller('positionController', ["$scope", "$location", function ($scope, $location) {
-  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var viewPath = '/' + $scope.data.id;
-  var summaryPath = '/summary';
-  var printPath = '/print';
-
-  $scope.show = function () {
-    var path = $location.path();
-
-    if (path === viewPath) {
-      $location.path(summaryPath);} else 
-    if (path === summaryPath) {
-      $location.path(viewPath);}};
-
-
-
-  $scope.isExtended = function () {
-    return _.contains([printPath, viewPath], $location.path());};
-
-
-  $scope.isHidden = function () {
-    return !_.contains([printPath, summaryPath, viewPath], $location.path());};
-
-
-  $scope.getDate = function () {
-    var start = months[$scope.data.start.month - 1] + ' ' + $scope.data.start.year;
-    var end = $scope.data.end ? months[$scope.data.end.month - 1] + ' ' + $scope.data.end.year : 'Current';
-
-    return start + ' - ' + end;};
-
-
-  $scope.getShortYear = function () {
-    return ('' + ($scope.data.end ? $scope.data.end.year : new Date().getFullYear())).slice(-2);};}]);
-'use strict';angular.
-module('cv').
 service('CVData', function () {
   var _date = function _date(year, month) {
     return { year: year, month: month };};
@@ -298,7 +169,14 @@ service('CVData', function () {
     location: 'Johannesburg, ZA', 
     position: 'Senior Developer', 
     level: 'staff', 
-    description: '# Company\nInternet Solution is a leading ISP in ZA. In addition to the traditional ISP business, they also did project-based work for clients with Internet deployments and website development.\n# Responsibilities\n* Team Lead for the Dimension Data Healthcare project\n* Design and development of a real-time messaging switch for the Dimension Data Healthcare initiative\n* Dimension Data Healthcare led to the formation of HealthBridge' });
+    description: '# Company\nInternet Solution is a leading ISP in ZA. In addition to the traditional ISP business, they also did project-based work for clients around website development.\n\n# Role\nEmployed as a C++ developer, the focus was on developing a real-time switch for the healhcare industry. It was mplemented as a full-stack solution from the ground-up, with a HTTP-server and self-signed PKI infrastructure backing secure messages.\n\n# Responsibilities\n* Team Lead for the Dimension Data Healthcare project\n* Design and development of a real-time, secure messaging switch\n* Consultation on scalability & growth of the switch for the applicability for a new venture\n\n# Leaving\nThe real-time switch project was spun-off into a seperate company, HealthBridge as a 100%-owned Internet Solutions subsidiary.' });
+
+
+
+
+
+
+
 
 
 
@@ -383,3 +261,132 @@ service('CVData', function () {
     position: 'B.Eng (Electronic)', 
     level: 'student', 
     description: '# University\nThe Faculty of Engineering at Stellenbosch University is one of South Africa\'s major producers of top quality engineers. Established in 1944, the Faculty is one of the oldest engineering universities in the country.\n\n# Studies\nHaving a passion for Electronics from an early age (1984-) and discovering a love for computers on the ZX Spectrum (1986-), a degree in Electronic Engineering was the logical next-step to combine the interests. The degree was completed in the minimum period (4 years) without failing any subjects along the way. Elective subjects were focussed on micoprocessors, discreet electronics and computer science.\n\n# Leaving\nAfter completion of the B.Eng (Electronic), studies continued with a part-time M.Eng (Metallurgical) and University Bursary, for the evaluation of Genetic Programming (AI) on the problems presented in the metallugical industry. A number of papers were published in international journals, however the M.Eng was not completed since it was better suited to full-time focus.' });});
+'use strict';angular.
+module('cv').
+directive('cv', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'cvController', 
+    replace: true, 
+    template: '\n        <div class="content" ng-class="isPrint() && \'print\'">\n          <markdown class="introduction" data="data.summary"></markdown>\n          <div class="positions">\n            <position ng-repeat="position in data.positions" data="position"></position>\n          </div>\n        </div>' };}).
+
+
+
+
+
+
+
+
+controller('cvController', ["$location", "$scope", "CVData", function ($location, $scope, CVData) {
+  $scope.data = CVData;
+
+  $scope.isPrint = function () {
+    return $location.path() === '/print';};}]);
+'use strict';angular.
+module('cv').
+directive('markdown', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'markdownController', 
+    replace: true, 
+    scope: { 
+      data: '=data' }, 
+
+    template: '<div class="markdown" ng-bind-html="html"></div>' };}).
+
+
+controller('markdownController', ["$scope", function ($scope) {
+  var conv = new showdown.Converter(); // eslint-disable-line no-undef
+
+  $scope.html = conv.makeHtml($scope.data);}]);
+'use strict';angular.
+module('cv').
+directive('menu', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'menuController', 
+    replace: true, 
+    template: '\n        <div class="menu">\n          <div class="cv">CV</div>\n          <div class="person">\n            <p>{{ data.name }}</p>\n            <p>{{ data.position }}</p>\n          </div>\n          <div class="items">\n            <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" ng-class="isPath(item.url) && \'selected\'">\n              {{ item.title }}\n            </a>\n          </div>\n        </div>' };}).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+controller('menuController', ["$location", "$scope", "CVData", function ($location, $scope, CVData) {
+  $scope.menu = [
+  { url: '/summary', title: 'Summary' }, 
+  { url: '/print', title: 'Print' }];
+
+
+  $scope.data = CVData;
+
+  $scope.isPath = function (url) {
+    return $location.path() === url;};}]);
+'use strict';angular.
+module('cv').
+directive('position', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'positionController', 
+    scope: { 
+      data: '=data' }, 
+
+    replace: true, 
+    template: '\n        <div class="position" ng-class="(isHidden() && \'hide\') || (isExtended() && \'show\')" ng-click="show()">\n          <div class="summary">\n            <div class="action fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n            <div class="title">{{ data.position }}</div>\n            <div class="company">{{ data.company }}</div>\n            <div class="sub">\n              <div class="location">{{ data.location }}</div>\n              <div class="fromto">{{ getDate() }}</div>\n            </div>\n            <div class="year">\'{{ getShortYear() }}</div>\n          </div>\n          <markdown class="expanded" data="data.description" ng-class="isExtended() && \'show\'"></markdown>\n        </div>' };}).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+controller('positionController', ["$scope", "$location", function ($scope, $location) {
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var viewPath = '/' + $scope.data.id;
+  var summaryPath = '/summary';
+  var printPath = '/print';
+
+  $scope.show = function () {
+    var path = $location.path();
+
+    if (path === viewPath) {
+      $location.path(summaryPath);} else 
+    if (path === summaryPath) {
+      $location.path(viewPath);}};
+
+
+
+  $scope.isExtended = function () {
+    return _.contains([printPath, viewPath], $location.path());};
+
+
+  $scope.isHidden = function () {
+    return !_.contains([printPath, summaryPath, viewPath], $location.path());};
+
+
+  $scope.getDate = function () {
+    var start = months[$scope.data.start.month - 1] + ' ' + $scope.data.start.year;
+    var end = $scope.data.end ? months[$scope.data.end.month - 1] + ' ' + $scope.data.end.year : 'Current';
+
+    return start + ' - ' + end;};
+
+
+  $scope.getShortYear = function () {
+    return ('' + ($scope.data.end ? $scope.data.end.year : new Date().getFullYear())).slice(-2);};}]);
