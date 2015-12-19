@@ -1,20 +1,18 @@
 angular
   .module('cv')
-  .directive('markdown', function($sanitize) {
+  .directive('markdown', function() {
+    return {
+      restrict: 'E',
+      controller: 'markdownController',
+      replace: true,
+      scope: {
+        data: '=data'
+      },
+      template: '<div class="markdown" ng-bind-html="html"></div>'
+    };
+  })
+  .controller('markdownController', function($scope) {
     const conv = new showdown.Converter(); // eslint-disable-line no-undef
 
-    return {
-      restrict: 'AE',
-      link: function(scope, element, attrs) {
-        if (attrs.markdown) {
-          scope.$watch(attrs.markdown, function(newVal) {
-            const html = newVal ? $sanitize(conv.makeHtml(newVal)) : '';
-            element.html(html);
-          });
-        } else {
-          const html = $sanitize(conv.makeHtml(element.text()));
-          element.html(html);
-        }
-      }
-    };
+    $scope.html = conv.makeHtml($scope.data);
   });

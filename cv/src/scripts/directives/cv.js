@@ -7,7 +7,7 @@ angular
       replace: true,
       template: `
         <div class="content" ng-class="isPrint() && 'print'">
-          <div class="introduction" markdown="data.summary"></div>
+          <markdown class="introduction" data="data.summary"></markdown>
           <div class="positions">
             <position ng-repeat="position in data.positions" data="position"></position>
           </div>

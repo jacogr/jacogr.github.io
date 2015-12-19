@@ -1,22 +1,14 @@
 .expanded {
   padding: 0;
   max-height: 0;
-  width: 0;
-  overflow: hidden;
-  opacity: 0;
   font-size: 0;
 
+  @include span-columns(12);
   @include transition(all $anim-time);
 
   &.show {
-    opacity: 1;
     max-height: 1000em;
     font-size: inherit;
-
-    @include span-columns(12);
-  }
-
-  .section {
     padding: 0 1em;
     margin-bottom: 1.75em;
   }

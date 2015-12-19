@@ -20,9 +20,7 @@ angular
             </div>
             <div class="year">'{{ getShortYear() }}</div>
           </div>
-          <div class="expanded" ng-class="isExtended() && 'show'">
-            <div class="section" markdown="data.description"></div>
-          </div>
+          <markdown class="expanded" data="data.description" ng-class="isExtended() && 'show'"></markdown>
         </div>`
     };
   })

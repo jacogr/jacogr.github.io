@@ -19,7 +19,7 @@ directive('cv', function () {
     restrict: 'E', 
     controller: 'cvController', 
     replace: true, 
-    template: '\n        <div class="content" ng-class="isPrint() && \'print\'">\n          <div class="introduction" markdown="data.summary"></div>\n          <div class="positions">\n            <position ng-repeat="position in data.positions" data="position"></position>\n          </div>\n        </div>' };}).
+    template: '\n        <div class="content" ng-class="isPrint() && \'print\'">\n          <markdown class="introduction" data="data.summary"></markdown>\n          <div class="positions">\n            <position ng-repeat="position in data.positions" data="position"></position>\n          </div>\n        </div>' };}).
 
 
 
@@ -35,20 +35,21 @@ controller('cvController', ["$location", "$scope", "CVData", function ($location
     return $location.path() === '/print';};}]);
 'use strict';angular.
 module('cv').
-directive('markdown', ["$sanitize", function ($sanitize) {
+directive('markdown', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'markdownController', 
+    replace: true, 
+    scope: { 
+      data: '=data' }, 
+
+    template: '<div class="markdown" ng-bind-html="html"></div>' };}).
+
+
+controller('markdownController', ["$scope", function ($scope) {
   var conv = new showdown.Converter(); // eslint-disable-line no-undef
 
-  return { 
-    restrict: 'AE', 
-    link: function link(scope, element, attrs) {
-      if (attrs.markdown) {
-        scope.$watch(attrs.markdown, function (newVal) {
-          var html = newVal ? $sanitize(conv.makeHtml(newVal)) : '';
-          element.html(html);});} else 
-
-      {
-        var html = $sanitize(conv.makeHtml(element.text()));
-        element.html(html);}} };}]);
+  $scope.html = conv.makeHtml($scope.data);}]);
 'use strict';angular.
 module('cv').
 directive('menu', function () {
@@ -91,9 +92,7 @@ directive('position', function () {
       data: '=data' }, 
 
     replace: true, 
-    template: '\n        <div class="position" ng-class="(isHidden() && \'hide\') || (isExtended() && \'show\')" ng-click="show()">\n          <div class="summary">\n            <div class="action fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n            <div class="title">{{ data.position }}</div>\n            <div class="company">{{ data.company }}</div>\n            <div class="sub">\n              <div class="location">{{ data.location }}</div>\n              <div class="fromto">{{ getDate() }}</div>\n            </div>\n            <div class="year">\'{{ getShortYear() }}</div>\n          </div>\n          <div class="expanded" ng-class="isExtended() && \'show\'">\n            <div class="section" markdown="data.description"></div>\n          </div>\n        </div>' };}).
-
-
+    template: '\n        <div class="position" ng-class="(isHidden() && \'hide\') || (isExtended() && \'show\')" ng-click="show()">\n          <div class="summary">\n            <div class="action fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n            <div class="title">{{ data.position }}</div>\n            <div class="company">{{ data.company }}</div>\n            <div class="sub">\n              <div class="location">{{ data.location }}</div>\n              <div class="fromto">{{ getDate() }}</div>\n            </div>\n            <div class="year">\'{{ getShortYear() }}</div>\n          </div>\n          <markdown class="expanded" data="data.description" ng-class="isExtended() && \'show\'"></markdown>\n        </div>' };}).
 
 
 
@@ -214,7 +213,7 @@ service('CVData', function () {
     location: 'Johannesburg, ZA & Hyderabad, IN', 
     position: 'CTO', 
     level: 'executive', 
-    description: '# Company\nCura is a GRC (Governance, Risk & Compliance) company listed on the BSE (Mumbai). Rated by Gartner as one of the Visionaries in GRC, the company has grown from a South African software start-up to a global force with offices in Boston (Head Office), Johannesburg, London, Melbourne and Hyderabad.\n# Role\nInitially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsible for the critical design and implementation of the next generation product architecture. As CTO, he had the overall responsibility for product design and delivery, managing a global team between South Africa (established, 30 staff) & India (new, 100 staff).\n# Responsibilities\n* Feedback on technology matters & product progress as member of the Global EXCO (CEO, County MD’s & CTO) and MANCOs in South Africa and India\n* Board presentations on technology, inclusive of product strategy, roadmap and budget tracking\n* Management of the global R&D team across continents\n* Direct-line responsibility over technical middle-management, including Global Support Manager, Global Product Managers, Directors of Engineering (SA and India), Development Managers and Lead Architects\n* Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients\n# Leaving\nAs a South African-based CTO for an Indian-owned company (Cura was founded in ZA, but sold to a IN company), the travel and focus overheads leads a large number of inefficiencies.' });
+    description: '# Company\nCura is a GRC (Governance, Risk & Compliance) company listed on the BSE (Mumbai). Rated by Gartner as one of the Visionaries in GRC, the company has grown from a South African software start-up to a global force with offices in Boston (Head Office), Johannesburg, London, Melbourne and Hyderabad.\n# Role\nInitially employed as Chief Architect (Sep 2008 - Sep 2009), I was responsible for the critical design and implementation of the next generation product architecture. As CTO, I had the overall responsibility for product design and delivery, managing a global team between South Africa (established, 30 staff) & India (new, 100 staff).\n# Responsibilities\n* Feedback on technology matters & product progress as member of the Global EXCO (CEO, County MD’s & CTO) and MANCOs in South Africa and India\n* Board presentations on technology, inclusive of product strategy, roadmap and budget tracking\n* Management of the global R&D team across continents\n* Direct-line responsibility over technical middle-management, including Global Support Manager, Global Product Managers, Directors of Engineering (SA and India), Development Managers and Lead Architects\n* Final responsibility for Architecture, Product Management, Product Releases & Product Support for 300 global clients\n# Leaving\nAs a South African-based CTO for an Indian-owned company (Cura was founded in ZA, but sold to a IN company), the travel and focus overheads leads a large number of inefficiencies.' });
 
 
 
@@ -257,7 +256,7 @@ service('CVData', function () {
     location: 'Johannesburg, ZA', 
     position: 'Senior Architect', 
     level: 'management', 
-    description: '# Company\nDiscovery Health is South Africa’s largest medical insurance company with a history of innovative and disruptive products.\n# Role\nAs Senior Architect & Divisional Manager, Jaco was responsible for the overall architecture alignment and direction accross the Health System division, the company\'s flagship. With a wide variety of technologies, new as well as legacy systems, 14 teams with different short and medium term deliverables and high-volume transaction processing with direct impacts on the client-base, the role was critical to the overall success of the product suite.\n# Responsibilities\n* Representing Health Systems on the Health Claims Operations EXCO\n* Representing Architects on Health Systems MANCO and Program Management forums\n* Performance review and employment of 14 area-specific System Architects\n* Responsible for the overall systems architecture of all clinical systems inside Discovery (Claims Processing, Discovery Care, Electronic Transaction Management, New Business, Member Administration)\n* Work with the System Architects (area/system specific) to align the clinical architectures across Health Systems, including overall reviews and setting standards for the 120+ development team\n* Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health\n# Leaving\nWhile the reach was immense and the impact directly beneficial to the lives of ordinary people, large companies and the slower speed was not 100% suitable.' });
+    description: '# Company\nDiscovery Health is South Africa’s largest medical insurance company with a history of innovative and disruptive products.\n# Role\nAs Senior Architect & Divisional Manager, I was responsible for the overall architecture alignment and direction accross the Health System division, the company\'s flagship. With a wide variety of technologies, new as well as legacy systems, 14 teams with different short and medium term deliverables and high-volume transaction processing with direct impacts on the client-base, the role was critical to the overall success of the product suite.\n# Responsibilities\n* Representing Health Systems on the Health Claims Operations EXCO\n* Representing Architects on Health Systems MANCO and Program Management forums\n* Performance review and employment of 14 area-specific System Architects\n* Responsible for the overall systems architecture of all clinical systems inside Discovery (Claims Processing, Discovery Care, Electronic Transaction Management, New Business, Member Administration)\n* Work with the System Architects (area/system specific) to align the clinical architectures across Health Systems, including overall reviews and setting standards for the 120+ development team\n* Working with General Manager responsible for Business Architecture to define the overall Business Architecture strategy for Discovery Health\n# Leaving\nWhile the reach was immense and the impact directly beneficial to the lives of ordinary people, large companies and the slower speed was not 100% suitable.' });
 
 
 
@@ -330,7 +329,15 @@ service('CVData', function () {
     location: 'Tokai, ZA', 
     position: 'Developer', 
     level: 'staff', 
-    description: '# Company\nGrinaker Electronics is a project-based company in the commercial sector (vehicle tracking) along with the implementation of projects for defense agencies such as ARMSCOR.\n# Responsibilities\n* Development and maintenance of the G-Track vehicle tracking system\n* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR as part of a new radio communications platform' });
+    description: '# Company\nGrinaker Electronics is a project-based company in the commercial sector (with the first vehicle tracking solution in South Africa) along with the implementation of projects for defense agencies such as ARMSCOR.\n\n# Role\nInitially employed as a C++ developer on the vehicle tracking platform. After the vehicle-tracking division was aquired and operations moved to Johannesburg, I moved to the defense division as a Delphi, Pascal & embedded developer on a from-the-ground-up radio communications platform.\n\n# Responsibilities\n* Development and maintenance of the G-Track vehicle tracking system\n* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR on a new radio communications platform\n* Design & dcoumentation for the radio communication platform according to military standards\n\n# Leaving\nAs a first full-time job, the experience at the company was invaluable, however the opportunity to work with a startup in an AI field was not something to dismiss.' });
+
+
+
+
+
+
+
+
 
 
 
