@@ -9,7 +9,7 @@ angular
       },
       replace: true,
       template: `
-        <div class="position" ng-class="isHidden() && 'hide'" ng-click="show()">
+        <div class="position" ng-class="(isHidden() && 'hide') || (isExtended() && 'show')" ng-click="show()">
           <div class="summary">
             <div class="action fa" ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'"></div>
             <div class="title">{{ data.position }}</div>

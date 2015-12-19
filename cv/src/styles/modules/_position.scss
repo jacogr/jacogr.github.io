@@ -6,7 +6,18 @@
 
 .position {
   opacity: 1;
-  max-height: 1em * 10;
+  max-height: 1000em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  color: $color-content-text;
+  background: $color-content-bg;
+  border: 1px solid $color-content-border;
+  margin-bottom: 1em;
+
+  &:hover {
+    background: $color-content-bg-hover;
+    box-shadow: 0 0 0.75em 0.25em rgba(0, 0, 0, 0.1);
+  }
 
   @include transition(all $anim-time);
 
@@ -35,12 +46,28 @@
   }
 
   &.show {
+    @include media($break-small) {
+      @include span-columns(12);
+    }
+
+    @include media($break-large) {
+      @include span-columns(12);
+    }
   }
 }
 
 .print .position {
+  color: $color-text;
+  cursor: default;
   text-align: left;
   max-height: none;
+  background: transparent;
+  border-color: transparent;
+
+  &:hover {
+    background: transparent;
+    box-shadow: none;
+  }
 
   @include span-columns(12);
 }

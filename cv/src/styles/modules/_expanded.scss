@@ -5,8 +5,6 @@
   overflow: hidden;
   opacity: 0;
   font-size: 0;
-  background: $color-content-bg;
-  border-radius: 0.5em;
 
   @include transition(all $anim-time);
 
@@ -17,18 +15,18 @@
 
     @include span-columns(12);
 
-    @include media($break-small) {
+    /*@include media($break-small) {
       @include span-columns(24);
     }
 
     @include media($break-large) {
       @include span-columns(36);
-    }
+    }*/
   }
 
   .section {
     padding: 0 1em;
-    margin-bottom: 1.75 * 1em;
+    margin-bottom: 1.75em;
     border-radius: 0.5em;
   }
 }

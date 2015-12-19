@@ -1,17 +1,6 @@
 .summary {
-  color: $color-content-text;
-  background: $color-content-bg;
-  border-radius: 0.5em;
   padding: 1em;
-  margin-bottom: 1em;
   position: relative;
-  cursor: pointer;
-  border: 1px solid $color-content-border;
-
-  &:hover {
-    background: $color-content-bg-hover;
-    box-shadow: 0 0 0.75em 0.25em rgba(0, 0, 0, 0.1);
-  }
 
   .title {
     font-weight: bold;
@@ -59,18 +48,7 @@
 }
 
 .print .summary {
-  color: $color-text;
-  background: transparent;
-  border-radius: 0;
-  cursor: default;
-  border-color: transparent;
-  margin-bottom: 0;
   padding-bottom: 0.5em;
-
-  &:hover {
-    box-shadow: none;
-    background: transparent;
-  }
 
   .sub {
     position: absolute;
