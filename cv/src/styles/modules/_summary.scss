@@ -53,10 +53,15 @@
   .sub {
     position: absolute;
     bottom: 1em;
-    right: 1em;
+    right: 5em;
+    text-align: right;
   }
 
-  .action, .year {
+  .action {
     display: none;
+  }
+
+  .year {
+    top: 1em;
   }
 }

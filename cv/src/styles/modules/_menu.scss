@@ -44,7 +44,7 @@
       &.selected {
         color: $color-menu-text-selected;
         background: $color-menu-bg-selected;
-        border-radius: 0.25em 0.25em 0 0;
+        border-radius: $border-rad $border-rad 0 0;
       }
     }
   }

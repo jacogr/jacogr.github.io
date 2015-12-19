@@ -6,4 +6,8 @@
   .no-print, .menu .items {
     display: none !important;
   }
+
+  .content, .content.print {
+    border: none;
+  }
 }

@@ -14,27 +14,17 @@
     font-size: inherit;
 
     @include span-columns(12);
-
-    /*@include media($break-small) {
-      @include span-columns(24);
-    }
-
-    @include media($break-large) {
-      @include span-columns(36);
-    }*/
   }
 
   .section {
     padding: 0 1em;
     margin-bottom: 1.75em;
-    border-radius: 0.5em;
   }
 }
 
 .print .expanded {
   opacity: 1;
   border-top: 1px solid $color-content-border;
-  border-radius: 0 0 0.5em 0.5em;
   margin-bottom: 1.5em;
 
   @include span-columns(12);
