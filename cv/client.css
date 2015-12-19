@@ -680,7 +680,7 @@ body{background:#f8f8f8;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 .menu .items .item.selected{color:#323232;background:#f8f8f8;border-radius:.25em .25em 0 0}
 .positions{padding:0 1em;margin-right:2.35765%;width:100%}
 .positions:last-child{margin-right:0}
-.position{opacity:1;max-height:1000em;border-radius:.25em;cursor:pointer;color:#323232;background:#fff;border:1px solid #eee;margin-bottom:1em;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s;margin-right:2.35765%;width:100%}
+.position{max-height:1000em;border-radius:.25em;cursor:pointer;color:#323232;background:#fff;border:1px solid #eee;margin-bottom:1em;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s;margin-right:2.35765%;width:100%}
 .position:hover{background:#fff;box-shadow:0 0 .75em .25em rgba(0,0,0,.1)}
 .position:last-child,.position:nth-child(1n){margin-right:0}
 .position:nth-child(1n+1){clear:left}
@@ -698,7 +698,7 @@ body{background:#f8f8f8;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
 .position:nth-child(3n){margin-right:0}
 .position:nth-child(3n+1){clear:left}
 }
-.position.hide{overflow:hidden;max-height:0;width:0;margin:0;opacity:0;font-size:0}
+.position.hide{overflow:hidden;max-height:0;width:0;margin:0;font-size:0}
 @media screen and (min-width:640px){.position.show{float:left;display:block;margin-right:2.35765%;width:100%}
 .position.show:last-child{margin-right:0}
 }
