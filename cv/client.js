@@ -314,7 +314,15 @@ service('CVData', function () {
     location: 'Stellenbosch & Pretoria, ZA', 
     position: 'Developer', 
     level: 'staff', 
-    description: '# Company\nCrusader System is an Artificial Intelligence consulting company with a large focus on process optimization in the mining industry.\n# Responsibilities\n* Development of the first-generation AI modeling tool, ModelGen\n* Consulting to Richard’s Bay Mineral and Karee Platinum mines on process optimization using the ModelGen toolset' });
+    description: '# Company\nCrusader System is an Artificial Intelligence consulting company with a large focus on process optimization in the mining industry. Started as a result of work outflowing from the Ph.D studies of it\'s founder & CEO, it focusses on providing real returns in areas such as platinum mining.\n\n# Role\nEmployed as developer (C++ & Delphi), the role expanded rapidly into Engineering consultant with a large focus on product implementation and deployment at mines as opposed to product development. The role allowed me to make a real impact on production processes, uncovering a large number of areas where the mining refinement processes can be optimised for consistent yields.\n\n# Responsibilities\n* Development of the first-generation AI modeling tool, ModelGen\n* Consulting to Richard’s Bay Mineral and Karee Platinum mines on yield optimization using ModelGen\n* On-site adaption and extension of the ModelGen suite based on client needs and feedback\n\n# Leaving\nHome is where the heart is, but as a consulting Engineer continous travel was required between Pretoria, Stellenbosh, Karee & Richard\'s Bay. A pure consulting focus (as opposed to development) was not deemed appropriate at this point.' });
+
+
+
+
+
+
+
+
 
 
 
