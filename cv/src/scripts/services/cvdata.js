@@ -73,7 +73,7 @@ The Company and the technology assets were aquired in Aug 2012. At this point th
       description: `# Company
 Cura is a GRC (Governance, Risk & Compliance) company listed on the BSE (Mumbai). Rated by Gartner as one of the Visionaries in GRC, the company has grown from a South African software start-up to a global force with offices in Boston (Head Office), Johannesburg, London, Melbourne and Hyderabad.
 # Role
-Initially employed as Chief Architect (Sep 2008 - Sep 2009), Jaco was responsible for the critical design and implementation of the next generation product architecture. As CTO, he had the overall responsibility for product design and delivery, managing a global team between South Africa (established, 30 staff) & India (new, 100 staff).
+Initially employed as Chief Architect (Sep 2008 - Sep 2009), I was responsible for the critical design and implementation of the next generation product architecture. As CTO, I had the overall responsibility for product design and delivery, managing a global team between South Africa (established, 30 staff) & India (new, 100 staff).
 # Responsibilities
 * Feedback on technology matters & product progress as member of the Global EXCO (CEO, County MD’s & CTO) and MANCOs in South Africa and India
 * Board presentations on technology, inclusive of product strategy, roadmap and budget tracking
@@ -116,7 +116,7 @@ As an single independent consultant, reach, impact and execution capabilities ar
       description: `# Company
 Discovery Health is South Africa’s largest medical insurance company with a history of innovative and disruptive products.
 # Role
-As Senior Architect & Divisional Manager, Jaco was responsible for the overall architecture alignment and direction accross the Health System division, the company's flagship. With a wide variety of technologies, new as well as legacy systems, 14 teams with different short and medium term deliverables and high-volume transaction processing with direct impacts on the client-base, the role was critical to the overall success of the product suite.
+As Senior Architect & Divisional Manager, I was responsible for the overall architecture alignment and direction accross the Health System division, the company's flagship. With a wide variety of technologies, new as well as legacy systems, 14 teams with different short and medium term deliverables and high-volume transaction processing with direct impacts on the client-base, the role was critical to the overall success of the product suite.
 # Responsibilities
 * Representing Health Systems on the Health Claims Operations EXCO
 * Representing Architects on Health Systems MANCO and Program Management forums
@@ -187,10 +187,18 @@ Crusader System is an Artificial Intelligence consulting company with a large fo
       position: 'Developer',
       level: 'staff',
       description: `# Company
-Grinaker Electronics is a project-based company in the commercial sector (vehicle tracking) along with the implementation of projects for defense agencies such as ARMSCOR.
+Grinaker Electronics is a project-based company in the commercial sector (with the first vehicle tracking solution in South Africa) along with the implementation of projects for defense agencies such as ARMSCOR.
+
+# Role
+Initially employed as a C++ developer on the vehicle tracking platform. After the vehicle-tracking division was aquired and operations moved to Johannesburg, I moved to the defense division as a Delphi, Pascal & embedded developer on a from-the-ground-up radio communications platform.
+
 # Responsibilities
 * Development and maintenance of the G-Track vehicle tracking system
-* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR as part of a new radio communications platform`
+* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR on a new radio communications platform
+* Design & dcoumentation for the radio communication platform according to military standards
+
+# Leaving
+As a first full-time job, the experience at the company was invaluable, however the opportunity to work with a startup in an AI field was not something to dismiss.`
     });
 
     this._add({
