@@ -14,6 +14,11 @@ html(lang="en" ng-app="blockwars")
     bw-world
     bw-overlay
       
+    script.
+      if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {
+          window.location.protocol = 'https:';
+      }
+      
     script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js")
