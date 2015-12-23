@@ -5,6 +5,7 @@
   height: $size-cube;
   position: absolute;
   box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .15);
+  border-radius: 0.25em;
 
   @include transition(all $anim-time);
 

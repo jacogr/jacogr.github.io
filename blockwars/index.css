@@ -652,7 +652,7 @@ html{box-sizing:border-box}
 .fa-bluetooth-b:before{content:""}
 .fa-percent:before{content:""}
 body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
-.cell{opacity:.9;width:1.5em;height:1.5em;position:absolute;box-shadow:inset 0 0 0 .25em rgba(0,0,0,.15);-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s}
+.cell{opacity:.9;width:1.5em;height:1.5em;position:absolute;box-shadow:inset 0 0 0 .25em rgba(0,0,0,.15);border-radius:.25em;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s}
 .cell.gray{background:#888}
 .cell.gray.removed{background:#bbb}
 .cell.black{background:#555}
