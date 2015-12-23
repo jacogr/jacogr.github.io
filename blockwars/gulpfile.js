@@ -72,6 +72,6 @@ gulp.task('default', ['lint', 'js', 'html', 'css']);
 
 gulp.task('watch', ['default'], function() {
   gulp.watch(['src/styles/**/*.scss'], ['css']);
-  gulp.watch(['srcviews/**/*.jade'], ['html']);
-  gulp.watch(['srcscripts/**/*.js'], ['js']);
+  gulp.watch(['src/views/**/*.jade'], ['html']);
+  gulp.watch(['src/scripts/**/*.js'], ['js']);
 });
