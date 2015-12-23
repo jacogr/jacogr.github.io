@@ -8,97 +8,6 @@ config(["$locationProvider", function ($locationProvider) {
   $locationProvider.html5Mode(false);}]);
 'use strict';angular.
 module('blockwars').
-directive('bwOverlay', function () {
-  return { 
-    restrict: 'E', 
-    controller: 'overlayController', 
-    scope: {}, 
-
-    replace: true, 
-    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.ended) && \'done\'">\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="box button" ng-click="startSingle()()">Single Player Game</div>\n              <div class="box button disabled" ng-click="menuMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi" class="box menu">\n              <div class="box button spaced" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="box score player"><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n\n          <div ng-if="!game.loading && enemy.data" class="box score enemy"><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n        </div>\n        ' };}).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-controller('overlayController', ["$scope", "Game", "Player", "Enemy", function ($scope, Game, Player, Enemy) {
-  $scope.game = Game;
-  $scope.player = Player;
-  $scope.enemy = Enemy;
-  $scope.menu = 'create';
-
-  $scope.back = function () {
-    $scope.menu = 'create';};
-
-
-  $scope.startSingle = function () {
-    Game.create();
-    $scope.back();};
-
-
-  $scope.menuMulti = function () {
-    $scope.menu = 'multi';};}]);
-'use strict';angular.
-module('blockwars').
-directive('bwWorld', function () {
-  return { 
-    restrict: 'E', 
-    controller: 'worldController', 
-    scope: {}, 
-
-    replace: true, 
-    template: '\n        <div class="world">\n          <div class="row" ng-repeat="row in ::rows">\n            <div class="col" ng-repeat="p in ::row">\n              <div ng-if="!player.data[p.y][pos(p.x)]" class="cell"></div>\n              <div ng-if="player.data[p.y][pos(p.x)]" class="cell"\n                ng-class="[player.data[p.y][pos(p.x)], player.data[p.y].removed ? \'removed\' : \'\']"></div>\n            </div>\n          </div>\n        </div>\n        ' };}).
-
-
-
-
-
-
-
-
-
-
-
-
-controller('worldController', ["$scope", "BLOCK_START", "SIZE_HEIGHT", "SIZE_WIDTH", "Player", "Enemy", function ($scope, BLOCK_START, SIZE_HEIGHT, SIZE_WIDTH, Player, Enemy) {
-  $scope.rows = [];
-  $scope.player = Player;
-  $scope.enemy = Enemy;
-
-  $scope.pos = function (x) {
-    var offset = Math.floor((4 - $scope.player.block.cells[$scope.player.block.rotation][0].length) / 2);
-
-    return (x + $scope.player.block.x - offset + SIZE_WIDTH - BLOCK_START) % SIZE_WIDTH;};
-
-
-  _.each(_.range(SIZE_HEIGHT), function (y) {
-    var row = [];
-    $scope.rows.push(row);
-
-    _.each(_.range(SIZE_WIDTH), function (x) {
-      row.push({ y: SIZE_HEIGHT - 1 - y, x: x });});});}]);
-'use strict';angular.
-module('blockwars').
 service('Blocks', function () {
   var blocks = { 
     i: { 
@@ -646,3 +555,110 @@ service('User', ["$cookies", "$injector", "$timeout", "$firebaseAuth", "Db", fun
 
   $timeout(function () {
     _this2._auth();});}]);
+'use strict';angular.
+module('blockwars').
+directive('bwOverlay', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'overlayController', 
+    scope: {}, 
+
+    replace: true, 
+    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.ended) && \'done\'">\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="box button" ng-click="startSingle()">Single Player Game</div>\n              <div class="box button disabled" ng-click="selectMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi-select" class="box menu">\n              <div ng-if="!requests.length" class="text">There are currently no available games, why don\'t you create one and wait for an opponent to accept?</div>\n              <div ng-if="!requests.length" class="box button" ng-click="createMulti()">Start Multi Game</div>\n              <div class="box button" ng-click="back()">Cancel</div>\n            </div>\n\n            <div ng-switch-when="multi-wait" class="box menu">\n              <div class="text">Waiting for an opponent to accept your challenge and join the game</div>\n              <div class="box button" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="box score player"><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n\n          <div ng-if="!game.loading && enemy.data" class="box score enemy"><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n        </div>\n        ' };}).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+controller('overlayController', ["$scope", "$firebaseArray", "Db", "Enemy", "Game", "Player", function ($scope, $firebaseArray, Db, Enemy, Game, Player) {
+  $scope.game = Game;
+  $scope.player = Player;
+  $scope.enemy = Enemy;
+  $scope.menu = 'create';
+
+  $scope.requests = $firebaseArray(Db.ref('requests'));
+
+  $scope.back = function () {
+    $scope.menu = 'create';};
+
+
+  $scope.startSingle = function () {
+    Game.create();
+    $scope.back();};
+
+
+  $scope.selectMulti = function () {
+    $scope.menu = 'multi-select';};
+
+
+  $scope.createMulti = function () {
+    $scope.menu = 'multi-wait';};
+
+
+  $scope.startMulti = function (id) {};}]);
+'use strict';angular.
+module('blockwars').
+directive('bwWorld', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'worldController', 
+    scope: {}, 
+
+    replace: true, 
+    template: '\n        <div class="world">\n          <div class="row" ng-repeat="row in ::rows">\n            <div class="col" ng-repeat="p in ::row">\n              <div ng-if="!player.data[p.y][pos(p.x)]" class="cell"></div>\n              <div ng-if="player.data[p.y][pos(p.x)]" class="cell"\n                ng-class="[player.data[p.y][pos(p.x)], player.data[p.y].removed ? \'removed\' : \'\']"></div>\n            </div>\n          </div>\n        </div>\n        ' };}).
+
+
+
+
+
+
+
+
+
+
+
+
+controller('worldController', ["$scope", "BLOCK_START", "SIZE_HEIGHT", "SIZE_WIDTH", "Player", "Enemy", function ($scope, BLOCK_START, SIZE_HEIGHT, SIZE_WIDTH, Player, Enemy) {
+  $scope.rows = [];
+  $scope.player = Player;
+  $scope.enemy = Enemy;
+
+  $scope.pos = function (x) {
+    var offset = Math.floor((4 - $scope.player.block.cells[$scope.player.block.rotation][0].length) / 2);
+
+    return (x + $scope.player.block.x - offset + SIZE_WIDTH - BLOCK_START) % SIZE_WIDTH;};
+
+
+  _.each(_.range(SIZE_HEIGHT), function (y) {
+    var row = [];
+    $scope.rows.push(row);
+
+    _.each(_.range(SIZE_WIDTH), function (x) {
+      row.push({ y: SIZE_HEIGHT - 1 - y, x: x });});});}]);
