@@ -11,14 +11,14 @@ angular
       $cookies.put(USER_COOKIE, this.uid);
       $injector.get('Game').load();
 
-      const session = Db.ref(['sessions']).push();
+      const session = Db.ref('sessions').push();
 
       session.onDisconnect().update({
-        endedAt: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+        ended: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
       });
       session.update({
         uid: uid,
-        startedAt: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+        started: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
       });
     };
 

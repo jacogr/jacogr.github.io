@@ -7,12 +7,18 @@ angular
       return fbref;
     };
 
-    this.ref = function(path) {
+    this.ref = function(parent, path) {
       let ref = this.base();
 
-      _.each(path, (child) => {
-        ref = ref.child(child);
-      });
+      if (parent) {
+        ref = ref.child(parent);
+      }
+
+      if (path && path.length) {
+        _.each(path, (child) => {
+          ref = ref.child(child);
+        });
+      }
 
       return ref;
     };

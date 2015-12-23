@@ -8,14 +8,14 @@ angular
       },
       replace: true,
       template: `
-        <div class="overlay" ng-class="(game.loading || game.data.completed) && 'done'">
+        <div class="overlay" ng-class="(game.loading || game.data.enede) && 'done'">
           <div ng-if="game.loading" class="box loading">Loading</div>
 
-          <!--div ng-if="!game.loading && !game.data.completed && game.player != player.data.id" class="box loading">Viewing</div-->
+          <!--div ng-if="!game.loading && !game.data.ended && game.player != player.data.id" class="box loading">Viewing</div-->
 
-          <div ng-if="game.data.player && game.data.completed" class="box loading">Completed</div>
+          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>
 
-          <div ng-if="game.data.completed">
+          <div ng-if="game.data.ended">
             <div class="box menu">
               <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>
               <div class="text">Play on your own or go head-to-head.</div>

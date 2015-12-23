@@ -226,7 +226,7 @@ angular
     };
 
     this.isRunning = function() {
-      return this.data && Game.data && Game.data.started && !Game.data.completed;// && Game.player === this.data.id;
+      return this.data && Game.data && Game.data.started && !Game.data.ended;// && Game.player === this.data.id;
     };
 
     this.save = function() {

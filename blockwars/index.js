@@ -15,7 +15,7 @@ directive('bwOverlay', function () {
     scope: {}, 
 
     replace: true, 
-    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.completed) && \'done\'">\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <!--div ng-if="!game.loading && !game.data.completed && game.player != player.data.id" class="box loading">Viewing</div-->\n\n          <div ng-if="game.data.player && game.data.completed" class="box loading">Completed</div>\n\n          <div ng-if="game.data.completed">\n            <div class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="box button" ng-click="createSingle()">Single Player Game</div>\n              <div class="box button disabled" ng-click="createMulti()">Multi Player Game</div>\n            </div>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="box score player"><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n\n          <div ng-if="!game.loading && enemy.data" class="box score enemy">{{ enemy.data.score | number:0 }}</div>\n        </div>\n        ' };}).
+    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.enede) && \'done\'">\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <!--div ng-if="!game.loading && !game.data.ended && game.player != player.data.id" class="box loading">Viewing</div-->\n\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended">\n            <div class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="box button" ng-click="createSingle()">Single Player Game</div>\n              <div class="box button disabled" ng-click="createMulti()">Multi Player Game</div>\n            </div>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="box score player"><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n\n          <div ng-if="!game.loading && enemy.data" class="box score enemy">{{ enemy.data.score | number:0 }}</div>\n        </div>\n        ' };}).
 
 
 
@@ -186,11 +186,17 @@ service('Db', function () {
     return fbref;};
 
 
-  this.ref = function (path) {
+  this.ref = function (parent, path) {
     var ref = this.base();
 
-    _.each(path, function (child) {
-      ref = ref.child(child);});
+    if (parent) {
+      ref = ref.child(parent);}
+
+
+    if (path && path.length) {
+      _.each(path, function (child) {
+        ref = ref.child(child);});}
+
 
 
     return ref;};});
@@ -229,7 +235,7 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", 
   this.loading = true;
 
   this._gameRef = function () {
-    return Db.ref(this.path).child('game');};
+    return Db.ref('games', this.path);};
 
 
   this.getEnemy = function () {
@@ -247,8 +253,19 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", 
   };
 
   this.end = function () {
-    this.data.completed = new Date().getTime();
-    this.save();};
+    this.data.ended = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
+    this.save();
+
+    var score = Db.ref('scores').push();
+    var player = $injector.get('Player');
+
+    score.update({ 
+      uid: User.uid, 
+      score: player.data.score, 
+      lines: player.data.lines, 
+      started: this.data.started, 
+      ended: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+    });};
 
 
   this.load = function () {
@@ -273,7 +290,7 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", 
     //     });
     // } else {
     this.loading = false;
-    this.data = { completed: true };
+    this.data = { ended: true };
     // }
   };
 
@@ -288,9 +305,7 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", 
 
 
     this.data = {}; // $firebaseObject(this._gameRef());
-    this.data.date = this.date.getTime();
-    this.data.started = this.date.getTime();
-    this.data.completed = 0;
+    this.data.started = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
     this.data.player = { id: User.uid, score: 0, lines: 0 };
     this.data.enemy = { id: User.uid, score: 0, lines: 0 };
     this.save();
@@ -533,7 +548,7 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
 
 
   this.isRunning = function () {
-    return this.data && Game.data && Game.data.started && !Game.data.completed; // && Game.player === this.data.id;
+    return this.data && Game.data && Game.data.started && !Game.data.ended; // && Game.player === this.data.id;
   };
 
   this.save = function () {
@@ -587,14 +602,14 @@ service('User', ["$cookies", "$injector", "$timeout", "$firebaseAuth", "Db", fun
     $cookies.put(USER_COOKIE, this.uid);
     $injector.get('Game').load();
 
-    var session = Db.ref(['sessions']).push();
+    var session = Db.ref('sessions').push();
 
     session.onDisconnect().update({ 
-      endedAt: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+      ended: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
     });
     session.update({ 
       uid: uid, 
-      startedAt: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+      started: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
     });};
 
 

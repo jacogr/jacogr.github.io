@@ -27,7 +27,7 @@ angular
     this.loading = true;
 
     this._gameRef = function() {
-      return Db.ref(this.path).child('game');
+      return Db.ref('games', this.path);
     };
 
     this.getEnemy = function() {
@@ -45,8 +45,19 @@ angular
     };
 
     this.end = function() {
-      this.data.completed = new Date().getTime();
+      this.data.ended = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
       this.save();
+
+      const score = Db.ref('scores').push();
+      const player = $injector.get('Player');
+
+      score.update({
+        uid: User.uid,
+        score: player.data.score,
+        lines: player.data.lines,
+        started: this.data.started,
+        ended: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+      });
     };
 
     this.load = function() {
@@ -71,7 +82,7 @@ angular
       //     });
       // } else {
       this.loading = false;
-      this.data = { completed: true };
+      this.data = { ended: true };
       // }
     };
 
@@ -86,9 +97,7 @@ angular
       ];
 
       this.data = {}; // $firebaseObject(this._gameRef());
-      this.data.date = this.date.getTime();
-      this.data.started = this.date.getTime();
-      this.data.completed = 0;
+      this.data.started = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
       this.data.player = { id: User.uid, score: 0, lines: 0 };
       this.data.enemy = { id: User.uid, score: 0, lines: 0 };
       this.save();
