@@ -15,7 +15,9 @@ directive('bwOverlay', function () {
     scope: {}, 
 
     replace: true, 
-    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.ended) && \'done\'">\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <!--div ng-if="!game.loading && !game.data.ended && game.player != player.data.id" class="box loading">Viewing</div-->\n\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended">\n            <div class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="box button" ng-click="createSingle()">Single Player Game</div>\n              <div class="box button disabled" ng-click="createMulti()">Multi Player Game</div>\n            </div>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="box score player"><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n\n          <div ng-if="!game.loading && enemy.data" class="box score enemy">{{ enemy.data.score | number:0 }}</div>\n        </div>\n        ' };}).
+    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.ended) && \'done\'">\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="box button" ng-click="startSingle()()">Single Player Game</div>\n              <div class="box button disabled" ng-click="menuMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi" class="box menu">\n              <div class="box button" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="box score player"><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n\n          <div ng-if="!game.loading && enemy.data" class="box score enemy"><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n        </div>\n        ' };}).
+
+
 
 
 
@@ -43,12 +45,19 @@ controller('overlayController', ["$scope", "Game", "Player", "Enemy", function (
   $scope.game = Game;
   $scope.player = Player;
   $scope.enemy = Enemy;
+  $scope.menu = 'create';
 
-  $scope.createSingle = function () {
-    Game.create();};
+  $scope.back = function () {
+    $scope.menu = 'create';};
 
 
-  $scope.createMulti = function () {};}]);
+  $scope.startSingle = function () {
+    Game.create();
+    $scope.back();};
+
+
+  $scope.menuMulti = function () {
+    $scope.menu = 'multi';};}]);
 'use strict';angular.
 module('blockwars').
 directive('bwWorld', function () {
