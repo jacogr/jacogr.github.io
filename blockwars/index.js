@@ -90,70 +90,56 @@ service('Blocks', function () {
     i: { 
       color: 'green', 
       rotation: 0, 
-      cells: [
-      [
+      cells: [[
       [1, 1, 1, 1]]] }, 
-
 
 
     j: { 
       color: 'red', 
       rotation: 0, 
-      cells: [
-      [
+      cells: [[
       [1, 1, 1], 
       [0, 0, 1]]] }, 
-
 
 
     l: { 
       color: 'red2', 
       rotation: 0, 
-      cells: [
-      [
+      cells: [[
       [1, 1, 1], 
       [1, 0, 0]]] }, 
-
 
 
     o: { 
       color: 'yellow', 
       rotation: 0, 
-      cells: [
-      [
+      cells: [[
       [1, 1], 
       [1, 1]]] }, 
-
 
 
     s: { 
       color: 'blue', 
       rotation: 0, 
-      cells: [
-      [
+      cells: [[
       [0, 1, 1], 
       [1, 1, 0]]] }, 
-
 
 
     t: { 
       color: 'purple', 
       rotation: 0, 
-      cells: [
-      [
+      cells: [[
       [1, 1, 1], 
       [0, 1, 0]]] }, 
-
 
 
     z: { 
       color: 'blue2', 
       rotation: 0, 
-      cells: [
-      [
+      cells: [[
       [1, 1, 0], 
       [0, 1, 1]]] } };
-
 
 
 
