@@ -8,7 +8,7 @@ angular
       },
       replace: true,
       template: `
-        <div class="overlay" ng-class="(game.loading || game.data.enede) && 'done'">
+        <div class="overlay" ng-class="(game.loading || game.data.ended) && 'done'">
           <div ng-if="game.loading" class="box loading">Loading</div>
 
           <!--div ng-if="!game.loading && !game.data.ended && game.player != player.data.id" class="box loading">Viewing</div-->
