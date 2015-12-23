@@ -22,7 +22,7 @@ angular
             </div>
 
             <div ng-switch-when="multi" class="box menu">
-              <div class="box button" ng-click="back()">Cancel</div>
+              <div class="box button spaced" ng-click="back()">Cancel</div>
             </div>
           </div>
 
