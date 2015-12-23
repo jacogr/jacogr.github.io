@@ -1,31 +1,43 @@
 angular
   .module('blockwars')
-  .service('User', function($cookies, $injector, $timeout, $firebaseAuth) {
+  .service('User', function($cookies, $injector, $timeout, $firebaseAuth, Db) {
     const USER_COOKIE = 'fbuid';
 
     this.uid = null;
 
+    this._start = function(uid) {
+      this.uid = uid;
+
+      $cookies.put(USER_COOKIE, this.uid);
+      $injector.get('Game').load();
+
+      const session = Db.ref(['sessions']).push();
+
+      session.onDisconnect().update({
+        endedAt: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+      });
+      session.update({
+        uid: uid,
+        startedAt: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+      });
+    };
+
     this._auth = function() {
-      const game = $injector.get('Game');
       const uid = $cookies.get(USER_COOKIE);
 
       if (uid) {
         console.log('Cookie retrieved', uid);
 
-        this.uid = uid;
-        game.load();
-
+        this._start(uid);
         return;
       }
 
-      $firebaseAuth(game._baseRef())
+      $firebaseAuth(Db.base())
         .$authAnonymously()
         .then((auth) => {
           console.log('Authenticated', auth);
 
-          this.uid = auth.uid;
-          $cookies.put(USER_COOKIE, this.uid);
-          game.load();
+          this._start(auth.uid);
         })
         .catch((err) => {
           console.error('Authentication', err);

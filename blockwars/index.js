@@ -188,14 +188,30 @@ service('Blocks', function () {
       block.cells.push(rotation);});});});
 'use strict';angular.
 module('blockwars').
+service('Db', function () {
+  var fbref = new Firebase('https://cubewars.firebaseio.com/'); // eslint-disable-line
+
+  this.base = function () {
+    return fbref;};
+
+
+  this.ref = function (path) {
+    var ref = this.base();
+
+    _.each(path, function (child) {
+      ref = ref.child(child);});
+
+
+    return ref;};});
+'use strict';angular.
+module('blockwars').
 service('Enemy', ["Game", function (Game) {
   this.init = function () {
     // this.data = Game.getEnemy();
   };}]);
 'use strict';angular.
 module('blockwars').
-service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "User", function ($injector, $location, $timeout, $firebaseObject, User) {
-  var fbref = new Firebase('https://cubewars.firebaseio.com/'); // eslint-disable-line
+service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", "User", function ($injector, $location, $timeout, $firebaseObject, Db, User) {
   var _alpha = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
   var rand = function rand(num) {
@@ -221,18 +237,8 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "User"
 
   this.loading = true;
 
-  this._baseRef = function () {
-    return fbref;};
-
-
   this._gameRef = function () {
-    var ref = this._baseRef().child('game');
-
-    _.each(this.path, function (child) {
-      ref = ref.child(child);});
-
-
-    return ref;};
+    return Db.ref(this.path).child('game');};
 
 
   this.getEnemy = function () {
@@ -579,32 +585,44 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
   $doc.on('keydown', keyHandler);}]);
 'use strict';angular.
 module('blockwars').
-service('User', ["$cookies", "$injector", "$timeout", "$firebaseAuth", function ($cookies, $injector, $timeout, $firebaseAuth) {var _this2 = this;
+service('User', ["$cookies", "$injector", "$timeout", "$firebaseAuth", "Db", function ($cookies, $injector, $timeout, $firebaseAuth, Db) {var _this2 = this;
   var USER_COOKIE = 'fbuid';
 
   this.uid = null;
 
+  this._start = function (uid) {
+    this.uid = uid;
+
+    $cookies.put(USER_COOKIE, this.uid);
+    $injector.get('Game').load();
+
+    var session = Db.ref(['sessions']).push();
+
+    session.onDisconnect().update({ 
+      endedAt: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+    });
+    session.update({ 
+      uid: uid, 
+      startedAt: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
+    });};
+
+
   this._auth = function () {var _this = this;
-    var game = $injector.get('Game');
     var uid = $cookies.get(USER_COOKIE);
 
     if (uid) {
       console.log('Cookie retrieved', uid);
 
-      this.uid = uid;
-      game.load();
-
+      this._start(uid);
       return;}
 
 
-    $firebaseAuth(game._baseRef()).
+    $firebaseAuth(Db.base()).
     $authAnonymously().
     then(function (auth) {
       console.log('Authenticated', auth);
 
-      _this.uid = auth.uid;
-      $cookies.put(USER_COOKIE, _this.uid);
-      game.load();}).
+      _this._start(auth.uid);}).
 
     catch(function (err) {
       console.error('Authentication', err);});};

@@ -1,7 +1,6 @@
 angular
   .module('blockwars')
-  .service('Game', function($injector, $location, $timeout, $firebaseObject, User) {
-    const fbref = new Firebase('https://cubewars.firebaseio.com/'); // eslint-disable-line
+  .service('Game', function($injector, $location, $timeout, $firebaseObject, Db, User) {
     const _alpha = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
     const rand = function(num) {
@@ -27,18 +26,8 @@ angular
 
     this.loading = true;
 
-    this._baseRef = function() {
-      return fbref;
-    };
-
     this._gameRef = function() {
-      let ref = this._baseRef().child('game');
-
-      _.each(this.path, (child) => {
-        ref = ref.child(child);
-      });
-
-      return ref;
+      return Db.ref(this.path).child('game');
     };
 
     this.getEnemy = function() {
