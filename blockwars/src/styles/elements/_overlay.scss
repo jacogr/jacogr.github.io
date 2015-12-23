@@ -55,13 +55,21 @@
       display: inline-block;
       margin: 2em auto;
       max-width: 30em;
-      padding: 2em;
+
+      .text {
+        padding: 1em 0;
+      }
 
       .button {
         cursor: pointer;
-        margin: 2em 2em 0 2em;
+        margin: 1em 0;
         color: $color-fg-page;
         background: $color-bg-page;
+
+        &.disabled {
+          opacity: 0.25;
+          cursor: default;
+        }
       }
     }
   }

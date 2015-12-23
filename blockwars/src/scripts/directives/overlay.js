@@ -17,8 +17,10 @@ angular
 
           <div ng-if="game.data.completed">
             <div class="box menu">
-              <div class="text">Ready to go? Press the create button and spawn a new game for fun (but not much profit)</div>
-              <div class="box button" ng-click="create()">Create</div>
+              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>
+              <div class="text">Play on your own or go head-to-head.</div>
+              <div class="box button" ng-click="createSingle()">Single Player Game</div>
+              <div class="box button disabled" ng-click="createMulti()">Multi Player Game</div>
             </div>
           </div>
 
@@ -34,7 +36,11 @@ angular
     $scope.player = Player;
     $scope.enemy = Enemy;
 
-    $scope.create = function() {
+    $scope.createSingle = function() {
       Game.create();
+    };
+
+    $scope.createMulti = function() {
+
     };
   });

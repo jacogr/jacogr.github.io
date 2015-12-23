@@ -673,8 +673,10 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay .box.score.player{left:50%;margin-left:9.25em}
 .overlay .box.score.enemy{right:50%;margin-right:8.25em}
 .overlay .box.loading{display:inline-block;background:#f33}
-.overlay .box.menu{margin:2em auto;max-width:30em;padding:2em}
-.overlay .box.menu .button{cursor:pointer;margin:2em 2em 0;color:#333;background:#fff}
+.overlay .box.menu{margin:2em auto;max-width:30em}
+.overlay .box.menu .text{padding:1em 0}
+.overlay .box.menu .button{cursor:pointer;margin:1em 0;color:#333;background:#fff}
+.overlay .box.menu .button.disabled{opacity:.25;cursor:default}
 .world{margin:3.75em auto;width:9em;-webkit-perspective:800;-moz-perspective:800;perspective:800}
 .world .row{margin:.15em auto;height:1.5em;width:9em;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}
 .world .row .col{left:3.75em;width:1.5em;height:1.5em;position:absolute;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}
