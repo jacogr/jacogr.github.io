@@ -1,7 +1,7 @@
 angular
   .module('blockwars')
-  .service('Game', function($injector, $location, $timeout, $firebaseObject) {
-    const fbref = new Firebase(`https://cubewars.firebaseio.com/game`); // eslint-disable-line
+  .service('Game', function($injector, $location, $timeout, $firebaseObject, User) {
+    const fbref = new Firebase('https://cubewars.firebaseio.com/'); // eslint-disable-line
     const _alpha = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
     const rand = function(num) {
@@ -26,10 +26,13 @@ angular
     };
 
     this.loading = true;
-    this.player = `${rand(5)}${alpha(Math.ceil((new Date()).getTime() / 1000))}`;
+
+    this._baseRef = function() {
+      return fbref;
+    };
 
     this._gameRef = function() {
-      let ref = fbref;
+      let ref = this._baseRef().child('game');
 
       _.each(this.path, (child) => {
         ref = ref.child(child);
@@ -39,12 +42,12 @@ angular
     };
 
     this.getEnemy = function() {
-      const singleOrPlayer = _.contains([this.player, this.data.player.id], this.data.enemy.id);
+      const singleOrPlayer = _.contains([User.uid, this.data.player.id], this.data.enemy.id);
       return $firebaseObject(this._gameRef().child(singleOrPlayer ? 'player' : 'enemy'));
     };
 
     this.getPlayer = function() {
-      const singleOrPlayer = _.contains([this.player, this.data.enemy.id], this.data.player.id);
+      const singleOrPlayer = _.contains([User.uid, this.data.enemy.id], this.data.player.id);
       return $firebaseObject(this._gameRef().child(singleOrPlayer ? 'player' : 'enemy'));
     };
 
@@ -69,13 +72,13 @@ angular
       //     .$loaded()
       //     .then(() => {
       //       this.loading = false;
-      //       console.log(`Loaded game ${path[2]}`, this.data);
+      //       console.log('Game loaded', path[2], this.data);
       //
       //       $injector.get('Player').init();
       //       $injector.get('Enemy').init();
       //     })
       //     .catch((err) => {
-      //       console.error(err);
+      //       console.error('Game load', err);
       //     });
       // } else {
       this.loading = false;
@@ -97,8 +100,8 @@ angular
       this.data.date = this.date.getTime();
       this.data.started = this.date.getTime();
       this.data.completed = 0;
-      this.data.player = { id: this.player, score: 0, lines: 0 };
-      this.data.enemy = { id: this.player, score: 0, lines: 0 };
+      this.data.player = { id: User.uid, score: 0, lines: 0 };
+      this.data.enemy = { id: User.uid, score: 0, lines: 0 };
       this.save();
 
       $location.path(`/game/${this.path.join('-')}`);
@@ -108,6 +111,4 @@ angular
         $injector.get('Enemy').init();
       });
     };
-
-    this.load();
   });

@@ -194,8 +194,8 @@ service('Enemy', ["Game", function (Game) {
   };}]);
 'use strict';angular.
 module('blockwars').
-service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", function ($injector, $location, $timeout, $firebaseObject) {
-  var fbref = new Firebase('https://cubewars.firebaseio.com/game'); // eslint-disable-line
+service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "User", function ($injector, $location, $timeout, $firebaseObject, User) {
+  var fbref = new Firebase('https://cubewars.firebaseio.com/'); // eslint-disable-line
   var _alpha = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
   var rand = function rand(num) {
@@ -220,10 +220,13 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", functi
 
 
   this.loading = true;
-  this.player = '' + rand(5) + alpha(Math.ceil(new Date().getTime() / 1000));
+
+  this._baseRef = function () {
+    return fbref;};
+
 
   this._gameRef = function () {
-    var ref = fbref;
+    var ref = this._baseRef().child('game');
 
     _.each(this.path, function (child) {
       ref = ref.child(child);});
@@ -233,12 +236,12 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", functi
 
 
   this.getEnemy = function () {
-    var singleOrPlayer = _.contains([this.player, this.data.player.id], this.data.enemy.id);
+    var singleOrPlayer = _.contains([User.uid, this.data.player.id], this.data.enemy.id);
     return $firebaseObject(this._gameRef().child(singleOrPlayer ? 'player' : 'enemy'));};
 
 
   this.getPlayer = function () {
-    var singleOrPlayer = _.contains([this.player, this.data.enemy.id], this.data.player.id);
+    var singleOrPlayer = _.contains([User.uid, this.data.enemy.id], this.data.player.id);
     return $firebaseObject(this._gameRef().child(singleOrPlayer ? 'player' : 'enemy'));};
 
 
@@ -263,13 +266,13 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", functi
     //     .$loaded()
     //     .then(() => {
     //       this.loading = false;
-    //       console.log(`Loaded game ${path[2]}`, this.data);
+    //       console.log('Game loaded', path[2], this.data);
     //
     //       $injector.get('Player').init();
     //       $injector.get('Enemy').init();
     //     })
     //     .catch((err) => {
-    //       console.error(err);
+    //       console.error('Game load', err);
     //     });
     // } else {
     this.loading = false;
@@ -291,19 +294,15 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", functi
     this.data.date = this.date.getTime();
     this.data.started = this.date.getTime();
     this.data.completed = 0;
-    this.data.player = { id: this.player, score: 0, lines: 0 };
-    this.data.enemy = { id: this.player, score: 0, lines: 0 };
+    this.data.player = { id: User.uid, score: 0, lines: 0 };
+    this.data.enemy = { id: User.uid, score: 0, lines: 0 };
     this.save();
 
     $location.path('/game/' + this.path.join('-'));
 
     $timeout(function () {
       $injector.get('Player').init();
-      $injector.get('Enemy').init();});};
-
-
-
-  this.load();}]);
+      $injector.get('Enemy').init();});};}]);
 'use strict';angular.
 module('blockwars').
 service('Height', function () {
@@ -578,3 +577,26 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
 
   var $doc = angular.element(document);
   $doc.on('keydown', keyHandler);}]);
+'use strict';angular.
+module('blockwars').
+service('User', ["$injector", "$timeout", "$firebaseAuth", function ($injector, $timeout, $firebaseAuth) {var _this2 = this;
+  this.uid = null;
+
+  this._auth = function () {var _this = this;
+    var game = $injector.get('Game');
+
+    $firebaseAuth(game._baseRef()).
+    $authAnonymously().
+    then(function (auth) {
+      console.log('Authenticated', auth);
+
+      _this.uid = auth.uid;
+      game.load();}).
+
+    catch(function (err) {
+      console.error('Authentication', err);});};
+
+
+
+  $timeout(function () {
+    _this2._auth();});}]);
