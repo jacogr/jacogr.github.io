@@ -1,0 +1,23 @@
+doctype html
+html(lang="en" ng-app="blockwars")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="description" content="")
+    meta(name="author" content="")
+    meta(name="viewport" content="width=device-width")
+    title cubewars
+    link(rel="stylesheet" type="text/css" href="index.css")
+    style .ng-cloak { display: none }
+    
+  body.ng-cloak
+    bw-world
+    bw-overlay
+      
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js")
+    script(src="https://cdn.firebase.com/js/client/2.2.4/firebase.js")
+    script(src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js")
+      
+    script(src="index.js")

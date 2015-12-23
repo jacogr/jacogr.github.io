@@ -1,0 +1,7 @@
+$size-cube: 1.5em;
+
+$size-width: 11;
+$size-height: 18;
+
+$size-row: $size-width * $size-cube;
+$size-wall: $size-height * $size-cube;

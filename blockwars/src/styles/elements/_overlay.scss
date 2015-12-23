@@ -1,0 +1,68 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  text-align: center;
+
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    content: '';
+  }
+
+  &.done:before {
+    opacity: 0.5;
+    background: $color-fg-page;
+  }
+
+  .box {
+    margin: 1em;
+    padding: 1em 2em;
+    border-radius: 0.5em;
+    color: $color-fg-box;
+    background: $color-bg-box;
+    opacity: 0.75;
+    width: auto;
+
+    &.score {
+      position: absolute;
+      top: 0;
+      text-align: center;
+
+      &.player {
+        left: 50%;
+        margin-left: $size-row / 2 + 1em;
+      }
+
+      &.enemy {
+        right: 50%;
+        margin-right: $size-row / 2;
+      }
+    }
+
+    &.loading {
+      display: inline-block;
+      background: $color-bg-load;
+    }
+
+    &.menu {
+      display: inline-block;
+      margin: 2em auto;
+      max-width: 30em;
+      padding: 2em;
+
+      .button {
+        cursor: pointer;
+        margin: 2em 2em 0 2em;
+        color: $color-fg-page;
+        background: $color-bg-page;
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.world {
+  margin: 2.5 * $size-cube auto;
+  width: 6 * $size-cube;
+
+  @include perspective(800);
+
+  .row {
+    margin: $size-cube / 10 auto;
+    height: $size-cube;
+
+    @include transform-style(preserve-3d);
+
+    .col {
+      left: 2.5 * $size-cube;
+      width: $size-cube;
+      height: $size-cube;
+      position: absolute;
+
+      @include transform-style(preserve-3d);
+
+      $_curve_angle: 360deg / 35;
+
+      @for $i from 0 through $size-width {
+        &:nth-of-type(#{$size-width + 1}n + #{$i}) {
+          @include transform(rotateY(($i - ($size-width + 1) / 2) * $_curve_angle) translateZ(6 * $size-cube));
+        }
+      }
+    }
+  }
+}
