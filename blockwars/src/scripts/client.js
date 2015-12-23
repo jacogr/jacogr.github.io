@@ -1,5 +1,5 @@
 angular
-  .module('blockwars', ['firebase'])
+  .module('blockwars', ['ngCookies', 'firebase'])
   .constant('SIZE_WIDTH', 11)
   .constant('SIZE_HEIGHT', 16)
   .constant('BLOCK_START', 4)

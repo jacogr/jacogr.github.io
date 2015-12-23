@@ -1,5 +1,5 @@
 'use strict';angular.
-module('blockwars', ['firebase']).
+module('blockwars', ['ngCookies', 'firebase']).
 constant('SIZE_WIDTH', 11).
 constant('SIZE_HEIGHT', 16).
 constant('BLOCK_START', 4).
@@ -579,11 +579,23 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
   $doc.on('keydown', keyHandler);}]);
 'use strict';angular.
 module('blockwars').
-service('User', ["$injector", "$timeout", "$firebaseAuth", function ($injector, $timeout, $firebaseAuth) {var _this2 = this;
+service('User', ["$cookies", "$injector", "$timeout", "$firebaseAuth", function ($cookies, $injector, $timeout, $firebaseAuth) {var _this2 = this;
+  var USER_COOKIE = 'fbuid';
+
   this.uid = null;
 
   this._auth = function () {var _this = this;
     var game = $injector.get('Game');
+    var uid = $cookies.get(USER_COOKIE);
+
+    if (uid) {
+      console.log('Cookie retrieved', uid);
+
+      this.uid = uid;
+      game.load();
+
+      return;}
+
 
     $firebaseAuth(game._baseRef()).
     $authAnonymously().
@@ -591,6 +603,7 @@ service('User', ["$injector", "$timeout", "$firebaseAuth", function ($injector, 
       console.log('Authenticated', auth);
 
       _this.uid = auth.uid;
+      $cookies.put(USER_COOKIE, _this.uid);
       game.load();}).
 
     catch(function (err) {
