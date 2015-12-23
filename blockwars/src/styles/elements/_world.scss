@@ -1,12 +1,15 @@
 .world {
+  $_world_width: 6 * $size-cube;
+
   margin: 2.5 * $size-cube auto;
-  width: 6 * $size-cube;
+  width: $_world_width;
 
   @include perspective(800);
 
   .row {
     margin: $size-cube / 10 auto;
     height: $size-cube;
+    width: $_world_width;
 
     @include transform-style(preserve-3d);
 
@@ -22,7 +25,7 @@
 
       @for $i from 0 through $size-width {
         &:nth-of-type(#{$size-width + 1}n + #{$i}) {
-          @include transform(rotateY(($i - ($size-width + 1) / 2) * $_curve_angle) translateZ(6 * $size-cube));
+          @include transform(rotateY(($i - ($size-width + 1) / 2) * $_curve_angle) translateZ($_world_width));
         }
       }
     }

@@ -668,7 +668,7 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay{position:fixed;z-index:100}
 .overlay:before{position:absolute;content:''}
 .overlay.done:before{opacity:.5;background:#333}
-.overlay .box{margin:1em;padding:1em 2em;border-radius:.5em;color:#fff;background:#333;opacity:.75;width:auto}
+.overlay .box{margin:2em 1em;padding:1em 2em;border-radius:.5em;color:#fff;background:#333;opacity:.75;width:auto}
 .overlay .box.score{position:absolute;top:0}
 .overlay .box.score.player{left:50%;margin-left:9.25em}
 .overlay .box.score.enemy{right:50%;margin-right:8.25em}
@@ -676,7 +676,7 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay .box.menu{margin:2em auto;max-width:30em;padding:2em}
 .overlay .box.menu .button{cursor:pointer;margin:2em 2em 0;color:#333;background:#fff}
 .world{margin:3.75em auto;width:9em;-webkit-perspective:800;-moz-perspective:800;perspective:800}
-.world .row{margin:.15em auto;height:1.5em;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}
+.world .row{margin:.15em auto;height:1.5em;width:9em;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}
 .world .row .col{left:3.75em;width:1.5em;height:1.5em;position:absolute;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}
 .world .row .col:nth-of-type(12n+0){-webkit-transform:rotateY(-61.71429deg) translateZ(9em);-moz-transform:rotateY(-61.71429deg) translateZ(9em);-ms-transform:rotateY(-61.71429deg) translateZ(9em);-o-transform:rotateY(-61.71429deg) translateZ(9em);transform:rotateY(-61.71429deg) translateZ(9em)}
 .world .row .col:nth-of-type(12n+1){-webkit-transform:rotateY(-51.42857deg) translateZ(9em);-moz-transform:rotateY(-51.42857deg) translateZ(9em);-ms-transform:rotateY(-51.42857deg) translateZ(9em);-o-transform:rotateY(-51.42857deg) translateZ(9em);transform:rotateY(-51.42857deg) translateZ(9em)}
