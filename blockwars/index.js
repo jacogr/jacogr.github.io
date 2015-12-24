@@ -28,6 +28,30 @@ controller('gameController', ["$scope", "Enemy", "Player", function ($scope, Ene
   $scope.player = Player;}]);
 'use strict';angular.
 module('blockwars').
+directive('bwNext', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'nextController', 
+    scope: {}, 
+
+    replace: true, 
+    template: '\n        <div class="next">\n          <div class="block" ng-repeat="block in blocks">\n            <div class="row" ng-repeat="row in block.cells[0] track by $index">\n              <div class="col" ng-repeat="col in row track by $index">\n                <div class="cell" ng-class="col ? block.color : \'empty\'"></div>\n              </div>\n            </div>\n          </div>\n        </div>\n        ' };}).
+
+
+
+
+
+
+
+
+
+
+
+
+controller('nextController', ["$scope", "BLOCK_START", "SIZE_HEIGHT", "SIZE_WIDTH", "Player", function ($scope, BLOCK_START, SIZE_HEIGHT, SIZE_WIDTH, Player) {
+  $scope.blocks = Player.blocks;}]);
+'use strict';angular.
+module('blockwars').
 directive('bwOverlay', function () {
   return { 
     restrict: 'E', 
@@ -35,7 +59,7 @@ directive('bwOverlay', function () {
     scope: {}, 
 
     replace: true, 
-    template: '\n        <div class="overlay" ng-class="(game.loading || player.loading || game.data.ended) && \'done\'">\n          <div ng-if="enemy.data" class="left">\n            <div class="box score">\n              <div class="small">Enemy</div>\n              <div><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n            </div>\n            <bw-world class="small" player="enemy"></bw-world>\n          </div>\n\n          <div ng-if="player.data" class="right">\n            <div class="box score">\n              <div class="small">Player</div>\n              <div><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n            </div>\n            <bw-world class="small" player="player"></bw-world>\n          </div>\n\n          <div ng-if="game.loading || player.loading" class="box loading">Loading</div>\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="button" ng-click="startSingle()">Single Player Game</div>\n              <div class="button" ng-click="selectMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi-select" class="box menu">\n              <div ng-if="!requests.length" class="text">There are currently no available games, why don\'t you create one and wait for an opponent to accept?</div>\n              <div ng-if="requests.length" class="text">Join one of the games where opponents are already waiting or create one.</div>\n              <div ng-if="requests.length" class="text">\n                <table>\n                  <tbody>\n                    <tr ng-repeat="req in requests">\n                      <td>{{ req.started | date:\'medium\' }}</td>\n                      <td><div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && joinMulti(req.$id)">{{ acckey == req.$id ? \'Wait\' : \'Join\' }}</div></td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && createMulti()">Start Multi Game</div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && back()">Cancel</div>\n            </div>\n\n            <div ng-switch-when="multi-wait" class="box menu">\n              <div class="text">Waiting for an opponent to accept your challenge and join the game</div>\n              <div class="button" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n        </div>\n        ' };}).
+    template: '\n        <div class="overlay" ng-class="(game.loading || player.loading || game.data.ended) && \'done\'">\n          <div ng-if="enemy.data" class="left">\n            <div class="box score">\n              <div class="small">Enemy</div>\n              <div><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n            </div>\n            <bw-world class="small" player="enemy"></bw-world>\n          </div>\n\n          <div ng-if="player.data" class="right">\n            <div class="box score">\n              <div class="small">Player</div>\n              <div><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n            </div>\n            <bw-next></bw-next>\n          </div>\n\n          <div ng-if="game.loading || player.loading" class="box loading">Loading</div>\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="button" ng-click="startSingle()">Single Player Game</div>\n              <div class="button" ng-click="selectMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi-select" class="box menu">\n              <div ng-if="!requests.length" class="text">There are currently no available games, why don\'t you create one and wait for an opponent to accept?</div>\n              <div ng-if="requests.length" class="text">Join one of the games where opponents are already waiting or create one.</div>\n              <div ng-if="requests.length" class="text">\n                <table>\n                  <tbody>\n                    <tr ng-repeat="req in requests">\n                      <td>{{ req.started | date:\'medium\' }}</td>\n                      <td><div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && joinMulti(req.$id)">{{ acckey == req.$id ? \'Wait\' : \'Join\' }}</div></td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && createMulti()">Start Multi Game</div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && back()">Cancel</div>\n            </div>\n\n            <div ng-switch-when="multi-wait" class="box menu">\n              <div class="text">Waiting for an opponent to accept your challenge and join the game</div>\n              <div class="button" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n        </div>\n        ' };}).
 
 
 
@@ -460,10 +484,36 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
 
 
   this.interval = INTERVAL;
+  this.blocks = [];
+
+  this._newBlock = function () {
+    this._fixBlocks();
+
+    if (this.block && this.block.y === SIZE_HEIGHT - 1) {
+      Game.end();
+      return;}
+
+
+    var posx = (_.get(this.block, 'x', BLOCK_START) + SIZE_WIDTH) % SIZE_WIDTH;
+
+
+    this.block = this.blocks.splice(0, 1)[0];
+    this.block.x = posx;
+    this.block.y = SIZE_HEIGHT - 1;
+    this.blocks.push(Blocks.get());
+
+    this._addBlock();};
+
 
   this.init = function () {var _this = this;
     this.loading = true;
     this.interval = INTERVAL;
+
+    this.blocks.splice(0, this.blocks.length);
+    _.times(5, function () {
+      _this.blocks.push(Blocks.get());});
+
+    console.log(this.blocks);
 
     this.data = Game.getPlayer();
     this.data.
@@ -547,23 +597,6 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
 
 
 
-
-
-  this._newBlock = function () {
-    this._fixBlocks();
-
-    if (this.block && this.block.y === SIZE_HEIGHT - 1) {
-      Game.end();
-      return;}
-
-
-    var posx = (_.get(this.block, 'x', BLOCK_START) + SIZE_WIDTH) % SIZE_WIDTH;
-
-    this.block = Blocks.get();
-    this.block.x = posx;
-    this.block.y = SIZE_HEIGHT - 1;
-
-    this._addBlock();};
 
 
   this._canMove = function (dy, dx) {var _this6 = this;

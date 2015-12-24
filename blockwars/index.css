@@ -2,7 +2,7 @@
 .fa.fa-pull-left,.fa.pull-left{margin-right:.3em}
 .cell,body{background:#fff}
 .fa-fw,.fa-li,.overlay,.overlay .score{text-align:center}
-.fa,.fa-stack,.overlay .box.menu{display:inline-block}
+.fa,.fa-stack,.overlay .box.loading,.overlay .box.menu{display:inline-block}
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
 /*!
@@ -665,6 +665,13 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .cell.red2{background:#f36}
 .cell.white{background:#f5f5ff}
 .cell.yellow{background:#cf6}
+.game{margin:0 auto}
+.next{margin-top:1em}
+.next .block{margin:0 0 1em -2em}
+.next .block .row{height:1.5em}
+.next .block .row .col{width:1.5em;height:1.5em;display:inline-block}
+.next .block .row .col .cell{position:relative;width:1.5em;height:1.5em;box-shadow:inset 0 0 0 .25em rgba(0,0,0,.15);border-radius:.25em}
+.next .block .row .col .cell.empty{box-shadow:none;background:0 0}
 .overlay{position:fixed;top:0;right:0;left:0;bottom:0;z-index:100}
 .overlay:before{right:0;left:0;bottom:0;content:''}
 .overlay.done:before{opacity:.5;background:#333}
@@ -679,7 +686,7 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay .box table td{padding:.5em}
 .overlay .box table td .button{padding:.5em 1em;margin:0}
 .overlay .box .small{font-size:70%;margin-bottom:.5em}
-.overlay .box.loading{display:inline-block;background:#f33}
+.overlay .box.loading{background:#f33}
 .overlay .box.menu{margin:2em auto;max-width:30em}
 .overlay .box .text{padding:1em 0}
 .overlay .box .button{cursor:pointer;padding:1em 2em;margin:1em 0;color:#333;background:#fff;border-radius:.5em;opacity:.75}

@@ -1,0 +1,30 @@
+.next {
+  margin-top: 1em;
+
+  .block {
+    margin: 0 0 1em -2em;
+
+    .row {
+      height: $size-cube;
+
+      .col {
+        width: $size-cube;
+        height: $size-cube;
+        display: inline-block;
+
+        .cell {
+          position: relative;
+          width: $size-cube;
+          height: $size-cube;
+          box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .15);
+          border-radius: 0.25em;
+
+          &.empty {
+            box-shadow: none;
+            background: transparent;
+          }
+        }
+      }
+    }
+  }
+}

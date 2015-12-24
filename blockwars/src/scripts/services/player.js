@@ -7,10 +7,36 @@ angular
     };
 
     this.interval = INTERVAL;
+    this.blocks = [];
+
+    this._newBlock = function() {
+      this._fixBlocks();
+
+      if (this.block && this.block.y === SIZE_HEIGHT - 1) {
+        Game.end();
+        return;
+      }
+
+      const posx = (_.get(this.block, 'x', BLOCK_START) + SIZE_WIDTH) % SIZE_WIDTH;
+
+
+      this.block = this.blocks.splice(0, 1)[0];
+      this.block.x = posx;
+      this.block.y = SIZE_HEIGHT - 1;
+      this.blocks.push(Blocks.get());
+
+      this._addBlock();
+    };
 
     this.init = function() {
       this.loading = true;
       this.interval = INTERVAL;
+
+      this.blocks.splice(0, this.blocks.length);
+      _.times(5, () => {
+        this.blocks.push(Blocks.get());
+      });
+      console.log(this.blocks);
 
       this.data = Game.getPlayer();
       this.data
@@ -94,23 +120,6 @@ angular
           }
         }
       });
-    };
-
-    this._newBlock = function() {
-      this._fixBlocks();
-
-      if (this.block && this.block.y === SIZE_HEIGHT - 1) {
-        Game.end();
-        return;
-      }
-
-      const posx = (_.get(this.block, 'x', BLOCK_START) + SIZE_WIDTH) % SIZE_WIDTH;
-
-      this.block = Blocks.get();
-      this.block.x = posx;
-      this.block.y = SIZE_HEIGHT - 1;
-
-      this._addBlock();
     };
 
     this._canMove = function(dy, dx) {
