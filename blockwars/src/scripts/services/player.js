@@ -133,7 +133,7 @@ angular
     this._moveHoriz = function(dx) {
       if (this._canMove(0, dx)) {
         this._removeBlock();
-        this.block.x += dx;
+        this.block.x = (this.block.x + dx + SIZE_WIDTH) % SIZE_WIDTH;
         this._addBlock();
 
         return true;

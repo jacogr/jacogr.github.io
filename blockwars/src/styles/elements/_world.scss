@@ -1,5 +1,6 @@
 .world {
   $_world_width: 6 * $size-cube;
+  $_curve_angle: 360deg / 35;
 
   margin: 2.5 * $size-cube auto;
   width: $_world_width;
@@ -21,11 +22,49 @@
 
       @include transform-style(preserve-3d);
 
-      $_curve_angle: 360deg / 35;
-
       @for $i from 0 through $size-width {
         &:nth-of-type(#{$size-width + 1}n + #{$i}) {
           @include transform(rotateY(($i - ($size-width + 1) / 2) * $_curve_angle) translateZ($_world_width));
+        }
+      }
+
+      .cell {
+        width: $size-cube;
+        height: $size-cube;
+        box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .15);
+        border-radius: 0.25em;
+      }
+    }
+  }
+
+  &.small {
+    $_size_cube_small: $size-cube / $size-ratio-small;
+    $_world_width_small: $_world_width / $size-ratio-small;
+
+    margin: 2.5 * $_size_cube_small auto;
+    width: $_world_width_small;
+
+    .row {
+      margin: $_size_cube_small / 10 auto;
+      height: $_size_cube_small;
+      width: $_world_width / $size-ratio-small;
+
+      .col {
+        left: 2.5 * $_size_cube_small;
+        width: $_size_cube_small;
+        height: $_size_cube_small;
+
+        @for $i from 0 through $size-width {
+          &:nth-of-type(#{$size-width + 1}n + #{$i}) {
+            @include transform(rotateY(($i - ($size-width + 1) / 2) * $_curve_angle) translateZ($_world_width_small));
+          }
+        }
+
+        .cell {
+          width: $_size_cube_small;
+          height: $_size_cube_small;
+          box-shadow: inset 0 0 0 0.25em / $size-ratio-small hsla(0, 0%, 0%, .15);
+          border-radius: 0.25em / $size-ratio-small;
         }
       }
     }

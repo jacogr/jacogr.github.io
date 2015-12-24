@@ -5,6 +5,8 @@ angular
       restrict: 'E',
       controller: 'worldController',
       scope: {
+        'player': '=',
+        'rotate': '@'
       },
       replace: true,
       template: `
@@ -20,12 +22,14 @@ angular
         `
     };
   })
-  .controller('worldController', function($scope, BLOCK_START, SIZE_HEIGHT, SIZE_WIDTH, Player, Enemy) {
+  .controller('worldController', function($scope, BLOCK_START, SIZE_HEIGHT, SIZE_WIDTH) {
     $scope.rows = [];
-    $scope.player = Player;
-    $scope.enemy = Enemy;
 
     $scope.pos = function(x) {
+      if (!$scope.rotate) {
+        return x;
+      }
+
       const offset = Math.floor((4 - $scope.player.block.cells[$scope.player.block.rotation][0].length) / 2);
 
       return (x + $scope.player.block.x - offset + SIZE_WIDTH - BLOCK_START) % SIZE_WIDTH;
