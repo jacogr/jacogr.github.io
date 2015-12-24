@@ -6,8 +6,11 @@ angular
       LINE: 100
     };
 
+    this.interval = INTERVAL;
+
     this.init = function() {
       this.loading = true;
+      this.interval = INTERVAL;
 
       this.data = Game.getPlayer();
       this.data
@@ -60,6 +63,7 @@ angular
             this.data[ny] = this.data[ny + 1] || null;
           });
 
+          this.interval -= 2;
           this.data.lines++;
           this.data.score += ++melt * SCORE.LINE;
           this.data[SIZE_HEIGHT - 1] = null;
@@ -235,7 +239,7 @@ angular
       this.data.$save();
     };
 
-    $interval(() => {
+    this.tick = function() {
       if (this.isRunning()) {
         if (!this.block) {
           this._newBlock();
@@ -246,7 +250,13 @@ angular
 
         this.save();
       }
-    }, INTERVAL);
+
+      $timeout(() => {
+        this.tick();
+      }, this.interval);
+    };
+
+    this.tick();
 
     const keyHandler = (evt) => {
       let action;

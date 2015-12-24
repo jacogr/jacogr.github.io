@@ -453,14 +453,17 @@ service('Height', function () {
     return 'height-' + height;};});
 'use strict';angular.
 module('blockwars').
-service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEIGHT", "SIZE_WIDTH", "Blocks", "Game", "User", function ($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game, User) {var _this8 = this;
+service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEIGHT", "SIZE_WIDTH", "Blocks", "Game", "User", function ($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game, User) {var _this9 = this;
   var SCORE = { 
     BLOCK: 1, 
     LINE: 100 };
 
 
+  this.interval = INTERVAL;
+
   this.init = function () {var _this = this;
     this.loading = true;
+    this.interval = INTERVAL;
 
     this.data = Game.getPlayer();
     this.data.
@@ -513,6 +516,7 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
           _this4.data[ny] = _this4.data[ny + 1] || null;});
 
 
+        this.interval -= 2;
         this.data.lines++;
         this.data.score += ++melt * SCORE.LINE;
         this.data[SIZE_HEIGHT - 1] = null;} else 
@@ -688,18 +692,24 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
     this.data.$save();};
 
 
-  $interval(function () {
-    if (_this8.isRunning()) {
-      if (!_this8.block) {
-        _this8._newBlock();} else 
+  this.tick = function () {var _this8 = this;
+    if (this.isRunning()) {
+      if (!this.block) {
+        this._newBlock();} else 
       {
-        _this8._meltBlocks();
-        _this8._moveDown();}
+        this._meltBlocks();
+        this._moveDown();}
 
 
-      _this8.save();}}, 
+      this.save();}
 
-  INTERVAL);
+
+    $timeout(function () {
+      _this8.tick();}, 
+    this.interval);};
+
+
+  this.tick();
 
   var keyHandler = function keyHandler(evt) {
     var action = undefined;
@@ -713,9 +723,9 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
       default:break;}
 
 
-    if (action && _this8.isRunning()) {
+    if (action && _this9.isRunning()) {
       $timeout(function () {
-        _this8[action]();});}};
+        _this9[action]();});}};
 
 
 
