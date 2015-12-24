@@ -8,6 +8,189 @@ config(["$locationProvider", function ($locationProvider) {
   $locationProvider.html5Mode(false);}]);
 'use strict';angular.
 module('blockwars').
+directive('bwOverlay', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'overlayController', 
+    scope: {}, 
+
+    replace: true, 
+    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.ended) && \'done\'">\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="button" ng-click="startSingle()">Single Player Game</div>\n              <div class="button disabled" ng-click="selectMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi-select" class="box menu">\n              <div ng-if="!requests.length" class="text">There are currently no available games, why don\'t you create one and wait for an opponent to accept?</div>\n              <div ng-if="requests.length" class="text">Join one of the games where opponents are already waiting or create one.</div>\n              <div ng-if="requests.length" class="text">\n                <table>\n                  <tbody>\n                    <tr ng-repeat="req in requests">\n                      <td>{{ req.started | date:\'medium\' }}</td>\n                      <td><div class="button small" ng-class="acckey && \'disabled\'" ng-click="!acckey && joinMulti(req.$id)">{{ acckey == req.$id ? \'Wait\' : \'Join\' }}</div></td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && createMulti()">Start Multi Game</div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && back()">Cancel</div>\n            </div>\n\n            <div ng-switch-when="multi-wait" class="box menu">\n              <div class="text">Waiting for an opponent to accept your challenge and join the game</div>\n              <div class="button" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="box score player"><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n\n          <div ng-if="!game.loading && enemy.data" class="box score enemy"><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n        </div>\n        ' };}).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+controller('overlayController', ["$scope", "$firebaseArray", "$firebaseObject", "Db", "Enemy", "Game", "Player", "User", function ($scope, $firebaseArray, $firebaseObject, Db, Enemy, Game, Player, User) {
+  $scope.game = Game;
+  $scope.player = Player;
+  $scope.enemy = Enemy;
+  $scope.menu = 'create';
+
+  $scope.requests = $firebaseArray(Db.ref('requests').orderByChild('active').equalTo(true).limitToLast(5));
+
+  $scope.reqkey = null;
+  $scope.acckey = null;
+
+  $scope.back = function () {
+    $scope.menu = 'create';
+
+    if ($scope.reqkey) {
+      Db.ref('requests', [$scope.reqkey]).update({ 
+        active: false, 
+        cancelled: Firebase.ServerValue.TIMESTAMP });
+
+      $scope.reqkey = null;}};
+
+
+
+  $scope.startSingle = function () {
+    Game.create();
+    $scope.back();};
+
+
+  $scope.selectMulti = function () {
+    $scope.menu = 'multi-select';};
+
+
+  $scope.createMulti = function () {
+    $scope.menu = 'multi-wait';
+
+    $scope.requests.
+    $add({ 
+      uid: User.uid, 
+      active: true, 
+      started: Firebase.ServerValue.TIMESTAMP }).
+
+    then(function (ref) {
+      $scope.reqkey = ref.key();
+      console.log('Requesting', $scope.reqkey);
+
+      ref.
+      onDisconnect().
+      update({ 
+        active: false, 
+        cancelled: Firebase.ServerValue.TIMESTAMP });
+
+
+      var request = $firebaseObject(ref);
+      var unwatch = undefined;
+      unwatch = request.$watch(function () {
+        if (request.joinuid) {
+          console.log('Accepting', $scope.reqkey, request.joinuid);
+          $scope.reqkey = null;
+
+          request.acceptuid = request.joinuid;
+          request.accepted = Firebase.ServerValue.TIMESTAMP;
+          request.active = false;
+          request.$save();
+
+          unwatch();}});});};
+
+
+
+
+
+  $scope.joinMulti = function (key) {
+    console.log('Joining', key);
+    $scope.acckey = key;
+
+    var request = $firebaseObject(Db.ref('requests', [key]));
+    request.$loaded(function () {
+      request.joinuid = User.uid;
+      request.joined = Firebase.ServerValue.TIMESTAMP;
+      request.$save(request);});
+
+
+    var unwatch = undefined;
+    unwatch = request.$watch(function () {
+      if (!request.active) {
+        $scope.acckey = null;
+
+        if (request.acceptuid === User.uid) {
+          console.log('Joined', key);
+          // boom! we have been selected
+        }
+        unwatch();}});};}]);
+'use strict';angular.
+module('blockwars').
+directive('bwWorld', function () {
+  return { 
+    restrict: 'E', 
+    controller: 'worldController', 
+    scope: {}, 
+
+    replace: true, 
+    template: '\n        <div class="world">\n          <div class="row" ng-repeat="row in ::rows">\n            <div class="col" ng-repeat="p in ::row">\n              <div ng-if="!player.data[p.y][pos(p.x)]" class="cell"></div>\n              <div ng-if="player.data[p.y][pos(p.x)]" class="cell"\n                ng-class="[player.data[p.y][pos(p.x)], player.data[p.y].removed ? \'removed\' : \'\']"></div>\n            </div>\n          </div>\n        </div>\n        ' };}).
+
+
+
+
+
+
+
+
+
+
+
+
+controller('worldController', ["$scope", "BLOCK_START", "SIZE_HEIGHT", "SIZE_WIDTH", "Player", "Enemy", function ($scope, BLOCK_START, SIZE_HEIGHT, SIZE_WIDTH, Player, Enemy) {
+  $scope.rows = [];
+  $scope.player = Player;
+  $scope.enemy = Enemy;
+
+  $scope.pos = function (x) {
+    var offset = Math.floor((4 - $scope.player.block.cells[$scope.player.block.rotation][0].length) / 2);
+
+    return (x + $scope.player.block.x - offset + SIZE_WIDTH - BLOCK_START) % SIZE_WIDTH;};
+
+
+  _.each(_.range(SIZE_HEIGHT), function (y) {
+    var row = [];
+    $scope.rows.push(row);
+
+    _.each(_.range(SIZE_WIDTH), function (x) {
+      row.push({ y: SIZE_HEIGHT - 1 - y, x: x });});});}]);
+'use strict';angular.
+module('blockwars').
 service('Blocks', function () {
   var blocks = { 
     i: { 
@@ -98,7 +281,7 @@ service('Blocks', function () {
 'use strict';angular.
 module('blockwars').
 service('Db', function () {
-  var fbref = new Firebase('https://cubewars.firebaseio.com/'); // eslint-disable-line
+  var fbref = new Firebase('https://cubewars.firebaseio.com/');
 
   this.base = function () {
     return fbref;};
@@ -555,110 +738,3 @@ service('User', ["$cookies", "$injector", "$timeout", "$firebaseAuth", "Db", fun
 
   $timeout(function () {
     _this2._auth();});}]);
-'use strict';angular.
-module('blockwars').
-directive('bwOverlay', function () {
-  return { 
-    restrict: 'E', 
-    controller: 'overlayController', 
-    scope: {}, 
-
-    replace: true, 
-    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.ended) && \'done\'">\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="box button" ng-click="startSingle()">Single Player Game</div>\n              <div class="box button disabled" ng-click="selectMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi-select" class="box menu">\n              <div ng-if="!requests.length" class="text">There are currently no available games, why don\'t you create one and wait for an opponent to accept?</div>\n              <div ng-if="!requests.length" class="box button" ng-click="createMulti()">Start Multi Game</div>\n              <div class="box button" ng-click="back()">Cancel</div>\n            </div>\n\n            <div ng-switch-when="multi-wait" class="box menu">\n              <div class="text">Waiting for an opponent to accept your challenge and join the game</div>\n              <div class="box button" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="box score player"><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n\n          <div ng-if="!game.loading && enemy.data" class="box score enemy"><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n        </div>\n        ' };}).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-controller('overlayController', ["$scope", "$firebaseArray", "Db", "Enemy", "Game", "Player", function ($scope, $firebaseArray, Db, Enemy, Game, Player) {
-  $scope.game = Game;
-  $scope.player = Player;
-  $scope.enemy = Enemy;
-  $scope.menu = 'create';
-
-  $scope.requests = $firebaseArray(Db.ref('requests'));
-
-  $scope.back = function () {
-    $scope.menu = 'create';};
-
-
-  $scope.startSingle = function () {
-    Game.create();
-    $scope.back();};
-
-
-  $scope.selectMulti = function () {
-    $scope.menu = 'multi-select';};
-
-
-  $scope.createMulti = function () {
-    $scope.menu = 'multi-wait';};
-
-
-  $scope.startMulti = function (id) {};}]);
-'use strict';angular.
-module('blockwars').
-directive('bwWorld', function () {
-  return { 
-    restrict: 'E', 
-    controller: 'worldController', 
-    scope: {}, 
-
-    replace: true, 
-    template: '\n        <div class="world">\n          <div class="row" ng-repeat="row in ::rows">\n            <div class="col" ng-repeat="p in ::row">\n              <div ng-if="!player.data[p.y][pos(p.x)]" class="cell"></div>\n              <div ng-if="player.data[p.y][pos(p.x)]" class="cell"\n                ng-class="[player.data[p.y][pos(p.x)], player.data[p.y].removed ? \'removed\' : \'\']"></div>\n            </div>\n          </div>\n        </div>\n        ' };}).
-
-
-
-
-
-
-
-
-
-
-
-
-controller('worldController', ["$scope", "BLOCK_START", "SIZE_HEIGHT", "SIZE_WIDTH", "Player", "Enemy", function ($scope, BLOCK_START, SIZE_HEIGHT, SIZE_WIDTH, Player, Enemy) {
-  $scope.rows = [];
-  $scope.player = Player;
-  $scope.enemy = Enemy;
-
-  $scope.pos = function (x) {
-    var offset = Math.floor((4 - $scope.player.block.cells[$scope.player.block.rotation][0].length) / 2);
-
-    return (x + $scope.player.block.x - offset + SIZE_WIDTH - BLOCK_START) % SIZE_WIDTH;};
-
-
-  _.each(_.range(SIZE_HEIGHT), function (y) {
-    var row = [];
-    $scope.rows.push(row);
-
-    _.each(_.range(SIZE_WIDTH), function (x) {
-      row.push({ y: SIZE_HEIGHT - 1 - y, x: x });});});}]);

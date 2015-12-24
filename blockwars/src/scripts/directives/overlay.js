@@ -17,19 +17,30 @@ angular
             <div ng-switch-when="create" class="box menu">
               <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>
               <div class="text">Play on your own or go head-to-head.</div>
-              <div class="box button" ng-click="startSingle()">Single Player Game</div>
-              <div class="box button disabled" ng-click="selectMulti()">Multi Player Game</div>
+              <div class="button" ng-click="startSingle()">Single Player Game</div>
+              <div class="button disabled" ng-click="selectMulti()">Multi Player Game</div>
             </div>
 
             <div ng-switch-when="multi-select" class="box menu">
               <div ng-if="!requests.length" class="text">There are currently no available games, why don't you create one and wait for an opponent to accept?</div>
-              <div ng-if="!requests.length" class="box button" ng-click="createMulti()">Start Multi Game</div>
-              <div class="box button" ng-click="back()">Cancel</div>
+              <div ng-if="requests.length" class="text">Join one of the games where opponents are already waiting or create one.</div>
+              <div ng-if="requests.length" class="text">
+                <table>
+                  <tbody>
+                    <tr ng-repeat="req in requests">
+                      <td>{{ req.started | date:'medium' }}</td>
+                      <td><div class="button small" ng-class="acckey && 'disabled'" ng-click="!acckey && joinMulti(req.$id)">{{ acckey == req.$id ? 'Wait' : 'Join' }}</div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="button" ng-class="acckey && 'disabled'" ng-click="!acckey && createMulti()">Start Multi Game</div>
+              <div class="button" ng-class="acckey && 'disabled'" ng-click="!acckey && back()">Cancel</div>
             </div>
 
             <div ng-switch-when="multi-wait" class="box menu">
               <div class="text">Waiting for an opponent to accept your challenge and join the game</div>
-              <div class="box button" ng-click="back()">Cancel</div>
+              <div class="button" ng-click="back()">Cancel</div>
             </div>
           </div>
 
@@ -40,16 +51,27 @@ angular
         `
     };
   })
-  .controller('overlayController', function($scope, $firebaseArray, Db, Enemy, Game, Player) {
+  .controller('overlayController', function($scope, $firebaseArray, $firebaseObject, Db, Enemy, Game, Player, User) {
     $scope.game = Game;
     $scope.player = Player;
     $scope.enemy = Enemy;
     $scope.menu = 'create';
 
-    $scope.requests = $firebaseArray(Db.ref('requests'));
+    $scope.requests = $firebaseArray(Db.ref('requests').orderByChild('active').equalTo(true).limitToLast(5));
+
+    $scope.reqkey = null;
+    $scope.acckey = null;
 
     $scope.back = function() {
       $scope.menu = 'create';
+
+      if ($scope.reqkey) {
+        Db.ref('requests', [$scope.reqkey]).update({
+          active: false,
+          cancelled: Firebase.ServerValue.TIMESTAMP
+        });
+        $scope.reqkey = null;
+      }
     };
 
     $scope.startSingle = function() {
@@ -63,9 +85,64 @@ angular
 
     $scope.createMulti = function() {
       $scope.menu = 'multi-wait';
+
+      $scope.requests
+        .$add({
+          uid: User.uid,
+          active: true,
+          started: Firebase.ServerValue.TIMESTAMP
+        })
+        .then((ref) => {
+          $scope.reqkey = ref.key();
+          console.log('Requesting', $scope.reqkey);
+
+          ref
+            .onDisconnect()
+            .update({
+              active: false,
+              cancelled: Firebase.ServerValue.TIMESTAMP
+            });
+
+          const request = $firebaseObject(ref);
+          let unwatch;
+          unwatch = request.$watch(() => {
+            if (request.joinuid) {
+              console.log('Accepting', $scope.reqkey, request.joinuid);
+              $scope.reqkey = null;
+
+              request.acceptuid = request.joinuid;
+              request.accepted = Firebase.ServerValue.TIMESTAMP;
+              request.active = false;
+              request.$save();
+
+              unwatch();
+            }
+          });
+        });
     };
 
-    $scope.startMulti = function(id) {
+    $scope.joinMulti = function(key) {
+      console.log('Joining', key);
+      $scope.acckey = key;
 
+      const request = $firebaseObject(Db.ref('requests', [key]));
+      request.$loaded(() => {
+        request.joinuid = User.uid;
+        request.joined = Firebase.ServerValue.TIMESTAMP;
+        request.$save(request);
+      });
+
+      let unwatch;
+      unwatch = request.$watch(() => {
+        if (!request.active) {
+          $scope.acckey = null;
+
+          if (request.acceptuid === User.uid) {
+            console.log('Joined', key);
+            // boom! we have been selected
+          }
+          unwatch();
+        }
+      });
     };
   });

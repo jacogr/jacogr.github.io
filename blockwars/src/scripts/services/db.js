@@ -1,7 +1,7 @@
 angular
   .module('blockwars')
   .service('Db', function() {
-    const fbref = new Firebase('https://cubewars.firebaseio.com/'); // eslint-disable-line
+    const fbref = new Firebase('https://cubewars.firebaseio.com/');
 
     this.base = function() {
       return fbref;

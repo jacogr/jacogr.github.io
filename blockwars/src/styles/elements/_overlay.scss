@@ -30,6 +30,14 @@
     opacity: 0.75;
     width: auto;
 
+    table {
+      width: 100%;
+
+      td {
+        padding: 0.5em;
+      }
+    }
+
     &.score {
       position: absolute;
       top: 0;
@@ -55,25 +63,33 @@
       display: inline-block;
       margin: 2em auto;
       max-width: 30em;
+    }
 
-      .text {
-        padding: 1em 0;
+    .text {
+      padding: 1em 0;
+    }
+
+    .button {
+      cursor: pointer;
+      padding: 1em 2em;
+      margin: 1em 0;
+      color: $color-fg-page;
+      background: $color-bg-page;
+      border-radius: 0.5em;
+      opacity: 0.75;
+
+      &.disabled {
+        opacity: 0.25;
+        cursor: default;
       }
 
-      .button {
-        cursor: pointer;
-        margin: 1em 0;
-        color: $color-fg-page;
-        background: $color-bg-page;
+      &.spaced {
+        margin-top: 2em;
+      }
 
-        &.disabled {
-          opacity: 0.25;
-          cursor: default;
-        }
-
-        &.spaced {
-          margin-top: 2em;
-        }
+      &.small {
+        padding: 0.5em 1em;
+        margin: 0;
       }
     }
   }
