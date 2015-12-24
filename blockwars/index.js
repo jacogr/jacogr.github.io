@@ -743,13 +743,15 @@ service('User', ["$cookies", "$injector", "$timeout", "$firebaseAuth", "Db", fun
     this.uid = uid;
 
     $cookies.put(USER_COOKIE, this.uid);
-    $injector.get('Game').load();
 
     var session = Db.ref('sessions').push();
 
-    session.onDisconnect().update({ 
+    session.
+    onDisconnect().
+    update({ 
       ended: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
     });
+
     session.update({ 
       uid: uid, 
       started: Firebase.ServerValue.TIMESTAMP // eslint-disable-line
