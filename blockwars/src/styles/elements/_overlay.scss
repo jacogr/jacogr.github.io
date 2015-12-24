@@ -66,6 +66,11 @@
 
       td {
         padding: 0.5em;
+
+        .button {
+          padding: 0.5em 1em;
+          margin: 0;
+        }
       }
     }
 
@@ -105,11 +110,6 @@
 
       &.spaced {
         margin-top: 2em;
-      }
-
-      &.small {
-        padding: 0.5em 1em;
-        margin: 0;
       }
     }
   }

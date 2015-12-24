@@ -35,8 +35,7 @@ directive('bwOverlay', function () {
     scope: {}, 
 
     replace: true, 
-    template: '\n        <div class="overlay" ng-class="(game.loading || game.data.ended) && \'done\'">\n          <div ng-if="!game.loading && enemy.data" class="left">\n            <div class="box score">\n              <div class="small">Enemy</div>\n              <div><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n            </div>\n            <bw-world class="small" player="enemy"></bw-world>\n          </div>\n\n          <div ng-if="!game.loading && player.data" class="right">\n            <div class="box score">\n              <div class="small">Player</div>\n              <div><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n            </div>\n            <bw-world class="small" player="player"></bw-world>\n          </div>\n\n          <div ng-if="game.loading" class="box loading">Loading</div>\n\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="button" ng-click="startSingle()">Single Player Game</div>\n              <div class="button disabled" ng-click="selectMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi-select" class="box menu">\n              <div ng-if="!requests.length" class="text">There are currently no available games, why don\'t you create one and wait for an opponent to accept?</div>\n              <div ng-if="requests.length" class="text">Join one of the games where opponents are already waiting or create one.</div>\n              <div ng-if="requests.length" class="text">\n                <table>\n                  <tbody>\n                    <tr ng-repeat="req in requests">\n                      <td>{{ req.started | date:\'medium\' }}</td>\n                      <td><div class="button small" ng-class="acckey && \'disabled\'" ng-click="!acckey && joinMulti(req.$id)">{{ acckey == req.$id ? \'Wait\' : \'Join\' }}</div></td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && createMulti()">Start Multi Game</div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && back()">Cancel</div>\n            </div>\n\n            <div ng-switch-when="multi-wait" class="box menu">\n              <div class="text">Waiting for an opponent to accept your challenge and join the game</div>\n              <div class="button" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n        </div>\n        ' };}).
-
+    template: '\n        <div class="overlay" ng-class="(game.loading || player.loading || game.data.ended) && \'done\'">\n          <div ng-if="enemy.data" class="left">\n            <div class="box score">\n              <div class="small">Enemy</div>\n              <div><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>\n            </div>\n            <bw-world class="small" player="enemy"></bw-world>\n          </div>\n\n          <div ng-if="player.data" class="right">\n            <div class="box score">\n              <div class="small">Player</div>\n              <div><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>\n            </div>\n            <bw-world class="small" player="player"></bw-world>\n          </div>\n\n          <div ng-if="game.loading || player.loading" class="box loading">Loading</div>\n          <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>\n\n          <div ng-if="game.data.ended" ng-switch on="menu">\n            <div ng-switch-when="create" class="box menu">\n              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>\n              <div class="text">Play on your own or go head-to-head.</div>\n              <div class="button" ng-click="startSingle()">Single Player Game</div>\n              <div class="button" ng-click="selectMulti()">Multi Player Game</div>\n            </div>\n\n            <div ng-switch-when="multi-select" class="box menu">\n              <div ng-if="!requests.length" class="text">There are currently no available games, why don\'t you create one and wait for an opponent to accept?</div>\n              <div ng-if="requests.length" class="text">Join one of the games where opponents are already waiting or create one.</div>\n              <div ng-if="requests.length" class="text">\n                <table>\n                  <tbody>\n                    <tr ng-repeat="req in requests">\n                      <td>{{ req.started | date:\'medium\' }}</td>\n                      <td><div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && joinMulti(req.$id)">{{ acckey == req.$id ? \'Wait\' : \'Join\' }}</div></td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && createMulti()">Start Multi Game</div>\n              <div class="button" ng-class="acckey && \'disabled\'" ng-click="!acckey && back()">Cancel</div>\n            </div>\n\n            <div ng-switch-when="multi-wait" class="box menu">\n              <div class="text">Waiting for an opponent to accept your challenge and join the game</div>\n              <div class="button" ng-click="back()">Cancel</div>\n            </div>\n          </div>\n        </div>\n        ' };}).
 
 
 
@@ -114,9 +113,13 @@ controller('overlayController', ["$scope", "$firebaseArray", "$firebaseObject", 
 
 
 
+  var start = function start(mine, request) {
+    Game.create(mine, request);
+    $scope.menu = 'create';};
+
+
   $scope.startSingle = function () {
-    Game.create();
-    $scope.back();};
+    start(true);};
 
 
   $scope.selectMulti = function () {
@@ -129,6 +132,7 @@ controller('overlayController', ["$scope", "$firebaseArray", "$firebaseObject", 
     $scope.requests.
     $add({ 
       uid: User.uid, 
+      gameid: Game.nextId(), 
       active: true, 
       started: Firebase.ServerValue.TIMESTAMP }).
 
@@ -155,6 +159,8 @@ controller('overlayController', ["$scope", "$firebaseArray", "$firebaseObject", 
           request.active = false;
           request.$save();
 
+          start(true, request);
+
           unwatch();}});});};
 
 
@@ -179,8 +185,9 @@ controller('overlayController', ["$scope", "$firebaseArray", "$firebaseObject", 
 
         if (request.acceptuid === User.uid) {
           console.log('Joined', key);
-          // boom! we have been selected
-        }
+
+          start(false, request);}
+
         unwatch();}});};}]);
 'use strict';angular.
 module('blockwars').
@@ -341,8 +348,7 @@ service('Db', function () {
 module('blockwars').
 service('Enemy', ["Game", function (Game) {
   this.init = function () {
-    // this.data = Game.getEnemy();
-  };}]);
+    this.data = Game.getEnemy();};}]);
 'use strict';angular.
 module('blockwars').
 service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", "User", function ($injector, $location, $timeout, $firebaseObject, Db, User) {
@@ -369,29 +375,34 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", 
     return str;};
 
 
-  this.loading = true;
+  this.data = { ended: true };
+  this.loading = false;
 
   this._gameRef = function () {
     return Db.ref('games', this.path);};
 
 
   this.getEnemy = function () {
-    var singleOrPlayer = _.contains([User.uid, this.data.player.id], this.data.enemy.id);
-    return $firebaseObject(this._gameRef().child(singleOrPlayer ? 'player' : 'enemy'));};
+    if (this.single) {
+      return null;}
+
+
+    return $firebaseObject(this._gameRef().child(this.mine ? 'enemy' : 'player'));};
 
 
   this.getPlayer = function () {
-    var singleOrPlayer = _.contains([User.uid, this.data.enemy.id], this.data.player.id);
-    return $firebaseObject(this._gameRef().child(singleOrPlayer ? 'player' : 'enemy'));};
+    return $firebaseObject(this._gameRef().child(this.mine ? 'player' : 'enemy'));};
 
 
-  this.save = function () {
-    // this.data.$save();
-  };
+  this.save = function (force) {
+    if (this.mine || force) {
+      this.data.$save();}};
+
+
 
   this.end = function () {
     this.data.ended = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
-    this.save();
+    this.save(true);
 
     var score = Db.ref('scores').push();
     var player = $injector.get('Player');
@@ -405,53 +416,36 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", 
     });};
 
 
-  this.load = function () {
-    // const path = $location.path().split('/');
-
-    // if (path.length && path[1] === 'game') {
-    //   this.date = new Date();
-    //   this.path = path[2].split('-');
-    //
-    //   this.data = $firebaseObject(this._gameRef());
-    //   this.data
-    //     .$loaded()
-    //     .then(() => {
-    //       this.loading = false;
-    //       console.log('Game loaded', path[2], this.data);
-    //
-    //       $injector.get('Player').init();
-    //       $injector.get('Enemy').init();
-    //     })
-    //     .catch((err) => {
-    //       console.error('Game load', err);
-    //     });
-    // } else {
-    this.loading = false;
-    this.data = { ended: true };
-    // }
-  };
-
-  this.create = function () {
-    this.date = new Date();
-    this.loading = false;
-
-    this.path = ['' + 
-    alpha(this.date.getUTCFullYear()) + alpha(this.date.getUTCMonth() + 1) + alpha(this.date.getUTCDate()), 
-    alpha(this.date.getTime()), 
-    rand(10)];
+  this.nextId = function () {
+    var date = new Date();
+    return ['' + 
+    alpha(date.getUTCFullYear()) + alpha(date.getUTCMonth() + 1) + alpha(date.getUTCDate()), 
+    alpha(date.getTime()), 
+    rand(10)];};
 
 
-    this.data = {}; // $firebaseObject(this._gameRef());
-    this.data.started = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
-    this.data.player = { id: User.uid, score: 0, lines: 0 };
-    this.data.enemy = { id: User.uid, score: 0, lines: 0 };
-    this.save();
 
-    $location.path('/game/' + this.path.join('-'));
+  this.create = function (mine, request) {var _this = this;
+    this.loading = true;
+    this.single = !request;
+    this.mine = this.single || mine;
+    this.path = request ? request.gameid : this.nextId();
 
-    $timeout(function () {
-      $injector.get('Player').init();
-      $injector.get('Enemy').init();});};}]);
+    this.data = $firebaseObject(this._gameRef());
+    this.data.$loaded(function () {
+      _this.loading = false;
+
+      if (mine) {
+        _this.data.started = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
+        _this.data.ended = 0;
+        _this.data.player = { uid: request ? request.uid : User.uid, score: 0, lines: 0 };
+        _this.data.enemy = { uid: request ? request.acceptuid : null, score: 0, lines: 0 };
+        _this.save();}
+
+
+      $timeout(function () {
+        $injector.get('Player').init();
+        $injector.get('Enemy').init();});});};}]);
 'use strict';angular.
 module('blockwars').
 service('Height', function () {
@@ -459,39 +453,27 @@ service('Height', function () {
     return 'height-' + height;};});
 'use strict';angular.
 module('blockwars').
-service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEIGHT", "SIZE_WIDTH", "Blocks", "Game", function ($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game) {var _this7 = this;
+service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEIGHT", "SIZE_WIDTH", "Blocks", "Game", "User", function ($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game, User) {var _this8 = this;
   var SCORE = { 
     BLOCK: 1, 
     LINE: 100 };
 
 
-  this.init = function () {
-    this.data = {}; // Game.getPlayer();
-    // this.data
-    //   .$loaded()
-    //   .then(() => {
-    this.block = undefined;
-    this.data.player = Game.player;
-    this.data.score = this.data.score || 0;
-    this.data.lines = this.data.lines || 0;
-    // });
-  };
+  this.init = function () {var _this = this;
+    this.loading = true;
 
-  this._addBlock = function () {var _this = this;
-    _.each(this.block.cells[this.block.rotation], function (row, y) {
-      _.each(row, function (cell, x) {
-        if (cell) {
-          var posy = _this.block.y - y;
-          var posx = (_this.block.x + x + SIZE_WIDTH) % SIZE_WIDTH;
-
-          _this.data[posy] = _this.data[posy] || {};
-          _this.data[posy][posx] = _this.block.color;}});});};
+    this.data = Game.getPlayer();
+    this.data.
+    $loaded().
+    then(function () {
+      _this.loading = false;
+      _this.block = undefined;
+      _this.data.score = _this.data.score || 0;
+      _this.data.lines = _this.data.lines || 0;});};
 
 
 
-
-
-  this._removeBlock = function () {var _this2 = this;
+  this._addBlock = function () {var _this2 = this;
     _.each(this.block.cells[this.block.rotation], function (row, y) {
       _.each(row, function (cell, x) {
         if (cell) {
@@ -499,13 +481,27 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
           var posx = (_this2.block.x + x + SIZE_WIDTH) % SIZE_WIDTH;
 
           _this2.data[posy] = _this2.data[posy] || {};
-          _this2.data[posy][posx] = null;}});});};
+          _this2.data[posy][posx] = _this2.block.color;}});});};
 
 
 
 
 
-  this._meltBlocks = function () {var _this3 = this;
+  this._removeBlock = function () {var _this3 = this;
+    _.each(this.block.cells[this.block.rotation], function (row, y) {
+      _.each(row, function (cell, x) {
+        if (cell) {
+          var posy = _this3.block.y - y;
+          var posx = (_this3.block.x + x + SIZE_WIDTH) % SIZE_WIDTH;
+
+          _this3.data[posy] = _this3.data[posy] || {};
+          _this3.data[posy][posx] = null;}});});};
+
+
+
+
+
+  this._meltBlocks = function () {var _this4 = this;
     this._removeBlock();
 
     var y = 0;
@@ -514,7 +510,7 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
     while (y < SIZE_HEIGHT) {
       if (_.get(this.data[y], 'removed')) {
         _.each(_.range(y, SIZE_HEIGHT - 1), function (ny) {
-          _this3.data[ny] = _this3.data[ny + 1] || null;});
+          _this4.data[ny] = _this4.data[ny + 1] || null;});
 
 
         this.data.lines++;
@@ -528,22 +524,22 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
     this._addBlock();};
 
 
-  this._fixBlocks = function () {var _this4 = this;
+  this._fixBlocks = function () {var _this5 = this;
     _.each(_.range(SIZE_HEIGHT), function (y) {
       var count = 0;
 
-      if (_this4.data[y]) {
+      if (_this5.data[y]) {
         _.each(_.range(SIZE_WIDTH), function (x) {
-          if (_this4.data[y][x] === 'gray') {
+          if (_this5.data[y][x] === 'gray') {
             count++;} else 
-          if (_this4.data[y][x]) {
-            _this4.data[y][x] = 'gray';
+          if (_this5.data[y][x]) {
+            _this5.data[y][x] = 'gray';
             count++;}});
 
 
 
         if (count === SIZE_WIDTH) {
-          _this4.data[y].removed = true;}}});};
+          _this5.data[y].removed = true;}}});};
 
 
 
@@ -566,7 +562,7 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
     this._addBlock();};
 
 
-  this._canMove = function (dy, dx) {var _this5 = this;
+  this._canMove = function (dy, dx) {var _this6 = this;
     this._removeBlock();
 
     var movable = true;
@@ -574,10 +570,10 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
     _.each(this.block.cells[this.block.rotation], function (row, y) {
       _.each(row, function (cell, x) {
         if (movable && cell) {
-          var posy = _this5.block.y + dy - y;
-          var posx = (_this5.block.x + dx + x + SIZE_WIDTH) % SIZE_WIDTH;
+          var posy = _this6.block.y + dy - y;
+          var posx = (_this6.block.x + dx + x + SIZE_WIDTH) % SIZE_WIDTH;
 
-          if (posy < 0 || _this5.data[posy] && _this5.data[posy][posx]) {
+          if (posy < 0 || _this6.data[posy] && _this6.data[posy][posx]) {
             movable = false;}}});});
 
 
@@ -633,7 +629,7 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
     this.data.score += drop * SCORE.BLOCK;};
 
 
-  this._canRotate = function (rot) {var _this6 = this;
+  this._canRotate = function (rot) {var _this7 = this;
     this._removeBlock();
 
     var rotatable = true;
@@ -641,10 +637,10 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
     _.each(this.block.cells[rot], function (row, y) {
       _.each(row, function (cell, x) {
         if (rotatable && cell) {
-          var posy = _this6.block.y - y;
-          var posx = (_this6.block.x + x + SIZE_WIDTH) % SIZE_WIDTH;
+          var posy = _this7.block.y - y;
+          var posx = (_this7.block.x + x + SIZE_WIDTH) % SIZE_WIDTH;
 
-          if (posy < 0 || _this6.data[posy] && _this6.data[posy][posx]) {
+          if (posy < 0 || _this7.data[posy] && _this7.data[posy][posx]) {
             rotatable = false;}}});});
 
 
@@ -689,19 +685,19 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
   };
 
   this.save = function () {
-    // this.data.$save();
-  };
+    this.data.$save();};
+
 
   $interval(function () {
-    if (_this7.isRunning()) {
-      if (!_this7.block) {
-        _this7._newBlock();} else 
+    if (_this8.isRunning()) {
+      if (!_this8.block) {
+        _this8._newBlock();} else 
       {
-        _this7._meltBlocks();
-        _this7._moveDown();}
+        _this8._meltBlocks();
+        _this8._moveDown();}
 
 
-      _this7.save();}}, 
+      _this8.save();}}, 
 
   INTERVAL);
 
@@ -717,9 +713,9 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
       default:break;}
 
 
-    if (action && _this7.isRunning()) {
+    if (action && _this8.isRunning()) {
       $timeout(function () {
-        _this7[action]();});}};
+        _this8[action]();});}};
 
 
 

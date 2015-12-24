@@ -24,29 +24,34 @@ angular
       return str;
     };
 
-    this.loading = true;
+    this.data = { ended: true };
+    this.loading = false;
 
     this._gameRef = function() {
       return Db.ref('games', this.path);
     };
 
     this.getEnemy = function() {
-      const singleOrPlayer = _.contains([User.uid, this.data.player.id], this.data.enemy.id);
-      return $firebaseObject(this._gameRef().child(singleOrPlayer ? 'player' : 'enemy'));
+      if (this.single) {
+        return null;
+      }
+
+      return $firebaseObject(this._gameRef().child(this.mine ? 'enemy' : 'player'));
     };
 
     this.getPlayer = function() {
-      const singleOrPlayer = _.contains([User.uid, this.data.enemy.id], this.data.player.id);
-      return $firebaseObject(this._gameRef().child(singleOrPlayer ? 'player' : 'enemy'));
+      return $firebaseObject(this._gameRef().child(this.mine ? 'player' : 'enemy'));
     };
 
-    this.save = function() {
-      // this.data.$save();
+    this.save = function(force) {
+      if (this.mine || force) {
+        this.data.$save();
+      }
     };
 
     this.end = function() {
       this.data.ended = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
-      this.save();
+      this.save(true);
 
       const score = Db.ref('scores').push();
       const player = $injector.get('Player');
@@ -60,53 +65,37 @@ angular
       });
     };
 
-    this.load = function() {
-      // const path = $location.path().split('/');
-
-      // if (path.length && path[1] === 'game') {
-      //   this.date = new Date();
-      //   this.path = path[2].split('-');
-      //
-      //   this.data = $firebaseObject(this._gameRef());
-      //   this.data
-      //     .$loaded()
-      //     .then(() => {
-      //       this.loading = false;
-      //       console.log('Game loaded', path[2], this.data);
-      //
-      //       $injector.get('Player').init();
-      //       $injector.get('Enemy').init();
-      //     })
-      //     .catch((err) => {
-      //       console.error('Game load', err);
-      //     });
-      // } else {
-      this.loading = false;
-      this.data = { ended: true };
-      // }
-    };
-
-    this.create = function() {
-      this.date = new Date();
-      this.loading = false;
-
-      this.path = [
-        `${alpha(this.date.getUTCFullYear())}${alpha(this.date.getUTCMonth() + 1)}${alpha(this.date.getUTCDate())}`,
-        alpha(this.date.getTime()),
+    this.nextId = function() {
+      const date = new Date();
+      return [
+        `${alpha(date.getUTCFullYear())}${alpha(date.getUTCMonth() + 1)}${alpha(date.getUTCDate())}`,
+        alpha(date.getTime()),
         rand(10)
       ];
+    };
 
-      this.data = {}; // $firebaseObject(this._gameRef());
-      this.data.started = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
-      this.data.player = { id: User.uid, score: 0, lines: 0 };
-      this.data.enemy = { id: User.uid, score: 0, lines: 0 };
-      this.save();
+    this.create = function(mine, request) {
+      this.loading = true;
+      this.single = !request;
+      this.mine = this.single || mine;
+      this.path = request ? request.gameid : this.nextId();
 
-      $location.path(`/game/${this.path.join('-')}`);
+      this.data = $firebaseObject(this._gameRef());
+      this.data.$loaded(() => {
+        this.loading = false;
 
-      $timeout(() => {
-        $injector.get('Player').init();
-        $injector.get('Enemy').init();
+        if (mine) {
+          this.data.started = Firebase.ServerValue.TIMESTAMP; // eslint-disable-line
+          this.data.ended = 0;
+          this.data.player = { uid: request ? request.uid : User.uid, score: 0, lines: 0 };
+          this.data.enemy = { uid: request ? request.acceptuid : null, score: 0, lines: 0 };
+          this.save();
+        }
+
+        $timeout(() => {
+          $injector.get('Player').init();
+          $injector.get('Enemy').init();
+        });
       });
     };
   });

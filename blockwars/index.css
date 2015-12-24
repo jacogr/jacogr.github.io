@@ -677,6 +677,7 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay .box{margin:2em 1em;padding:1em 2em;border-radius:.5em;color:#fff;background:#333;opacity:.75;width:auto}
 .overlay .box table{width:100%}
 .overlay .box table td{padding:.5em}
+.overlay .box table td .button{padding:.5em 1em;margin:0}
 .overlay .box .small{font-size:70%;margin-bottom:.5em}
 .overlay .box.loading{display:inline-block;background:#f33}
 .overlay .box.menu{margin:2em auto;max-width:30em}
@@ -684,7 +685,6 @@ body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay .box .button{cursor:pointer;padding:1em 2em;margin:1em 0;color:#333;background:#fff;border-radius:.5em;opacity:.75}
 .overlay .box .button.disabled{opacity:.25;cursor:default}
 .overlay .box .button.spaced{margin-top:2em}
-.overlay .box .button.small{padding:.5em 1em;margin:0}
 .world{margin:3.75em auto;width:9em;-webkit-perspective:800;-moz-perspective:800;perspective:800}
 .world .row{margin:.15em auto;height:1.5em;width:9em;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}
 .world .row .col{left:3.75em;width:1.5em;height:1.5em;position:absolute;-webkit-transform-style:preserve-3d;-moz-transform-style:preserve-3d;-ms-transform-style:preserve-3d;-o-transform-style:preserve-3d;transform-style:preserve-3d}

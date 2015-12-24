@@ -1,21 +1,23 @@
 angular
   .module('blockwars')
-  .service('Player', function($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game) {
+  .service('Player', function($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game, User) {
     const SCORE = {
       BLOCK: 1,
       LINE: 100
     };
 
     this.init = function() {
-      this.data = {}; // Game.getPlayer();
-      // this.data
-      //   .$loaded()
-      //   .then(() => {
-      this.block = undefined;
-      this.data.player = Game.player;
-      this.data.score = this.data.score || 0;
-      this.data.lines = this.data.lines || 0;
-      // });
+      this.loading = true;
+
+      this.data = Game.getPlayer();
+      this.data
+        .$loaded()
+        .then(() => {
+          this.loading = false;
+          this.block = undefined;
+          this.data.score = this.data.score || 0;
+          this.data.lines = this.data.lines || 0;
+        });
     };
 
     this._addBlock = function() {
@@ -230,7 +232,7 @@ angular
     };
 
     this.save = function() {
-      // this.data.$save();
+      this.data.$save();
     };
 
     $interval(() => {

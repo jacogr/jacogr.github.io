@@ -8,8 +8,8 @@ angular
       },
       replace: true,
       template: `
-        <div class="overlay" ng-class="(game.loading || game.data.ended) && 'done'">
-          <div ng-if="!game.loading && enemy.data" class="left">
+        <div class="overlay" ng-class="(game.loading || player.loading || game.data.ended) && 'done'">
+          <div ng-if="enemy.data" class="left">
             <div class="box score">
               <div class="small">Enemy</div>
               <div><span>{{ enemy.data.score | number:0 }}</span><span ng-if="enemy.data.lines">/{{ enemy.data.lines | number:0 }}</span></div>
@@ -17,7 +17,7 @@ angular
             <bw-world class="small" player="enemy"></bw-world>
           </div>
 
-          <div ng-if="!game.loading && player.data" class="right">
+          <div ng-if="player.data" class="right">
             <div class="box score">
               <div class="small">Player</div>
               <div><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>
@@ -25,8 +25,7 @@ angular
             <bw-world class="small" player="player"></bw-world>
           </div>
 
-          <div ng-if="game.loading" class="box loading">Loading</div>
-
+          <div ng-if="game.loading || player.loading" class="box loading">Loading</div>
           <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>
 
           <div ng-if="game.data.ended" ng-switch on="menu">
@@ -34,7 +33,7 @@ angular
               <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>
               <div class="text">Play on your own or go head-to-head.</div>
               <div class="button" ng-click="startSingle()">Single Player Game</div>
-              <div class="button disabled" ng-click="selectMulti()">Multi Player Game</div>
+              <div class="button" ng-click="selectMulti()">Multi Player Game</div>
             </div>
 
             <div ng-switch-when="multi-select" class="box menu">
@@ -45,7 +44,7 @@ angular
                   <tbody>
                     <tr ng-repeat="req in requests">
                       <td>{{ req.started | date:'medium' }}</td>
-                      <td><div class="button small" ng-class="acckey && 'disabled'" ng-click="!acckey && joinMulti(req.$id)">{{ acckey == req.$id ? 'Wait' : 'Join' }}</div></td>
+                      <td><div class="button" ng-class="acckey && 'disabled'" ng-click="!acckey && joinMulti(req.$id)">{{ acckey == req.$id ? 'Wait' : 'Join' }}</div></td>
                     </tr>
                   </tbody>
                 </table>
@@ -86,9 +85,13 @@ angular
       }
     };
 
+    const start = function(mine, request) {
+      Game.create(mine, request);
+      $scope.menu = 'create';
+    };
+
     $scope.startSingle = function() {
-      Game.create();
-      $scope.back();
+      start(true);
     };
 
     $scope.selectMulti = function() {
@@ -101,6 +104,7 @@ angular
       $scope.requests
         .$add({
           uid: User.uid,
+          gameid: Game.nextId(),
           active: true,
           started: Firebase.ServerValue.TIMESTAMP
         })
@@ -127,6 +131,8 @@ angular
               request.active = false;
               request.$save();
 
+              start(true, request);
+
               unwatch();
             }
           });
@@ -151,7 +157,8 @@ angular
 
           if (request.acceptuid === User.uid) {
             console.log('Joined', key);
-            // boom! we have been selected
+
+            start(false, request);
           }
           unwatch();
         }
