@@ -33,11 +33,17 @@
     right: 50%;
     top: 0;
     margin-right: $size-row / 2 !important;
+    background: red;
   }
 
   .world.small {
     opacity: 0.5;
-    margin-right: 3em;
+    position: absolute;
+    top: 5.5 * $unit;
+    right: $unit;
+    width: 5.5 * $unit;
+    margin: 0;
+    background: blue;
   }
 
   .score {
@@ -46,11 +52,11 @@
   }
 
   .right .score {
-    margin: 2em auto 0 1em;
+    margin: $unit auto 0 $unit;
   }
 
   .left .score {
-    margin: 2em 1em 0 auto;
+    margin: $unit $unit 0 auto;
   }
 
   .box {
@@ -88,7 +94,7 @@
     &.menu {
       display: inline-block;
       margin: 2em auto;
-      width: 25em;
+      width: $size-row * 1.4;
     }
 
     .text {

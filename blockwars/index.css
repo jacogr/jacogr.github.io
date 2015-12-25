@@ -665,29 +665,28 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .cell.white{background:#f5f5ff}
 .cell.yellow{background:#cf6}
 .game{margin:0 auto}
-.next{left:50%;top:7em;width:19.25vh;margin:0 0 0 19.25vh}
-.overlay .left,.overlay .right,.overlay:before{top:0;position:absolute}
-.next .block{margin:0 0 1em}
+.next{left:50%;top:19.25vh;width:19.25vh;margin:0 0 0 19.25vh}
+.next .block{margin:0 0 1.75vh}
 .next .block .row{height:3.5vh}
 .next .block .row .col{width:3.5vh;height:3.5vh;display:inline-block}
 .next .block .row .col .cell{position:relative;width:3.5vh;height:3.5vh;box-shadow:inset 0 0 0 .58333vh rgba(0,0,0,.15);border-radius:.58333vh}
 .next .block .row .col .cell.empty{box-shadow:none;background:0 0}
 .overlay{position:fixed;top:0;right:0;left:0;bottom:0;z-index:100}
-.overlay:before{right:0;left:0;bottom:0;content:''}
+.overlay:before{position:absolute;top:0;right:0;left:0;bottom:0;content:''}
 .overlay.done:before{opacity:.5;background:#333}
-.overlay .right{left:50%;margin-left:19.25vh!important}
-.overlay .left{right:50%;margin-right:19.25vh!important}
-.overlay .world.small{opacity:.5;margin-right:3em}
+.overlay .right{position:absolute;left:50%;top:0;margin-left:19.25vh!important}
+.overlay .left{position:absolute;right:50%;top:0;margin-right:19.25vh!important;background:red}
+.overlay .world.small{opacity:.5;position:absolute;top:19.25vh;right:3.5vh;width:19.25vh;margin:0;background:#00f}
 .overlay .score{padding:.5em 2em!important}
-.overlay .right .score{margin:2em auto 0 1em}
-.overlay .left .score{margin:2em 1em 0 auto}
+.overlay .right .score{margin:3.5vh auto 0 3.5vh}
+.overlay .left .score{margin:3.5vh 3.5vh 0 auto}
 .overlay .box{margin:2em 1em;padding:1em 2em;border-radius:.5em;color:#fff;background:#333;opacity:.75;width:auto}
 .overlay .box table{width:100%}
 .overlay .box table td{padding:.5em}
 .overlay .box table td .button{padding:.5em 1em;margin:0}
 .overlay .box .small{font-size:70%;margin-bottom:.5em}
 .overlay .box.loading{background:#f33}
-.overlay .box.menu{margin:2em auto;width:25em}
+.overlay .box.menu{margin:2em auto;width:53.9vh}
 .overlay .box .text{padding:1em 0}
 .overlay .box .button{cursor:pointer;padding:1em 2em;margin:1em 0;color:#333;background:#fff;border-radius:.5em;opacity:.75}
 .overlay .box .button.disabled{opacity:.25;cursor:default}

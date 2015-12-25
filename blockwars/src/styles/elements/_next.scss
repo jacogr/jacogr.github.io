@@ -1,13 +1,13 @@
 .next {
   position: absolute;
   left: 50%;
-  top: 7em;
+  top: 5.5 * $unit;
   width: 5.5 * $unit;
   margin: 0 0 0 $size-row / 2;
   text-align: center;
 
   .block {
-    margin: 0 0 1em 0;
+    margin: 0 0 $unit / 2 0;
 
     .row {
       height: $unit;
