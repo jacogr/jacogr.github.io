@@ -687,7 +687,7 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay .box table td .button{padding:.5em 1em;margin:0}
 .overlay .box .small{font-size:70%;margin-bottom:.5em}
 .overlay .box.loading{background:#f33}
-.overlay .box.menu{margin:2em auto;max-width:30em}
+.overlay .box.menu{margin:2em auto;width:25em}
 .overlay .box .text{padding:1em 0}
 .overlay .box .button{cursor:pointer;padding:1em 2em;margin:1em 0;color:#333;background:#fff;border-radius:.5em;opacity:.75}
 .overlay .box .button.disabled{opacity:.25;cursor:default}
