@@ -675,8 +675,8 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay:before{position:absolute;top:0;right:0;left:0;bottom:0;content:''}
 .overlay.done:before{opacity:.5;background:#333}
 .overlay .right{position:absolute;left:50%;top:0;margin-left:19.25vh!important}
-.overlay .left{position:absolute;right:50%;top:0;margin-right:19.25vh!important;background:red}
-.overlay .world.small{opacity:.5;position:absolute;top:19.25vh;right:3.5vh;width:19.25vh;margin:0;background:#00f}
+.overlay .left{position:absolute;right:50%;top:0;margin-right:19.25vh!important}
+.overlay .world.small{opacity:.5;position:absolute;top:19.25vh;right:3.5vh;width:19.25vh;margin:0}
 .overlay .score{padding:.5em 2em!important}
 .overlay .right .score{margin:3.5vh auto 0 3.5vh}
 .overlay .left .score{margin:3.5vh 3.5vh 0 auto}
