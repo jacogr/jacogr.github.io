@@ -1,7 +1,7 @@
 'use strict';angular.
 module('blockwars', ['ngCookies', 'firebase']).
 constant('SIZE_WIDTH', 11).
-constant('SIZE_HEIGHT', 16).
+constant('SIZE_HEIGHT', 18).
 constant('BLOCK_START', 4).
 constant('INTERVAL', 750).
 config(["$locationProvider", function ($locationProvider) {
@@ -472,12 +472,7 @@ service('Game', ["$injector", "$location", "$timeout", "$firebaseObject", "Db", 
         $injector.get('Enemy').init();});});};}]);
 'use strict';angular.
 module('blockwars').
-service('Height', function () {
-  this.toClass = function (height) {
-    return 'height-' + height;};});
-'use strict';angular.
-module('blockwars').
-service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEIGHT", "SIZE_WIDTH", "Blocks", "Game", "User", function ($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game, User) {var _this9 = this;
+service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEIGHT", "SIZE_WIDTH", "Blocks", "Game", function ($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game) {var _this9 = this;
   var SCORE = { 
     BLOCK: 1, 
     LINE: 100 };
@@ -495,7 +490,6 @@ service('Player', ["$interval", "$timeout", "BLOCK_START", "INTERVAL", "SIZE_HEI
 
 
     var posx = (_.get(this.block, 'x', BLOCK_START) + SIZE_WIDTH) % SIZE_WIDTH;
-
 
     this.block = this.blocks.splice(0, 1)[0];
     this.block.x = posx;

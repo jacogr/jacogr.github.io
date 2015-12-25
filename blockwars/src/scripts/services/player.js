@@ -1,6 +1,6 @@
 angular
   .module('blockwars')
-  .service('Player', function($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game, User) {
+  .service('Player', function($interval, $timeout, BLOCK_START, INTERVAL, SIZE_HEIGHT, SIZE_WIDTH, Blocks, Game) {
     const SCORE = {
       BLOCK: 1,
       LINE: 100
@@ -18,7 +18,6 @@ angular
       }
 
       const posx = (_.get(this.block, 'x', BLOCK_START) + SIZE_WIDTH) % SIZE_WIDTH;
-
 
       this.block = this.blocks.splice(0, 1)[0];
       this.block.x = posx;
