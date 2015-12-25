@@ -1,6 +1,5 @@
 @charset "UTF-8";
 .fa.fa-pull-left,.fa.pull-left{margin-right:.3em}
-.cell,body{background:#fff}
 .fa-fw,.fa-li,.overlay,.overlay .score{text-align:center}
 .fa,.fa-stack,.overlay .box.loading,.overlay .box.menu{display:inline-block}
 html{box-sizing:border-box}
@@ -651,8 +650,8 @@ html{box-sizing:border-box}
 .fa-bluetooth:before{content:""}
 .fa-bluetooth-b:before{content:""}
 .fa-percent:before{content:""}
-body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
-.cell{opacity:.9;position:absolute;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s}
+body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.cell{opacity:.9;background:0 0;position:absolute;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s}
 .cell.gray{background:#888}
 .cell.gray.removed{background:#bbb}
 .cell.black{background:#555}

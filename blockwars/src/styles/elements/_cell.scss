@@ -1,6 +1,6 @@
 .cell {
   opacity: 0.9;
-  background: white;
+  background: transparent;
   position: absolute;
 
   @include transition(all $anim-time);
