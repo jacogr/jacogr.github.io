@@ -2,7 +2,7 @@
   position: absolute;
   left: 50%;
   top: 7em;
-  width: 5.5 * $size-cube;
+  width: 5.5 * $unit;
   margin: 0 0 0 $size-row / 2;
   text-align: center;
 
@@ -10,19 +10,19 @@
     margin: 0 0 1em 0;
 
     .row {
-      height: $size-cube;
+      height: $unit;
 
       .col {
-        width: $size-cube;
-        height: $size-cube;
+        width: $unit;
+        height: $unit;
         display: inline-block;
 
         .cell {
           position: relative;
-          width: $size-cube;
-          height: $size-cube;
-          box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .15);
-          border-radius: 0.25em;
+          width: $unit;
+          height: $unit;
+          box-shadow: inset 0 0 0 $unit / 6 hsla(0, 0%, 0%, .15);
+          border-radius: $unit / 6;
 
           &.empty {
             box-shadow: none;

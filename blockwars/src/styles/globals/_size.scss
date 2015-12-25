@@ -1,8 +1,8 @@
-$size-cube: 1.5em;
+$unit: 3.5vh; // 1.5em
 $size-ratio-small: 2;
 
 $size-width: 11;
 $size-height: 18;
 
-$size-row: $size-width * $size-cube;
-$size-wall: $size-height * $size-cube;
+$size-row: $size-width * $unit;
+$size-wall: $size-height * $unit;

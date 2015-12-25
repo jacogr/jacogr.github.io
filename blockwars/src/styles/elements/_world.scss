@@ -1,23 +1,23 @@
 .world {
-  $_world_width: 6 * $size-cube;
+  $_world_width: 6 * $unit;
   $_curve_angle: 360deg / 35;
 
-  margin: 2.5 * $size-cube auto;
+  margin: 2.5 * $unit auto;
   width: $_world_width;
 
   @include perspective(800);
 
   .row {
-    margin: $size-cube / 10 auto;
-    height: $size-cube;
+    margin: $unit / 10 auto;
+    height: $unit;
     width: $_world_width;
 
     @include transform-style(preserve-3d);
 
     .col {
-      left: 2.5 * $size-cube;
-      width: $size-cube;
-      height: $size-cube;
+      left: 2.5 * $unit;
+      width: $unit;
+      height: $unit;
       position: absolute;
 
       @include transform-style(preserve-3d);
@@ -29,16 +29,16 @@
       }
 
       .cell {
-        width: $size-cube;
-        height: $size-cube;
-        box-shadow: inset 0 0 0 .25em hsla(0, 0%, 0%, .15);
-        border-radius: 0.25em;
+        width: $unit;
+        height: $unit;
+        box-shadow: inset 0 0 0 $unit / 6 hsla(0, 0%, 0%, .15);
+        border-radius: $unit / 6;
       }
     }
   }
 
   &.small {
-    $_size_cube_small: $size-cube / $size-ratio-small;
+    $_size_cube_small: $unit / $size-ratio-small;
     $_world_width_small: $_world_width / $size-ratio-small;
 
     margin: 2.5 * $_size_cube_small auto;
@@ -63,8 +63,8 @@
         .cell {
           width: $_size_cube_small;
           height: $_size_cube_small;
-          box-shadow: inset 0 0 0 0.25em / $size-ratio-small hsla(0, 0%, 0%, .15);
-          border-radius: 0.25em / $size-ratio-small;
+          box-shadow: inset 0 0 0 $unit / 6 / $size-ratio-small hsla(0, 0%, 0%, .15);
+          border-radius: $unit / 6 / $size-ratio-small;
         }
       }
     }
