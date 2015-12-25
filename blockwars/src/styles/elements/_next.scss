@@ -1,8 +1,13 @@
 .next {
-  margin-top: 1em;
+  position: absolute;
+  left: 50%;
+  top: 7em;
+  width: 5.5 * $size-cube;
+  margin: 0 0 0 $size-row / 2;
+  text-align: center;
 
   .block {
-    margin: 0 0 1em -2em;
+    margin: 0 0 1em 0;
 
     .row {
       height: $size-cube;

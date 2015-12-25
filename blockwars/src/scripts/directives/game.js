@@ -10,6 +10,7 @@ angular
       template: `
         <div class="game">
           <bw-world player="player" rotate="true"></bw-world>
+          <bw-next></bw-next>
           <bw-overlay></bw-overlay>
         </div>
         `

@@ -22,7 +22,6 @@ angular
               <div class="small">Player</div>
               <div><span>{{ player.data.score | number:0 }}</span><span ng-if="player.data.lines">/{{ player.data.lines | number:0 }}</span></div>
             </div>
-            <bw-next></bw-next>
           </div>
 
           <div ng-if="game.loading || player.loading" class="box loading">Loading</div>

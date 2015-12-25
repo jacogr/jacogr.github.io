@@ -25,14 +25,14 @@
     position: absolute;
     left: 50%;
     top: 0;
-    margin-left: $size-row / 2 + 3em !important;
+    margin-left: $size-row / 2 !important;
   }
 
   .left {
     position: absolute;
     right: 50%;
     top: 0;
-    margin-right: $size-row / 2 + 3em !important;
+    margin-right: $size-row / 2 !important;
   }
 
   .world {
@@ -45,11 +45,11 @@
   }
 
   .right .score {
-    margin: 2em auto 0 -2em;
+    margin: 2em auto 0 1em;
   }
 
   .left .score {
-    margin: 2em -2em 0 auto;
+    margin: 2em 1em 0 auto;
   }
 
   .box {
