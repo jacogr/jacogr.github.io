@@ -35,8 +35,9 @@
     margin-right: $size-row / 2 !important;
   }
 
-  .world {
+  .world.small {
     opacity: 0.5;
+    margin-right: 3em; 
   }
 
   .score {

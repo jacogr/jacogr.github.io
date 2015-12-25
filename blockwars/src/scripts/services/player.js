@@ -18,7 +18,7 @@ angular
       }
 
       this.blocks.splice(0, 1);
-      while (this.blocks.length < 5) {
+      while (this.blocks.length < 4) {
         this.blocks.push(Blocks.get());
       }
 

@@ -26,18 +26,19 @@ angular
 
           <div ng-if="game.loading || player.loading" class="box loading">Loading</div>
           <div ng-if="game.data.player && game.data.ended" class="box loading">Completed</div>
+          <div ng-if="menu == 'multi-wait'" class="box loading">Waiting</div>
 
           <div ng-if="game.data.ended" ng-switch on="menu">
             <div ng-switch-when="create" class="box menu">
-              <div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div>
-              <div class="text">Play on your own or go head-to-head.</div>
+              <!--div class="text">Ready to go? Test your strength in a unconstrained round world by dropping blocks & forming lines. You may think you have seen something like this, but never like this.</div-->
+              <!--div class="text">Play on your own or go head-to-head.</div-->
               <div class="button" ng-click="startSingle()">Single Player Game</div>
               <div class="button" ng-click="selectMulti()">Multi Player Game</div>
             </div>
 
             <div ng-switch-when="multi-select" class="box menu">
               <div ng-if="!requests.length" class="text">There are currently no available games, why don't you create one and wait for an opponent to accept?</div>
-              <div ng-if="requests.length" class="text">Join one of the games where opponents are already waiting or create one.</div>
+              <!--div ng-if="requests.length" class="text">Join one of the games where opponents are already waiting or create one.</div-->
               <div ng-if="requests.length" class="text">
                 <table>
                   <tbody>
@@ -52,10 +53,10 @@ angular
               <div class="button" ng-class="acckey && 'disabled'" ng-click="!acckey && back()">Cancel</div>
             </div>
 
-            <div ng-switch-when="multi-wait" class="box menu">
+            <!--div ng-switch-when="multi-wait" class="box menu">
               <div class="text">Waiting for an opponent to accept your challenge and join the game</div>
               <div class="button" ng-click="back()">Cancel</div>
-            </div>
+            </div-->
           </div>
         </div>
         `

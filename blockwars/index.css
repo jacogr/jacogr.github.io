@@ -677,7 +677,7 @@ body{background:#fff;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
 .overlay.done:before{opacity:.5;background:#333}
 .overlay .right{left:50%;margin-left:8.25em!important}
 .overlay .left{right:50%;margin-right:8.25em!important}
-.overlay .world{opacity:.5}
+.overlay .world.small{opacity:.5;margin-right:3em}
 .overlay .score{padding:.5em 2em!important}
 .overlay .right .score{margin:2em auto 0 1em}
 .overlay .left .score{margin:2em 1em 0 auto}
