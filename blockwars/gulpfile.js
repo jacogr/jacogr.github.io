@@ -25,7 +25,7 @@ gulp.task('js', function() {
     .on('error', errcb)
     .pipe(annotate())
     // .pipe(uglify())
-    .pipe(concat('index.js'))
+    .pipe(concat('client.js'))
     .pipe(gulp.dest('.'));
 });
 
@@ -64,7 +64,7 @@ gulp.task('css', function() {
     .pipe(cssmin({
       keepBreaks: true
     }))
-    .pipe(concat('index.css'))
+    .pipe(concat('client.css'))
     .pipe(gulp.dest('.'));
 });
 
