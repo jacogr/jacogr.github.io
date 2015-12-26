@@ -6,11 +6,12 @@ angular
     this.uid = null;
 
     this._start = function(uid) {
-      this.uid = uid;
-
-      $cookies.put(USER_COOKIE, this.uid);
-
+      const date = new Date();
+      const expire = new Date(date.getUTCFullYear() + 1, date.getUTCMonth(), date.getUTCDate());
       const session = Db.ref('sessions').push();
+
+      this.uid = uid;
+      $cookies.put(USER_COOKIE, this.uid, { expires: expire });
 
       session
         .onDisconnect()
