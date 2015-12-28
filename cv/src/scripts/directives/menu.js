@@ -2,6 +2,7 @@
   selector: 'menu'
 })
 @View({
+  directives: [CSSClass],
   template: `
     <div class="menu">
       <div class="cv">CV</div>
@@ -10,7 +11,7 @@
         <p>{{ data.position }}</p>
       </div>
       <div class="items">
-        <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" ng-class="isPath(item.url) && 'selected'">{{ item.title }}</a>
+        <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" [class]="isPath(item.url) && 'selected'">{{ item.title }}</a>
       </div>
     </div>`
 })

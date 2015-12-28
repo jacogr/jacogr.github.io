@@ -2,11 +2,11 @@
   selector: 'position'
 })
 @View({
-  directives: [Markdown],
+  directives: [CSSClass, Markdown],
   template: `
-    <div class="position" ng-class="(isHidden() && 'hide') || (isExtended() && 'show')" (click)="show()">
+    <div class="position" [class]="(isHidden() && 'hide') || (isExtended() && 'show')" (click)="show()">
       <div class="summary">
-        <div class="action fa" ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'"></div>
+        <div class="action fa" [class]="isExtended() ? 'fa-level-up' : 'fa-level-down'"></div>
         <div class="title">{{ data.position }}</div>
         <div class="company">{{ data.company }}</div>
         <div class="sub">
@@ -15,7 +15,7 @@
         </div>
         <div class="year">'{{ getShortYear() }}</div>
       </div>
-      <markdown class="expanded" data="data.description" ng-class="isExtended() && 'show'"></markdown>
+      <markdown class="expanded" data="data.description" [class]="isExtended() && 'show'"></markdown>
     </div>`
 })
 class Position {

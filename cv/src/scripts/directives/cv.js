@@ -2,9 +2,9 @@
   selector: 'cv'
 })
 @View({
-  directives: [Markdown, Position],
+  directives: [CSSClass, Markdown, Position],
   template: `
-    <div class="content" ng-class="isPrint() && 'print'">
+    <div class="content" [class]="isPrint() && 'print'">
       <markdown class="introduction" data="data.summary"></markdown>
       <div class="positions">
         <position ng-repeat="position in data.positions" data="position"></position>

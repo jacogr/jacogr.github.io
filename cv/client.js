@@ -2,30 +2,32 @@
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _dec, _class, _dec2, _class2, _dec3, _class3, _dec4, _class4;
+var _dec, _dec2, _class, _dec3, _dec4, _class2, _dec5, _dec6, _class3, _dec7, _dec8, _class4;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-angular.module('cv', ['ngSanitize']).config(function ($locationProvider) {
-  $locationProvider.html5Mode(false);
-}).run(function ($location, $rootScope, $timeout) {
-  $rootScope.$on('$locationChangeSuccess', function (evt, url) {
-    if (url.indexOf('#/print') !== -1) {
-      $timeout(function () {
-        return window.print();
-      }, 1000);
+document.addEventListener('DOMContentLoaded', function () {
+  bootstrap(CV, [provide(LocationStrategy, { useClass: HashLocationStrategy })]);
+});
+/*  .run(function($location, $rootScope, $timeout) {
+    $rootScope.$on('$locationChangeSuccess', (evt, url) => {
+      if (url.indexOf('#/print') !== -1) {
+        $timeout(() => window.print(), 1000);
+      }
+    });
+
+    if ($location.path() === '') {
+      $location.path('/summary');
     }
   });
-
-  if ($location.path() === '') {
-    $location.path('/summary');
-  }
-});
+*/
 
 var CV = (_dec = Component({
-  selector: 'cv',
-  template: '\n    <div class="content" ng-class="isPrint() && \'print\'">\n      <markdown class="introduction" data="data.summary"></markdown>\n      <div class="positions">\n        <position ng-repeat="position in data.positions" data="position"></position>\n      </div>\n    </div>'
-}), _dec(_class = (function () {
+  selector: 'cv'
+}), _dec2 = View({
+  directives: [CSSClass, Markdown, Position],
+  template: '\n    <div class="content" [class]="isPrint() && \'print\'">\n      <markdown class="introduction" data="data.summary"></markdown>\n      <div class="positions">\n        <position ng-repeat="position in data.positions" data="position"></position>\n      </div>\n    </div>'
+}), _dec(_class = _dec2(_class = (function () {
   function CV(data) {
     _classCallCheck(this, CV);
 
@@ -40,23 +42,26 @@ var CV = (_dec = Component({
   }]);
 
   return CV;
-})()) || _class);
+})()) || _class) || _class);
 Reflect.defineMetadata('design:paramtypes', [CVData], CV);
-var Markdown = (_dec2 = Component({
-  selector: 'markdown',
+var Markdown = (_dec3 = Component({
+  selector: 'markdown'
+}), _dec4 = View({
   template: '<div class="markdown" ng-bind-html="html"></div>'
-}), _dec2(_class2 = function Markdown(data) {
+}), _dec3(_class2 = _dec4(_class2 = function Markdown(data) {
   _classCallCheck(this, Markdown);
 
   var conv = new showdown.Converter(); // eslint-disable-line no-undef
 
   this.html = conv.makeHtml(data);
-}) || _class2);
+}) || _class2) || _class2);
 Attribute('data')(Markdown, null, 0);
-var Menu = (_dec3 = Component({
-  selector: 'menu',
-  template: '\n    <div class="menu">\n      <div class="cv">CV</div>\n      <div class="person">\n        <p>{{ data.name }}</p>\n        <p>{{ data.position }}</p>\n      </div>\n      <div class="items">\n        <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" ng-class="isPath(item.url) && \'selected\'">\n          {{ item.title }}\n        </a>\n      </div>\n    </div>'
-}), _dec3(_class3 = (function () {
+var Menu = (_dec5 = Component({
+  selector: 'menu'
+}), _dec6 = View({
+  directives: [CSSClass],
+  template: '\n    <div class="menu">\n      <div class="cv">CV</div>\n      <div class="person">\n        <p>{{ data.name }}</p>\n        <p>{{ data.position }}</p>\n      </div>\n      <div class="items">\n        <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" [class]="isPath(item.url) && \'selected\'">{{ item.title }}</a>\n      </div>\n    </div>'
+}), _dec5(_class3 = _dec6(_class3 = (function () {
   function Menu(data) {
     _classCallCheck(this, Menu);
 
@@ -73,12 +78,14 @@ var Menu = (_dec3 = Component({
   }]);
 
   return Menu;
-})()) || _class3);
+})()) || _class3) || _class3);
 Reflect.defineMetadata('design:paramtypes', [CVData], Menu);
-var Position = (_dec4 = Component({
-  selector: 'position',
-  template: '\n    <div class="position" ng-class="(isHidden() && \'hide\') || (isExtended() && \'show\')" ng-click="show()">\n      <div class="summary">\n        <div class="action fa" ng-class="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n        <div class="title">{{ data.position }}</div>\n        <div class="company">{{ data.company }}</div>\n        <div class="sub">\n          <div class="location">{{ data.location }}</div>\n          <div class="fromto">{{ getDate() }}</div>\n        </div>\n        <div class="year">\'{{ getShortYear() }}</div>\n      </div>\n      <markdown class="expanded" data="data.description" ng-class="isExtended() && \'show\'"></markdown>\n    </div>'
-}), _dec4(_class4 = (function () {
+var Position = (_dec7 = Component({
+  selector: 'position'
+}), _dec8 = View({
+  directives: [CSSClass, Markdown],
+  template: '\n    <div class="position" [class]="(isHidden() && \'hide\') || (isExtended() && \'show\')" (click)="show()">\n      <div class="summary">\n        <div class="action fa" [class]="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n        <div class="title">{{ data.position }}</div>\n        <div class="company">{{ data.company }}</div>\n        <div class="sub">\n          <div class="location">{{ data.location }}</div>\n          <div class="fromto">{{ getDate() }}</div>\n        </div>\n        <div class="year">\'{{ getShortYear() }}</div>\n      </div>\n      <markdown class="expanded" data="data.description" [class]="isExtended() && \'show\'"></markdown>\n    </div>'
+}), _dec7(_class4 = _dec8(_class4 = (function () {
   function Position(data) {
     _classCallCheck(this, Position);
 
@@ -127,7 +134,7 @@ var Position = (_dec4 = Component({
   }]);
 
   return Position;
-})()) || _class4);
+})()) || _class4) || _class4);
 Attribute('data')(Position, null, 0);
 
 var CVData = (function () {
