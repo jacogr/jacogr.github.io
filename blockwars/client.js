@@ -264,57 +264,37 @@ service('Blocks', function () {
     i: { 
       color: 'green', 
       rotation: 0, 
-      cells: [[
-      [1, 1, 1, 1]]] }, 
-
+      cells: [[[1, 1, 1, 1]]] }, 
 
     j: { 
       color: 'red', 
       rotation: 0, 
-      cells: [[
-      [1, 1, 1], 
-      [0, 0, 1]]] }, 
-
+      cells: [[[1, 1, 1], [0, 0, 1]]] }, 
 
     l: { 
       color: 'red2', 
       rotation: 0, 
-      cells: [[
-      [1, 1, 1], 
-      [1, 0, 0]]] }, 
-
+      cells: [[[1, 1, 1], [1, 0, 0]]] }, 
 
     o: { 
       color: 'yellow', 
       rotation: 0, 
-      cells: [[
-      [1, 1], 
-      [1, 1]]] }, 
-
+      cells: [[[1, 1], [1, 1]]] }, 
 
     s: { 
       color: 'blue', 
       rotation: 0, 
-      cells: [[
-      [0, 1, 1], 
-      [1, 1, 0]]] }, 
-
+      cells: [[[0, 1, 1], [1, 1, 0]]] }, 
 
     t: { 
       color: 'purple', 
       rotation: 0, 
-      cells: [[
-      [1, 1, 1], 
-      [0, 1, 0]]] }, 
-
+      cells: [[[1, 1, 1], [0, 1, 0]]] }, 
 
     z: { 
       color: 'blue2', 
       rotation: 0, 
-      cells: [[
-      [1, 1, 0], 
-      [0, 1, 1]]] } };
-
+      cells: [[[1, 1, 0], [0, 1, 1]]] } };
 
 
   var types = Object.keys(blocks);
@@ -323,29 +303,35 @@ service('Blocks', function () {
     return types[_.random(types.length - 1)];};
 
 
-  this.get = function (_type) {
-    return _.clone(blocks[_type || this.nextType()], true);};
+  this.get = function (type) {
+    var tmpl = blocks[type || this.nextType()];
+
+    return { 
+      color: tmpl.color, 
+      rotation: 0, 
+      cells: tmpl.cells };};
+
 
 
   _.each(blocks, function (block) {
     var prev = block.cells[0];
 
     _.times(3, function () {
-      var rotation = [];
+      var curr = [];
       var rows = prev[0].length;
       var cols = prev.length;
 
       _.times(rows, function (ridx) {
         var row = [];
-        rotation.push(row);
+        curr.push(row);
 
         _.times(cols, function (cidx) {
           row.push(prev[cidx][prev[cidx].length - ridx - 1]);});});
 
 
 
-      prev = rotation;
-      block.cells.push(rotation);});});});
+      prev = curr;
+      block.cells.push(curr);});});});
 'use strict';angular.
 module('blockwars').
 service('Db', function () {
