@@ -1,19 +1,18 @@
-angular
-  .module('cv')
-  .service('CVData', function() {
-    const _date = function(year, month) {
-      return { year: year, month: month };
-    };
-
-    const _pad0 = function(num) {
+class CVData {
+  _add(position) {
+    const _pad = function(num) {
       return `0${num}`.slice(-2);
     };
 
-    this._add = function(position) {
-      const end = position.end ? `${position.end.year}${_pad0(position.end.month)}` : 'current';
-      position.id = `${position.start.year}${_pad0(position.start.month)}-${end}`;
+    const end = position.end ? `${position.end.year}${_pad(position.end.month)}` : 'current';
+    position.id = `${position.start.year}${_pad(position.start.month)}-${end}`;
 
-      this.positions.push(position);
+    this.positions.push(position);
+  }
+
+  constructor() {
+    const _date = function(year, month) {
+      return { year: year, month: month };
     };
 
     this.name = 'Jaco Greeff';
@@ -275,4 +274,5 @@ Having a passion for Electronics from an early age (1984-) and discovering a lov
 # Leaving
 After completion of the B.Eng (Electronic), studies continued with a part-time M.Eng (Metallurgical) and University Bursary, for the evaluation of Genetic Programming (AI) on the problems presented in the metallugical industry. A number of papers were published in international journals, however the M.Eng was not completed since it was better suited to full-time focus.`
     });
-  });
+  }
+}

@@ -3,7 +3,7 @@
 /* eslint no-var:0 */
 var path = require('path');
 var gulp = require('gulp');
-var annotate = require('gulp-ng-annotate');
+// var annotate = require('gulp-ng-annotate');
 var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
@@ -11,7 +11,7 @@ var eslint = require('gulp-eslint');
 var ignore = require('gulp-ignore');
 var jade = require('gulp-jade');
 var sass = require('gulp-sass');
-var uglify = require('gulp-uglify');
+// var uglify = require('gulp-uglify');
 
 var errcb = function(err) {
   console.error(err.stack || err.message || err);
@@ -21,11 +21,11 @@ var errcb = function(err) {
 gulp.task('js-client', function() {
   return gulp
     .src(['src/scripts/**/*.js'])
+    .pipe(concat('client.js'))
     .pipe(babel())
     .on('error', errcb)
-    .pipe(annotate())
-    //.pipe(uglify())
-    .pipe(concat('client.js'))
+    // .pipe(annotate())
+    // .pipe(uglify())
     .pipe(gulp.dest('.'));
 });
 

@@ -1,61 +1,59 @@
-angular
-  .module('cv')
-  .directive('position', function() {
-    return {
-      restrict: 'E',
-      controller: 'positionController',
-      scope: {
-        data: '=data'
-      },
-      replace: true,
-      template: `
-        <div class="position" ng-class="(isHidden() && 'hide') || (isExtended() && 'show')" ng-click="show()">
-          <div class="summary">
-            <div class="action fa" ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'"></div>
-            <div class="title">{{ data.position }}</div>
-            <div class="company">{{ data.company }}</div>
-            <div class="sub">
-              <div class="location">{{ data.location }}</div>
-              <div class="fromto">{{ getDate() }}</div>
-            </div>
-            <div class="year">'{{ getShortYear() }}</div>
-          </div>
-          <markdown class="expanded" data="data.description" ng-class="isExtended() && 'show'"></markdown>
-        </div>`
-    };
-  })
-  .controller('positionController', function($scope, $location) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const viewPath = `/${$scope.data.id}`;
-    const summaryPath = '/summary';
-    const printPath = '/print';
+@Component({
+  selector: 'position'
+})
+@View({
+  directives: [Markdown],
+  template: `
+    <div class="position" ng-class="(isHidden() && 'hide') || (isExtended() && 'show')" (click)="show()">
+      <div class="summary">
+        <div class="action fa" ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'"></div>
+        <div class="title">{{ data.position }}</div>
+        <div class="company">{{ data.company }}</div>
+        <div class="sub">
+          <div class="location">{{ data.location }}</div>
+          <div class="fromto">{{ getDate() }}</div>
+        </div>
+        <div class="year">'{{ getShortYear() }}</div>
+      </div>
+      <markdown class="expanded" data="data.description" ng-class="isExtended() && 'show'"></markdown>
+    </div>`
+})
+class Position {
+  constructor(@Attribute('data') data) {
+    this.data = data;
 
-    $scope.show = function() {
-      const path = $location.path();
+    this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    this.viewPath = `/${data.id}`;
+    this.summaryPath = '/summary';
+    this.printPath = '/print';
+  }
 
-      if (path === viewPath) {
-        $location.path(summaryPath);
-      } else if (path === summaryPath) {
-        $location.path(viewPath);
-      }
-    };
+  show() {
+    const path = $location.path();
 
-    $scope.isExtended = function() {
-      return _.contains([printPath, viewPath], $location.path());
-    };
+    if (path === this.viewPath) {
+      $location.path(this.summaryPath);
+    } else if (path === this.summaryPath) {
+      $location.path(this.viewPath);
+    }
+  }
 
-    $scope.isHidden = function() {
-      return !_.contains([printPath, summaryPath, viewPath], $location.path());
-    };
+  isExtended() {
+    return _.contains([this.printPath, this.viewPath], $location.path());
+  }
 
-    $scope.getDate = function() {
-      const start = `${months[$scope.data.start.month - 1]} ${$scope.data.start.year}`;
-      const end = $scope.data.end ? `${months[$scope.data.end.month - 1]} ${$scope.data.end.year}` : 'Current';
+  isHidden() {
+    return !_.contains([this.printPath, this.summaryPath, this.viewPath], $location.path());
+  }
 
-      return `${start} - ${end}`;
-    };
+  getDate() {
+    const start = `${this.months[this.data.start.month - 1]} ${this.data.start.year}`;
+    const end = this.data.end ? `${this.months[this.data.end.month - 1]} ${this.data.end.year}` : 'Current';
 
-    $scope.getShortYear = function() {
-      return `${($scope.data.end ? $scope.data.end.year : new Date().getFullYear())}`.slice(-2);
-    };
-  });
+    return `${start} - ${end}`;
+  }
+
+  getShortYear() {
+    return `${(this.data.end ? this.data.end.year : new Date().getFullYear())}`.slice(-2);
+  }
+}
