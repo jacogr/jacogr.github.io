@@ -2,12 +2,12 @@
   selector: 'cv'
 })
 @View({
-  directives: [CSSClass, Markdown, Position],
+  directives: [CSSClass, For, Markdown, Position],
   template: `
     <div class="content" [class]="isPrint() && 'print'">
       <markdown class="introduction" data="data.summary"></markdown>
       <div class="positions">
-        <position ng-repeat="position in data.positions" data="position"></position>
+        <position *for="#position in data.positions" data="position"></position>
       </div>
     </div>`
 })

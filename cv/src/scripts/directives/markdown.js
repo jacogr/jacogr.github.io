@@ -2,7 +2,7 @@
   selector: 'markdown'
 })
 @View({
-  template: '<div class="markdown" ng-bind-html="html"></div>'
+  template: '<div class="markdown" [inner-html]="html"></div>'
 })
 class Markdown {
   constructor(@Attribute('data') data) {

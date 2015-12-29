@@ -1,10 +1,13 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 var _dec, _dec2, _class, _dec3, _dec4, _class2, _dec5, _dec6, _class3, _dec7, _dec8, _class4;
 
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// import {Component, View} from 'angular2/angular2';
+// import {bootstrap} from 'angular2/angular2';
 
 document.addEventListener('DOMContentLoaded', function () {
   bootstrap(CV, [provide(LocationStrategy, { useClass: HashLocationStrategy })]);
@@ -21,121 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 */
-
-var CV = (_dec = Component({
-  selector: 'cv'
-}), _dec2 = View({
-  directives: [CSSClass, Markdown, Position],
-  template: '\n    <div class="content" [class]="isPrint() && \'print\'">\n      <markdown class="introduction" data="data.summary"></markdown>\n      <div class="positions">\n        <position ng-repeat="position in data.positions" data="position"></position>\n      </div>\n    </div>'
-}), _dec(_class = _dec2(_class = (function () {
-  function CV(data) {
-    _classCallCheck(this, CV);
-
-    this.data = data;
-  }
-
-  _createClass(CV, [{
-    key: 'isPrint',
-    value: function isPrint() {
-      return $location.path() === '/print';
-    }
-  }]);
-
-  return CV;
-})()) || _class) || _class);
-Reflect.defineMetadata('design:paramtypes', [CVData], CV);
-var Markdown = (_dec3 = Component({
-  selector: 'markdown'
-}), _dec4 = View({
-  template: '<div class="markdown" ng-bind-html="html"></div>'
-}), _dec3(_class2 = _dec4(_class2 = function Markdown(data) {
-  _classCallCheck(this, Markdown);
-
-  var conv = new showdown.Converter(); // eslint-disable-line no-undef
-
-  this.html = conv.makeHtml(data);
-}) || _class2) || _class2);
-Attribute('data')(Markdown, null, 0);
-var Menu = (_dec5 = Component({
-  selector: 'menu'
-}), _dec6 = View({
-  directives: [CSSClass],
-  template: '\n    <div class="menu">\n      <div class="cv">CV</div>\n      <div class="person">\n        <p>{{ data.name }}</p>\n        <p>{{ data.position }}</p>\n      </div>\n      <div class="items">\n        <a class="item" ng-repeat="item in menu" ng-href="#{{ item.url }}" [class]="isPath(item.url) && \'selected\'">{{ item.title }}</a>\n      </div>\n    </div>'
-}), _dec5(_class3 = _dec6(_class3 = (function () {
-  function Menu(data) {
-    _classCallCheck(this, Menu);
-
-    this.menu = [{ url: '/summary', title: 'Summary' }, { url: '/print', title: 'Print' }];
-
-    this.data = data;
-  }
-
-  _createClass(Menu, [{
-    key: 'isPath',
-    value: function isPath(url) {
-      return $location.path() === url;
-    }
-  }]);
-
-  return Menu;
-})()) || _class3) || _class3);
-Reflect.defineMetadata('design:paramtypes', [CVData], Menu);
-var Position = (_dec7 = Component({
-  selector: 'position'
-}), _dec8 = View({
-  directives: [CSSClass, Markdown],
-  template: '\n    <div class="position" [class]="(isHidden() && \'hide\') || (isExtended() && \'show\')" (click)="show()">\n      <div class="summary">\n        <div class="action fa" [class]="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n        <div class="title">{{ data.position }}</div>\n        <div class="company">{{ data.company }}</div>\n        <div class="sub">\n          <div class="location">{{ data.location }}</div>\n          <div class="fromto">{{ getDate() }}</div>\n        </div>\n        <div class="year">\'{{ getShortYear() }}</div>\n      </div>\n      <markdown class="expanded" data="data.description" [class]="isExtended() && \'show\'"></markdown>\n    </div>'
-}), _dec7(_class4 = _dec8(_class4 = (function () {
-  function Position(data) {
-    _classCallCheck(this, Position);
-
-    this.data = data;
-
-    this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    this.viewPath = '/' + data.id;
-    this.summaryPath = '/summary';
-    this.printPath = '/print';
-  }
-
-  _createClass(Position, [{
-    key: 'show',
-    value: function show() {
-      var path = $location.path();
-
-      if (path === this.viewPath) {
-        $location.path(this.summaryPath);
-      } else if (path === this.summaryPath) {
-        $location.path(this.viewPath);
-      }
-    }
-  }, {
-    key: 'isExtended',
-    value: function isExtended() {
-      return _.contains([this.printPath, this.viewPath], $location.path());
-    }
-  }, {
-    key: 'isHidden',
-    value: function isHidden() {
-      return !_.contains([this.printPath, this.summaryPath, this.viewPath], $location.path());
-    }
-  }, {
-    key: 'getDate',
-    value: function getDate() {
-      var start = this.months[this.data.start.month - 1] + ' ' + this.data.start.year;
-      var end = this.data.end ? this.months[this.data.end.month - 1] + ' ' + this.data.end.year : 'Current';
-
-      return start + ' - ' + end;
-    }
-  }, {
-    key: 'getShortYear',
-    value: function getShortYear() {
-      return ('' + (this.data.end ? this.data.end.year : new Date().getFullYear())).slice(-2);
-    }
-  }]);
-
-  return Position;
-})()) || _class4) || _class4);
-Attribute('data')(Position, null, 0);
 
 var CVData = (function () {
   _createClass(CVData, [{
@@ -287,3 +175,118 @@ var CVData = (function () {
 
   return CVData;
 })();
+
+var CV = (_dec = Component({
+  selector: 'cv'
+}), _dec2 = View({
+  directives: [CSSClass, For, Markdown, Position],
+  template: '\n    <div class="content" [class]="isPrint() && \'print\'">\n      <markdown class="introduction" data="data.summary"></markdown>\n      <div class="positions">\n        <position *for="#position in data.positions" data="position"></position>\n      </div>\n    </div>'
+}), _dec(_class = _dec2(_class = (function () {
+  function CV(data) {
+    _classCallCheck(this, CV);
+
+    this.data = data;
+  }
+
+  _createClass(CV, [{
+    key: 'isPrint',
+    value: function isPrint() {
+      return $location.path() === '/print';
+    }
+  }]);
+
+  return CV;
+})()) || _class) || _class);
+Reflect.defineMetadata('design:paramtypes', [CVData], CV);
+var Markdown = (_dec3 = Component({
+  selector: 'markdown'
+}), _dec4 = View({
+  template: '<div class="markdown" [inner-html]="html"></div>'
+}), _dec3(_class2 = _dec4(_class2 = function Markdown(data) {
+  _classCallCheck(this, Markdown);
+
+  var conv = new showdown.Converter(); // eslint-disable-line no-undef
+
+  this.html = conv.makeHtml(data);
+}) || _class2) || _class2);
+Attribute('data')(Markdown, null, 0);
+var Menu = (_dec5 = Component({
+  selector: 'menu'
+}), _dec6 = View({
+  directives: [CSSClass, For],
+  template: '\n    <div class="menu">\n      <div class="cv">CV</div>\n      <div class="person">\n        <p>{{ data.name }}</p>\n        <p>{{ data.position }}</p>\n      </div>\n      <div class="items">\n        <a class="item" *for="#item in menu" [href]="#{{ item.url }}" [class]="isPath(item.url) && \'selected\'">{{ item.title }}</a>\n      </div>\n    </div>'
+}), _dec5(_class3 = _dec6(_class3 = (function () {
+  function Menu(data) {
+    _classCallCheck(this, Menu);
+
+    this.menu = [{ url: '/summary', title: 'Summary' }, { url: '/print', title: 'Print' }];
+
+    this.data = data;
+  }
+
+  _createClass(Menu, [{
+    key: 'isPath',
+    value: function isPath(url) {
+      return $location.path() === url;
+    }
+  }]);
+
+  return Menu;
+})()) || _class3) || _class3);
+Reflect.defineMetadata('design:paramtypes', [CVData], Menu);
+var Position = (_dec7 = Component({
+  selector: 'position'
+}), _dec8 = View({
+  directives: [CSSClass, Markdown],
+  template: '\n    <div class="position" [class]="(isHidden() && \'hide\') || (isExtended() && \'show\')" (click)="show()">\n      <div class="summary">\n        <div class="action fa" [class]="isExtended() ? \'fa-level-up\' : \'fa-level-down\'"></div>\n        <div class="title">{{ data.position }}</div>\n        <div class="company">{{ data.company }}</div>\n        <div class="sub">\n          <div class="location">{{ data.location }}</div>\n          <div class="fromto">{{ getDate() }}</div>\n        </div>\n        <div class="year">\'{{ getShortYear() }}</div>\n      </div>\n      <markdown class="expanded" data="data.description" [class]="isExtended() && \'show\'"></markdown>\n    </div>'
+}), _dec7(_class4 = _dec8(_class4 = (function () {
+  function Position(data) {
+    _classCallCheck(this, Position);
+
+    this.data = data;
+
+    this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    this.viewPath = '/' + data.id;
+    this.summaryPath = '/summary';
+    this.printPath = '/print';
+  }
+
+  _createClass(Position, [{
+    key: 'show',
+    value: function show() {
+      var path = $location.path();
+
+      if (path === this.viewPath) {
+        $location.path(this.summaryPath);
+      } else if (path === this.summaryPath) {
+        $location.path(this.viewPath);
+      }
+    }
+  }, {
+    key: 'isExtended',
+    value: function isExtended() {
+      return _.contains([this.printPath, this.viewPath], $location.path());
+    }
+  }, {
+    key: 'isHidden',
+    value: function isHidden() {
+      return !_.contains([this.printPath, this.summaryPath, this.viewPath], $location.path());
+    }
+  }, {
+    key: 'getDate',
+    value: function getDate() {
+      var start = this.months[this.data.start.month - 1] + ' ' + this.data.start.year;
+      var end = this.data.end ? this.months[this.data.end.month - 1] + ' ' + this.data.end.year : 'Current';
+
+      return start + ' - ' + end;
+    }
+  }, {
+    key: 'getShortYear',
+    value: function getShortYear() {
+      return ('' + (this.data.end ? this.data.end.year : new Date().getFullYear())).slice(-2);
+    }
+  }]);
+
+  return Position;
+})()) || _class4) || _class4);
+Attribute('data')(Position, null, 0);

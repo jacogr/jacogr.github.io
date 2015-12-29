@@ -1,3 +1,6 @@
+// import {Component, View} from 'angular2/angular2';
+// import {bootstrap} from 'angular2/angular2';
+
 document.addEventListener('DOMContentLoaded', () => {
   bootstrap(CV, [
     provide(LocationStrategy, { useClass: HashLocationStrategy })
