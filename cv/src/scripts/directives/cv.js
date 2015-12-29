@@ -12,11 +12,12 @@
     </div>`
 })
 class CV {
-  constructor(data: CVData) {
+  constructor(location: Location, data: CVData) {
     this.data = data;
+    this.location = location;
   }
 
   isPrint() {
-    return $location.path() === '/print';
+    return this.location.path() === '/print';
   }
 }

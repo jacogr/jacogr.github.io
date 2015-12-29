@@ -19,7 +19,8 @@
     </div>`
 })
 class Position {
-  constructor(@Attribute('data') data) {
+  constructor(location: Location, @Attribute('data') data) {
+    this.location = location;
     this.data = data;
 
     this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -29,21 +30,21 @@ class Position {
   }
 
   show() {
-    const path = $location.path();
+    const path = this.location.path();
 
     if (path === this.viewPath) {
-      $location.path(this.summaryPath);
+      this.location.path(this.summaryPath);
     } else if (path === this.summaryPath) {
-      $location.path(this.viewPath);
+      this.location.path(this.viewPath);
     }
   }
 
   isExtended() {
-    return _.contains([this.printPath, this.viewPath], $location.path());
+    return _.contains([this.printPath, this.viewPath], this.location.path());
   }
 
   isHidden() {
-    return !_.contains([this.printPath, this.summaryPath, this.viewPath], $location.path());
+    return !_.contains([this.printPath, this.summaryPath, this.viewPath], this.location.path());
   }
 
   getDate() {

@@ -16,16 +16,17 @@
     </div>`
 })
 class Menu {
-  constructor(data: CVData) {
+  constructor(location: Location, data: CVData) {
     this.menu = [
       { url: '/summary', title: 'Summary' },
       { url: '/print', title: 'Print' }
     ];
 
+    this.location = location;
     this.data = data;
   }
 
   isPath(url) {
-    return $location.path() === url;
+    return this.location.path() === url;
   }
 }
