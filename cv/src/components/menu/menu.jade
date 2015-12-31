@@ -1,0 +1,17 @@
+link(rel="import" href="../3rdparty/polymer.html")
+link(rel="import" href="menu-styles.html")
+  
+dom-module#comp-menu
+  template
+    style(include="menu-styles")
+    
+    .cv CV
+    .person
+      p {{ data.name }}
+      p {{ data.position }}
+    
+    .items
+      a(href="#/summary" class$="{{ itemClass(path, '#/summary') }}") Summary
+      a(href="#/print" class$="{{ itemClass(path, '#/print') }}") Print
+
+  script(src="menu.js")

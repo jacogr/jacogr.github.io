@@ -3,30 +3,33 @@
 /* eslint no-var:0 */
 var path = require('path');
 var gulp = require('gulp');
-var annotate = require('gulp-ng-annotate');
+// var annotate = require('gulp-ng-annotate');
 var babel = require('gulp-babel');
-var concat = require('gulp-concat');
+// var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
 var eslint = require('gulp-eslint');
 var ignore = require('gulp-ignore');
 var jade = require('gulp-jade');
+var rename = require('gulp-rename');
 var sass = require('gulp-sass');
-var uglify = require('gulp-uglify');
+var stylemod = require('gulp-style-modules');
+var vulcanize = require('gulp-vulcanize');
+// var uglify = require('gulp-uglify');
 
 var errcb = function(err) {
   console.error(err.stack || err.message || err);
   this.emit('end');
 };
 
-gulp.task('js-client', function() {
+gulp.task('component-js', function() {
   return gulp
-    .src(['src/scripts/**/*.js'])
+    .src(['src/components/**/*.js'])
     .pipe(babel())
     .on('error', errcb)
-    .pipe(annotate())
-    //.pipe(uglify())
-    .pipe(concat('client.js'))
-    .pipe(gulp.dest('.'));
+    // .pipe(annotate())
+    // .pipe(uglify())
+    // .pipe(concat('client.js'))
+    .pipe(gulp.dest('./components'));
 });
 
 gulp.task('lint', function() {
@@ -38,42 +41,81 @@ gulp.task('lint', function() {
 
 gulp.task('html', function() {
   return gulp
-    .src(['src/views/**/*.jade'])
+    .src(['src/**/*.jade'])
     .pipe(jade())
     .on('error', errcb)
-    .pipe(gulp.dest('.'));
+    .pipe(gulp.dest('./'));
 });
+
+gulp.task('component-html', ['html']); // , function() {
+//   return gulp
+//     .src(['components/**/*.html'])
+//     .pipe(vulcanize({
+//       inlineScripts: true,
+//       inlineCss: true,
+//       excludes: [
+//         'bower_components/polymer/polymer.html'
+//       ]
+//     }))
+//     .pipe(rename(function(p) {
+//       p.extname = '.min';
+//     }))
+//     .pipe(gulp.dest('./components'));
+// });
 
 gulp.task('css', function() {
   var nm = path.join(__dirname, '/node_modules'); // eslint-disable-line no-undef
 
   return gulp
-    .src(['src/styles/**/*.scss'])
+    .src(['src/**/*.scss'])
     .pipe(sass({
       indentedSyntax: false,
       sourceComments: 'normal',
       outputStyle: 'nested',
       includePaths: [
         path.join(nm, '/bourbon/app/assets/stylesheets'),
-        path.join(nm, '/bourbon-neat/app/assets/stylesheets'),
-        path.join(nm, '/font-awesome/scss')
+        path.join(nm, '/bourbon-neat/app/assets/stylesheets')
+        // path.join(nm, '/font-awesome/scss')
       ]
     }))
     .on('error', errcb)
     .pipe(ignore.exclude('*.css.map'))
-    .pipe(cssmin({
-      keepBreaks: true
-    }))
-    .pipe(concat('client.css'))
-    .pipe(gulp.dest('.'));
+    .pipe(cssmin({ keepBreaks: true }))
+    .pipe(gulp.dest('./'));
 });
 
-gulp.task('build', ['lint', 'js-client', 'html', 'css']);
+gulp.task('component-styles', ['css'], function() {
+  return gulp
+    .src(['components/**/*.css'])
+    .pipe(stylemod())
+    .pipe(gulp.dest('./components'));
+});
+
+gulp.task('index', ['html'], function() {
+  return gulp
+      .src('./client.html')
+      .pipe(vulcanize({
+        inlineScripts: true,
+        inlineCss: true,
+        excludes: [
+          'bower_components/polymer/polymer.html',
+          'bower_components/webcomponentsjs/webcomponents-lite.min.js',
+          '../../bower_components/lodash/lodash.min.js',
+          '../../bower_components/showdown/dist/showdown.min.js'
+        ]
+      }))
+      .pipe(rename(function(path) {
+        path.basename = 'index';
+      }))
+      .pipe(gulp.dest('.'));
+});
+
+gulp.task('build', ['lint', 'component-js', 'component-styles', 'component-html', 'index']);
 
 gulp.task('watch', ['default'], function() {
-  gulp.watch(['src/styles/**/*.scss'], ['css']);
-  gulp.watch(['src/views/**/*.jade'], ['html']);
-  gulp.watch(['src/scripts/**/*.js'], ['js-client']);
+  gulp.watch(['src/**/*.scss'], ['component-styles']);
+  gulp.watch(['src/**/*.jade'], ['component-html']);
+  gulp.watch(['src/components/**/*.js'], ['component-js']);
 });
 
 gulp.task('default', ['build']);

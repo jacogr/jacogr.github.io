@@ -1,0 +1,63 @@
+@import "../../globals";
+
+:host {
+  display: none;
+  position: relative;
+
+  @include media($break-large) {
+    display: block;
+    padding: 0.75em 1em;
+    margin: 0;
+    background: $color-menu-bg;
+  }
+}
+
+.cv {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-right: 0.25em;
+  display: inline-block;
+  color: $color-menu-bg-selected;
+}
+
+.person {
+  display: inline-block;
+  color: $color-menu-bg-selected;
+
+  & p {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.items {
+  position: absolute;
+  right: 1em;
+  bottom: 0em;
+  padding: 1em;
+
+  .item {
+    display: inline;
+    cursor: pointer;
+    color: $color-menu-text;
+    text-decoration: none;
+    padding: 1em;
+    height: 100%;
+
+    &.selected {
+      color: $color-menu-text-selected;
+      background: $color-menu-bg-selected;
+      border-radius: $border-rad $border-rad 0 0;
+    }
+  }
+}
+
+@media print {
+  :host {
+    display: block;
+  }
+
+  :host .items, .no-print {
+    display: none !important;
+  }
+}

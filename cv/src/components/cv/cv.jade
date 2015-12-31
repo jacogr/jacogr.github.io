@@ -1,0 +1,19 @@
+link(rel="import" href="../3rdparty/polymer.html")
+link(rel="import" href="../3rdparty/lodash.html")
+link(rel="import" href="../markdown/markdown.html")
+link(rel="import" href="../menu/menu.html")
+link(rel="import" href="../position/position.html")
+link(rel="import" href="cv-styles.html")
+  
+dom-module#comp-cv
+  template
+    style(include="cv-styles")
+    
+    div(class$="introduction {{ printClass(path) }}")
+      comp-markdown(text="{{ data.summary }}")
+      
+    .positions
+      template(is="dom-repeat" items="{{ data.positions }}")
+        comp-position(id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}")
+
+  script(src="cv.js")

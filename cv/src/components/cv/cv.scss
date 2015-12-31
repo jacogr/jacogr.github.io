@@ -1,0 +1,39 @@
+@import "../../globals";
+
+:host {
+  padding: 1em;
+
+  @include outer-container;
+}
+
+.introduction {
+  display: none;
+  padding: 0 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+
+  &.print {
+    @include span-columns(12);
+  }
+
+  comp-markdown {
+    border: 1px solid $color-content-border;
+    border-radius: $border-rad;
+    background: $color-content-bg;
+    padding: 1em;
+
+    @include span-columns(12);
+  }
+}
+
+.positions {
+  padding: 0 1em;
+
+  @include span-columns(12);
+}
+
+@media print {
+  .content, .content.print {
+    border: none;
+  }
+}

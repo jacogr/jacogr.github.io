@@ -1,0 +1,23 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="description" content="")
+    meta(name="author" content="")
+    meta(name="viewport" content="width=device-width")
+    
+    title Curriculum Vitae: Jaco Greeff
+    
+    link(rel="stylesheet" type="text/css" href="client.css")
+      
+    script(src="bower_components/webcomponentsjs/webcomponents-lite.min.js")
+    link(rel="import" href="components/app/app.html")
+    
+  body
+    comp-app
+      
+    script.
+      if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {
+          window.location.protocol = 'https:';
+      }

@@ -1,0 +1,14 @@
+link(rel="import" href="../3rdparty/polymer.html")
+link(rel="import" href="../cv/cv.html")
+link(rel="import" href="../cvdata/cvdata.html")
+link(rel="import" href="../menu/menu.html")
+link(rel="import" href="app-styles.html")
+  
+dom-module#comp-app
+  template
+    style(include="app-styles")
+    
+    comp-menu(data="{{ data }}")
+    comp-cv(data="{{ data }}")
+      
+  script(src="app.js")

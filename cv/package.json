@@ -25,7 +25,19 @@
     "gulp-ignore": "^2.0.1",
     "gulp-jade": "^1.1.0",
     "gulp-ng-annotate": "^1.1.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.1",
-    "gulp-uglify": "^1.5.1"
+    "gulp-style-modules": "^0.1.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-vulcanize": "^6.1.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "compression": "^1.6.0",
+    "cookie-parser": "^1.4.0",
+    "errorhandler": "^1.4.2",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "serve-static": "^1.10.0"
   }
 }

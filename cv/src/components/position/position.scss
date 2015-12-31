@@ -1,0 +1,160 @@
+@import "../../globals";
+
+:host {
+  max-height: 1000em;
+  border-radius: $border-rad;
+  cursor: pointer;
+  color: $color-content-text;
+  background: $color-content-bg;
+  border: 1px solid $color-content-border;
+  margin-bottom: 1em;
+
+  &:hover {
+    background: $color-content-bg-hover;
+    box-shadow: 0 0 0.75em 0.25em rgba(0, 0, 0, 0.1);
+  }
+
+  @include transition(all $anim-time);
+
+  @include span-columns(12);
+  @include omega(1n);
+
+  @include media($break-small) {
+    @include span-columns(6);
+    @include omega-reset(1n);
+    @include omega(2n);
+  }
+
+  @include media($break-large) {
+    @include span-columns(4);
+    @include omega-reset(2n);
+    @include omega(3n);
+  }
+
+  &.hide {
+    overflow: hidden;
+    max-height: 0;
+    width: 0;
+    margin: 0;
+    font-size: 0;
+    border: none;
+  }
+
+  &.show {
+    @include media($break-small) {
+      @include span-columns(12);
+    }
+
+    @include media($break-large) {
+      @include span-columns(12);
+    }
+  }
+}
+
+.print :host {
+  color: $color-text;
+  cursor: default;
+  text-align: left;
+  max-height: none;
+  background: transparent;
+  border-color: transparent;
+
+  &:hover {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  @include span-columns(12);
+}
+
+.expanded {
+  padding: 0;
+  max-height: 0;
+  font-size: 0;
+
+  @include span-columns(12);
+  @include transition(all $anim-time);
+}
+
+:host(.show) .expanded {
+  max-height: 1000em;
+  font-size: inherit;
+  padding: 0 1em;
+  margin-bottom: 1.75em;
+}
+
+.print .expanded {
+  opacity: 1;
+  border-top: 1px solid $color-content-border;
+  margin-bottom: 1.5em;
+
+  @include span-columns(12);
+}
+
+.summary {
+  padding: 1em;
+  position: relative;
+
+  .title {
+    font-weight: bold;
+    padding: 0 0 0.25em 0;
+  }
+
+  .company {
+    font-weight: bold;
+    padding: 0 0 0.5em 0;
+  }
+
+  .sub {
+    font-size: 0.8em;
+    color: $color-content-light;
+
+    .location {
+      padding: 0 0 0.25em 0;
+    }
+
+    .fromto {
+      padding: 0 0 0 0;
+    }
+  }
+
+  .year {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    color: $color-content-light;
+    width: 3em;
+    height: 3em;
+    padding: 0.75em 0;
+    border-radius: 1.5em;
+    border: 0.25em solid $color-content-light;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .action {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.5em;
+    color: $color-content-light;
+  }
+}
+
+.print .summary {
+  padding-bottom: 0.5em;
+
+  .sub {
+    position: absolute;
+    bottom: 1em;
+    right: 5em;
+    text-align: right;
+  }
+
+  .action {
+    display: none;
+  }
+
+  .year {
+    top: 1em;
+  }
+}
