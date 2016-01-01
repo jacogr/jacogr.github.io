@@ -3,7 +3,6 @@
 /* eslint no-var:0 */
 var path = require('path');
 var gulp = require('gulp');
-// var annotate = require('gulp-ng-annotate');
 var babel = require('gulp-babel');
 // var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
@@ -23,13 +22,12 @@ var errcb = function(err) {
 
 gulp.task('component-js', function() {
   return gulp
-    .src(['src/components/**/*.js'])
+    .src(['src/**/*.js'])
     .pipe(babel())
     .on('error', errcb)
-    // .pipe(annotate())
     // .pipe(uglify())
     // .pipe(concat('client.js'))
-    .pipe(gulp.dest('./components'));
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('lint', function() {
@@ -44,7 +42,7 @@ gulp.task('html', function() {
     .src(['src/**/*.jade'])
     .pipe(jade())
     .on('error', errcb)
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('component-html', ['html']); // , function() {
@@ -115,7 +113,7 @@ gulp.task('build', ['lint', 'component-js', 'component-styles', 'component-html'
 gulp.task('watch', ['default'], function() {
   gulp.watch(['src/**/*.scss'], ['component-styles']);
   gulp.watch(['src/**/*.jade'], ['component-html']);
-  gulp.watch(['src/components/**/*.js'], ['component-js']);
+  gulp.watch(['src/**/*.js'], ['component-js']);
 });
 
 gulp.task('default', ['build']);

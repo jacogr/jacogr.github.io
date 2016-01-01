@@ -16,27 +16,22 @@ html{box-sizing:border-box}
 </template>
 </dom-module><dom-module id="comp-markdown" assetpath="components/markdown/"><template><style include="markdown-styles"></style><div id="markdown"></div></template><script>'use strict';
 
-// usage
-//    <comp-markdown text="md"></comp-markdown>
-// or
-//    <comp-markdown>md</comp-markdown>
-Polymer({
-  is: 'comp-markdown',
-  properties: {
-    text: {
-      type: String,
-      observer: '_textChanged'
+(function () {
+  Polymer({
+    is: 'comp-markdown',
+    properties: {
+      text: {
+        type: String,
+        observer: '_textChanged'
+      }
     },
-    html: {
-      type: String
-    }
-  },
-  _textChanged: function _textChanged() {
-    var conv = new showdown.Converter(); // eslint-disable-line no-undef
+    _textChanged: function _textChanged() {
+      var conv = new showdown.Converter(); // eslint-disable-line no-undef
 
-    this.$.markdown.innerHTML = conv.makeHtml(this.text);
-  }
-});</script></dom-module><dom-module id="menu-styles" assetpath="components/menu/">
+      this.$.markdown.innerHTML = conv.makeHtml(this.text);
+    }
+  });
+})();</script></dom-module><dom-module id="menu-styles" assetpath="components/menu/">
 <template>
 <style>
 html{box-sizing:border-box}
@@ -57,38 +52,40 @@ html{box-sizing:border-box}
 </template>
 </dom-module><dom-module id="comp-menu" assetpath="components/menu/"><template><style include="menu-styles"></style><div class="cv">CV</div><div class="person"><p>{{ data.name }}</p><p>{{ data.position }}</p></div><div class="items"><a href="#/summary" class$="{{ itemClass(path, '#/summary') }}">Summary</a><a href="#/print" class$="{{ itemClass(path, '#/print') }}">Print</a></div></template><script>'use strict';
 
-Polymer({
-  is: 'comp-menu',
-  properties: {
-    data: {
-      type: Object
-    },
-    path: {
-      type: String
-    }
-  },
-  itemClass: function itemClass(path, itempath) {
-    return 'item ' + (path === itempath ? 'selected' : '');
-  },
-  ready: function ready() {
-    var _this = this;
-
-    window.addEventListener('hashchange', function () {
-      _this.path = window.location.hash;
-
-      if (_this.path === '#/print') {
-        setTimeout(function () {
-          return window.print();
-        }, 1000);
+(function () {
+  Polymer({
+    is: 'comp-menu',
+    properties: {
+      data: {
+        type: Object
+      },
+      path: {
+        type: String
       }
-    }, false);
+    },
+    itemClass: function itemClass(path, itempath) {
+      return 'item ' + (path === itempath ? 'selected' : '');
+    },
+    ready: function ready() {
+      var _this = this;
 
-    this.path = window.location.hash;
-    if (window.location.hash === '') {
-      window.location.hash = '#/summary';
+      window.addEventListener('hashchange', function () {
+        _this.path = window.location.hash;
+
+        if (_this.path === '#/print') {
+          setTimeout(function () {
+            return window.print();
+          }, 1000);
+        }
+      }, false);
+
+      this.path = window.location.hash;
+      if (window.location.hash === '') {
+        window.location.hash = '#/summary';
+      }
     }
-  }
-});</script></dom-module><dom-module id="position-styles" assetpath="components/position/">
+  });
+})();</script></dom-module><dom-module id="position-styles" assetpath="components/position/">
 <template>
 <style>
 .summary .action,.summary .year{right:.5em;color:#aaa;position:absolute}
@@ -145,29 +142,32 @@ html{box-sizing:border-box}
 </template>
 </dom-module><dom-module id="comp-position" assetpath="components/position/"><template><style include="position-styles"></style><!--.position(ng-class="(isHidden() && 'hide') || (isExtended() && 'show')" ng-click="show()")--><div class="summary"><div ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'" class="action fa"></div><div class="title">{{ data.position }}</div><div class="company">{{ data.company }}</div><div class="sub"><div class="location">{{ data.location }}</div><div class="fromto">{{ getDate(data) }}</div></div><div class="year">'{{ getShortYear(data) }}</div></div><comp-markdown ng-class="isExtended() &amp;&amp; 'show'" text="{{ data.description }}" class="expanded"></comp-markdown></template><script>'use strict';
 
-Polymer({
-  is: 'comp-position',
-  properties: {
-    data: {
-      type: Object
-    }
-  },
-  getDate: function getDate(data) {
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var start = months[data.start.month - 1] + ' ' + data.start.year;
-    var end = data.end ? months[data.end.month - 1] + ' ' + data.end.year : 'Current';
+(function () {
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    return start + ' - ' + end;
-  },
-  getShortYear: function getShortYear(data) {
-    return ('' + (data.end ? data.end.year : new Date().getFullYear())).slice(-2);
-  }
-});</script></dom-module><dom-module id="cv-styles" assetpath="components/cv/">
+  Polymer({
+    is: 'comp-position',
+    properties: {
+      data: {
+        type: Object
+      }
+    },
+    getDate: function getDate(data) {
+      var start = months[data.start.month - 1] + ' ' + data.start.year;
+      var end = data.end ? months[data.end.month - 1] + ' ' + data.end.year : 'Current';
+
+      return start + ' - ' + end;
+    },
+    getShortYear: function getShortYear(data) {
+      return ('' + (data.end ? data.end.year : new Date().getFullYear())).slice(-2);
+    }
+  });
+})();</script></dom-module><dom-module id="cv-styles" assetpath="components/cv/">
 <template>
 <style>
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
-:host{padding:1em;max-width:68em;margin-left:auto;margin-right:auto}
+:host{padding:1em;display:block;max-width:68em;margin-left:auto;margin-right:auto}
 :host::after{clear:both;content:"";display:table}
 .introduction{display:none;padding:0 1em;margin-top:1em;margin-bottom:1em}
 .introduction comp-markdown,.introduction.print,.positions{float:left;display:block;width:100%}
@@ -183,53 +183,55 @@ html{box-sizing:border-box}
 </template>
 </dom-module><dom-module id="comp-cv" assetpath="components/cv/"><template><style include="cv-styles"></style><div class$="introduction {{ printClass(path) }}"><comp-markdown text="{{ data.summary }}"></comp-markdown></div><div class="positions"><template is="dom-repeat" items="{{ data.positions }}"><comp-position id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}"></comp-position></template></div></template><script>'use strict';
 
-Polymer({
-  is: 'comp-cv',
-  properties: {
-    data: {
-      type: Object
+(function () {
+  var printPath = '#/print';
+  var summaryPath = '#/summary';
+
+  Polymer({
+    is: 'comp-cv',
+    properties: {
+      data: {
+        type: Object
+      },
+      path: {
+        type: String
+      }
     },
-    path: {
-      type: String
+    printClass: function printClass(path) {
+      return path === printPath ? 'print' : '';
+    },
+    positionClass: function positionClass(path, id) {
+      var viewPath = '#/' + id;
+
+      if (_.contains([printPath, viewPath], path)) {
+        return 'show';
+      } else if (!_.contains([printPath, summaryPath, viewPath], path)) {
+        return 'hide';
+      }
+      return '';
+    },
+    showItem: function showItem(evt) {
+      var item = Polymer.dom(evt).localTarget;
+      var viewPath = '#/' + item.id;
+      var path = window.location.hash;
+
+      if (path === viewPath) {
+        window.location.hash = summaryPath;
+      } else if (path === summaryPath) {
+        window.location.hash = viewPath;
+      }
+    },
+    ready: function ready() {
+      var _this = this;
+
+      window.addEventListener('hashchange', function () {
+        _this.path = window.location.hash;
+      }, false);
+
+      this.path = window.location.hash;
     }
-  },
-  printClass: function printClass(path) {
-    return path === '#/print' ? 'print' : '';
-  },
-  positionClass: function positionClass(path, id) {
-    var printPath = '#/print';
-    var summaryPath = '#/summary';
-    var viewPath = '#/' + id;
-
-    if (_.contains([printPath, viewPath], path)) {
-      return 'show';
-    } else if (!_.contains([printPath, summaryPath, viewPath], path)) {
-      return 'hide';
-    }
-    return '';
-  },
-  showItem: function showItem(evt) {
-    var item = Polymer.dom(evt).localTarget;
-    var summaryPath = '#/summary';
-    var viewPath = '#/' + item.id;
-    var path = window.location.hash;
-
-    if (path === viewPath) {
-      window.location.hash = summaryPath;
-    } else if (path === summaryPath) {
-      window.location.hash = viewPath;
-    }
-  },
-  ready: function ready() {
-    var _this = this;
-
-    window.addEventListener('hashchange', function () {
-      _this.path = window.location.hash;
-    }, false);
-
-    this.path = window.location.hash;
-  }
-});</script></dom-module><dom-module id="comp-cvdata" assetpath="components/cvdata/"><script>'use strict';
+  });
+})();</script></dom-module><dom-module id="comp-cvdata" assetpath="components/cvdata/"><script>'use strict';
 
 (function () {
   var _date = function _date(year, month) {
@@ -352,16 +354,27 @@ Polymer({
     description: '# Company\nGrinaker Electronics is a project-based company in the commercial sector (with the first vehicle tracking solution in South Africa) along with the implementation of projects for defense agencies such as ARMSCOR.\n\n# Role\nInitially employed as a C++ developer on the vehicle tracking platform. After the vehicle-tracking division was aquired and operations moved to Johannesburg, I moved to the defense division as a Delphi, Pascal & embedded developer on a from-the-ground-up radio communications platform.\n\n# Responsibilities\n* Development and maintenance of the G-Track vehicle tracking system\n* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR on a new radio communications platform\n* Design & dcoumentation for the radio communication platform according to military standards\n\n# Leaving\nAs a first full-time job, the experience at the company was invaluable, however the opportunity to work with a startup in an AI field was not something to dismiss.'
   });
 
-  _add({
-    start: _date(1993, 5),
-    end: _date(1995, 8),
-    type: 'employed',
-    company: 'Institute for Maritime Technology',
-    location: 'Simon\'s Town, ZA',
-    position: 'Student/Intern',
-    level: 'student',
-    description: '# Company\nIMT performs performs defence research to further the South African strategic needs for military support. IMT supports the South African National Defence Force with scientifically informed advice, the development of technology and strategic products to improve the performance of its systems.\n\n# Role\nAs a Student, IMT allowed for holiday internships, allowing for the students to work in close proximity with established Engineers. Highlights include work on the A-44 torpedo, a mid-size weapon deployed from ships and helicopters.\n\n# Responsibilities\n* Construction of circuit boards according to specifications\n* Electronic testing of circuits & constructed modules\n\n# Leaving\nIMT was not hiring any full-time Engineering staff, only employing interns through their university holiday periods.'
-  });
+  //   _add({
+  //     start: _date(1993, 5),
+  //     end: _date(1995, 8),
+  //     type: 'employed',
+  //     company: 'Institute for Maritime Technology',
+  //     location: `Simon's Town, ZA`,
+  //     position: 'Student/Intern',
+  //     level: 'student',
+  //     description: `# Company
+  // IMT performs performs defence research to further the South African strategic needs for military support. IMT supports the South African National Defence Force with scientifically informed advice, the development of technology and strategic products to improve the performance of its systems.
+  //
+  // # Role
+  // As a Student, IMT allowed for holiday internships, allowing for the students to work in close proximity with established Engineers. Highlights include work on the A-44 torpedo, a mid-size weapon deployed from ships and helicopters.
+  //
+  // # Responsibilities
+  // * Construction of circuit boards according to specifications
+  // * Electronic testing of circuits & constructed modules
+  //
+  // # Leaving
+  // IMT was not hiring any full-time Engineering staff, only employing interns through their university holiday periods.`
+  //   });
 
   _add({
     start: _date(1992, 1),
@@ -378,11 +391,25 @@ Polymer({
     is: 'comp-cvdata',
     properties: {
       data: {
-        type: Object
+        type: Object,
+        value: data
+      },
+      name: {
+        type: String,
+        value: data.name
+      },
+      position: {
+        type: String,
+        value: data.position
+      },
+      positions: {
+        type: Array,
+        value: data.positions
+      },
+      summary: {
+        type: String,
+        value: data.summary
       }
-    },
-    ready: function ready() {
-      this.data = data;
     }
   });
 })();</script></dom-module><dom-module id="app-styles" assetpath="components/app/">
@@ -397,11 +424,6 @@ html{box-sizing:border-box}
 (function () {
   Polymer({
     is: 'comp-app',
-    properties: {
-      data: {
-        type: Object
-      }
-    },
     ready: function ready() {
       this.data = this.$.cvdata.data;
     }
