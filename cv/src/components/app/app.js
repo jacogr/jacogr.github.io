@@ -1,9 +1,8 @@
-Polymer({
-  is: 'comp-app',
-  properties: {
-    data: {
-      type: Object,
-      value: CVData
+(function() {
+  Polymer({
+    is: 'comp-app',
+    ready: function() {
+      this.data = this.$.cvdata.data;
     }
-  }
-});
+  });
+})();

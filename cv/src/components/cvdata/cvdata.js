@@ -1,4 +1,4 @@
-const CVData = (function() {
+(function() {
   const _date = function(year, month) {
     return { year: year, month: month };
   };
@@ -236,27 +236,27 @@ Initially employed as a C++ developer on the vehicle tracking platform. After th
 As a first full-time job, the experience at the company was invaluable, however the opportunity to work with a startup in an AI field was not something to dismiss.`
   });
 
-  _add({
-    start: _date(1993, 5),
-    end: _date(1995, 8),
-    type: 'employed',
-    company: 'Institute for Maritime Technology',
-    location: `Simon's Town, ZA`,
-    position: 'Student/Intern',
-    level: 'student',
-    description: `# Company
-IMT performs performs defence research to further the South African strategic needs for military support. IMT supports the South African National Defence Force with scientifically informed advice, the development of technology and strategic products to improve the performance of its systems.
-
-# Role
-As a Student, IMT allowed for holiday internships, allowing for the students to work in close proximity with established Engineers. Highlights include work on the A-44 torpedo, a mid-size weapon deployed from ships and helicopters.
-
-# Responsibilities
-* Construction of circuit boards according to specifications
-* Electronic testing of circuits & constructed modules
-
-# Leaving
-IMT was not hiring any full-time Engineering staff, only employing interns through their university holiday periods.`
-  });
+//   _add({
+//     start: _date(1993, 5),
+//     end: _date(1995, 8),
+//     type: 'employed',
+//     company: 'Institute for Maritime Technology',
+//     location: `Simon's Town, ZA`,
+//     position: 'Student/Intern',
+//     level: 'student',
+//     description: `# Company
+// IMT performs performs defence research to further the South African strategic needs for military support. IMT supports the South African National Defence Force with scientifically informed advice, the development of technology and strategic products to improve the performance of its systems.
+//
+// # Role
+// As a Student, IMT allowed for holiday internships, allowing for the students to work in close proximity with established Engineers. Highlights include work on the A-44 torpedo, a mid-size weapon deployed from ships and helicopters.
+//
+// # Responsibilities
+// * Construction of circuit boards according to specifications
+// * Electronic testing of circuits & constructed modules
+//
+// # Leaving
+// IMT was not hiring any full-time Engineering staff, only employing interns through their university holiday periods.`
+//   });
 
   _add({
     start: _date(1992, 1),
@@ -276,5 +276,29 @@ Having a passion for Electronics from an early age (1984-) and discovering a lov
 After completion of the B.Eng (Electronic), studies continued with a part-time M.Eng (Metallurgical) and University Bursary, for the evaluation of Genetic Programming (AI) on the problems presented in the metallugical industry. A number of papers were published in international journals, however the M.Eng was not completed since it was better suited to full-time focus.`
   });
 
-  return data;
+  Polymer({
+    is: 'comp-cvdata',
+    properties: {
+      data: {
+        type: Object,
+        value: data
+      },
+      name: {
+        type: String,
+        value: data.name
+      },
+      position: {
+        type: String,
+        value: data.position
+      },
+      positions: {
+        type: Array,
+        value: data.positions
+      },
+      summary: {
+        type: String,
+        value: data.summary
+      }
+    }
+  });
 })();

@@ -1,21 +1,16 @@
-// usage
-//    <comp-markdown text="md"></comp-markdown>
-// or
-//    <comp-markdown>md</comp-markdown>
-Polymer({
-  is: 'comp-markdown',
-  properties: {
-    text: {
-      type: String,
-      observer: '_textChanged'
+(function() {
+  Polymer({
+    is: 'comp-markdown',
+    properties: {
+      text: {
+        type: String,
+        observer: '_textChanged'
+      }
     },
-    html: {
-      type: String
-    }
-  },
-  _textChanged: function() {
-    const conv = new showdown.Converter(); // eslint-disable-line no-undef
+    _textChanged: function() {
+      const conv = new showdown.Converter(); // eslint-disable-line no-undef
 
-    this.$.markdown.innerHTML = conv.makeHtml(this.text);
-  }
-});
+      this.$.markdown.innerHTML = conv.makeHtml(this.text);
+    }
+  });
+})();

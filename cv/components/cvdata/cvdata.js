@@ -1,6 +1,6 @@
 'use strict';
 
-var CVData = (function () {
+(function () {
   var _date = function _date(year, month) {
     return { year: year, month: month };
   };
@@ -121,16 +121,27 @@ var CVData = (function () {
     description: '# Company\nGrinaker Electronics is a project-based company in the commercial sector (with the first vehicle tracking solution in South Africa) along with the implementation of projects for defense agencies such as ARMSCOR.\n\n# Role\nInitially employed as a C++ developer on the vehicle tracking platform. After the vehicle-tracking division was aquired and operations moved to Johannesburg, I moved to the defense division as a Delphi, Pascal & embedded developer on a from-the-ground-up radio communications platform.\n\n# Responsibilities\n* Development and maintenance of the G-Track vehicle tracking system\n* Development of a full ISO networking implementation (Physical to Application layers) for ARMSCOR on a new radio communications platform\n* Design & dcoumentation for the radio communication platform according to military standards\n\n# Leaving\nAs a first full-time job, the experience at the company was invaluable, however the opportunity to work with a startup in an AI field was not something to dismiss.'
   });
 
-  _add({
-    start: _date(1993, 5),
-    end: _date(1995, 8),
-    type: 'employed',
-    company: 'Institute for Maritime Technology',
-    location: 'Simon\'s Town, ZA',
-    position: 'Student/Intern',
-    level: 'student',
-    description: '# Company\nIMT performs performs defence research to further the South African strategic needs for military support. IMT supports the South African National Defence Force with scientifically informed advice, the development of technology and strategic products to improve the performance of its systems.\n\n# Role\nAs a Student, IMT allowed for holiday internships, allowing for the students to work in close proximity with established Engineers. Highlights include work on the A-44 torpedo, a mid-size weapon deployed from ships and helicopters.\n\n# Responsibilities\n* Construction of circuit boards according to specifications\n* Electronic testing of circuits & constructed modules\n\n# Leaving\nIMT was not hiring any full-time Engineering staff, only employing interns through their university holiday periods.'
-  });
+  //   _add({
+  //     start: _date(1993, 5),
+  //     end: _date(1995, 8),
+  //     type: 'employed',
+  //     company: 'Institute for Maritime Technology',
+  //     location: `Simon's Town, ZA`,
+  //     position: 'Student/Intern',
+  //     level: 'student',
+  //     description: `# Company
+  // IMT performs performs defence research to further the South African strategic needs for military support. IMT supports the South African National Defence Force with scientifically informed advice, the development of technology and strategic products to improve the performance of its systems.
+  //
+  // # Role
+  // As a Student, IMT allowed for holiday internships, allowing for the students to work in close proximity with established Engineers. Highlights include work on the A-44 torpedo, a mid-size weapon deployed from ships and helicopters.
+  //
+  // # Responsibilities
+  // * Construction of circuit boards according to specifications
+  // * Electronic testing of circuits & constructed modules
+  //
+  // # Leaving
+  // IMT was not hiring any full-time Engineering staff, only employing interns through their university holiday periods.`
+  //   });
 
   _add({
     start: _date(1992, 1),
@@ -143,5 +154,29 @@ var CVData = (function () {
     description: '# University\nThe Faculty of Engineering at Stellenbosch University is one of South Africa\'s major producers of top quality engineers. Established in 1944, the Faculty is one of the oldest engineering universities in the country.\n\n# Studies\nHaving a passion for Electronics from an early age (1984-) and discovering a love for computers on the ZX Spectrum (1986-), a degree in Electronic Engineering was the logical next-step to combine the interests. The degree was completed in the minimum period (4 years) without failing any subjects along the way. Elective subjects were focussed on micoprocessors, discreet electronics and computer science.\n\n# Leaving\nAfter completion of the B.Eng (Electronic), studies continued with a part-time M.Eng (Metallurgical) and University Bursary, for the evaluation of Genetic Programming (AI) on the problems presented in the metallugical industry. A number of papers were published in international journals, however the M.Eng was not completed since it was better suited to full-time focus.'
   });
 
-  return data;
+  Polymer({
+    is: 'comp-cvdata',
+    properties: {
+      data: {
+        type: Object,
+        value: data
+      },
+      name: {
+        type: String,
+        value: data.name
+      },
+      position: {
+        type: String,
+        value: data.position
+      },
+      positions: {
+        type: Array,
+        value: data.positions
+      },
+      summary: {
+        type: String,
+        value: data.summary
+      }
+    }
+  });
 })();

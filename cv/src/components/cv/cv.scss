@@ -2,6 +2,7 @@
 
 :host {
   padding: 1em;
+  display: block;
 
   @include outer-container;
 }

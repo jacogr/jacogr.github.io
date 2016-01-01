@@ -1,6 +1,6 @@
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
-:host{padding:1em;max-width:68em;margin-left:auto;margin-right:auto}
+:host{padding:1em;display:block;max-width:68em;margin-left:auto;margin-right:auto}
 :host::after{clear:both;content:"";display:table}
 .introduction{display:none;padding:0 1em;margin-top:1em;margin-bottom:1em}
 .introduction comp-markdown,.introduction.print,.positions{float:left;display:block;width:100%}
