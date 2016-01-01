@@ -51,7 +51,7 @@
   }
 }
 
-.print :host {
+:host-context(.print) {
   color: $color-text;
   cursor: default;
   text-align: left;
@@ -83,7 +83,7 @@
   margin-bottom: 1.75em;
 }
 
-.print .expanded {
+:host-context(.print) .expanded {
   opacity: 1;
   border-top: 1px solid $color-content-border;
   margin-bottom: 1.5em;
@@ -140,7 +140,7 @@
   }
 }
 
-.print .summary {
+:host-context(.print) .summary {
   padding-bottom: 0.5em;
 
   .sub {
