@@ -96,13 +96,13 @@ gulp.task('index', ['html'], function() {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('build', ['lint', 'component-js', 'component-styles', 'component-html', 'index']);
+gulp.task('build', ['lint', 'component-js', 'component-styles', 'component-html']);
 
 gulp.task('watch', ['default'], function() {
   gulp.watch(['src/**/*.scss'], ['component-styles']);
   gulp.watch(['src/**/*.jade'], ['component-html']);
   gulp.watch(['src/**/*.js'], ['component-js']);
-  gulp.watch(['client.html', 'components/**/*.*'], ['index']);
+  // gulp.watch(['client.html', 'components/**/*.*'], ['index']);
 });
 
 gulp.task('default', ['build']);
