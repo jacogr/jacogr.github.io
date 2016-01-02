@@ -4,25 +4,27 @@ html{box-sizing:border-box}
 body{background:#f8f8f8;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#323232;margin:0;-webkit-text-size-adjust:100%}
 </style><script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script><link rel="import" href="bower_components/polymer/polymer.html"><script src="bower_components/lodash/lodash.min.js"></script><script src="bower_components/showdown/dist/showdown.min.js"></script><script>'use strict';
 
-var PathBehavior = {
-  properties: {
-    path: {
-      type: String,
-      notify: true,
-      observer: '_pathChanged'
+var PathBehavior = (function () {
+  return {
+    properties: {
+      path: {
+        type: String,
+        notify: true,
+        observer: '_pathChanged'
+      }
+    },
+    _pathChanged: function _pathChanged() {},
+    ready: function ready() {
+      var _this = this;
+
+      window.addEventListener('hashchange', function () {
+        _this.path = window.location.hash;
+      }, false);
+
+      this.path = window.location.hash;
     }
-  },
-  _pathChanged: function _pathChanged() {},
-  ready: function ready() {
-    var _this = this;
-
-    window.addEventListener('hashchange', function () {
-      _this.path = window.location.hash;
-    }, false);
-
-    this.path = window.location.hash;
-  }
-};</script></head><body><div hidden="" by-vulcanize=""><dom-module id="markdown-styles" assetpath="components/markdown/">
+  };
+})();</script></head><body><div hidden="" by-vulcanize=""><dom-module id="markdown-styles" assetpath="components/markdown/">
 <template>
 <style>
 html{box-sizing:border-box}
@@ -143,7 +145,7 @@ html{box-sizing:border-box}
 :host-context(.print) .summary .year{top:1em}
 </style>
 </template>
-</dom-module><dom-module id="comp-position" assetpath="components/position/"><template><style include="position-styles"></style><div class="summary"><!-- .action.fa(class$="{{ isExtended() ? 'fa-level-up' : 'fa-level-down' }}")--><div class="title">{{ data.position }}</div><div class="company">{{ data.company }}</div><div class="sub"><div class="location">{{ data.location }}</div><div class="fromto">{{ getDate(data) }}</div></div><div class="year">'{{ getShortYear(data) }}</div></div><comp-markdown text="{{ data.description }}" class="expanded"></comp-markdown></template><script>'use strict';
+</dom-module><dom-module id="comp-position" assetpath="components/position/"><template><style include="position-styles"></style><div class="summary"><div class="title">{{ data.position }}</div><div class="company">{{ data.company }}</div><div class="sub"><div class="location">{{ data.location }}</div><div class="fromto">{{ getDate(data) }}</div></div><div class="year">'{{ getShortYear(data) }}</div></div><comp-markdown text="{{ data.description }}" class="expanded"></comp-markdown></template><script>'use strict';
 
 (function () {
   var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

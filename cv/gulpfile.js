@@ -82,11 +82,12 @@ gulp.task('index', ['html'], function() {
     .pipe(vulcanize({
       inlineScripts: true,
       inlineCss: true,
+      stripComments: true,
       excludes: [
         'bower_components/polymer/polymer.html',
         'bower_components/webcomponentsjs/webcomponents-lite.min.js',
-        '../../bower_components/lodash/lodash.min.js',
-        '../../bower_components/showdown/dist/showdown.min.js'
+        'bower_components/lodash/lodash.min.js',
+        'bower_components/showdown/dist/showdown.min.js'
       ]
     }))
     .pipe(rename(function(p) {
