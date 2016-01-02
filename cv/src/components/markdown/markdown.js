@@ -11,7 +11,7 @@
     _textChanged: function() {
       const conv = new showdown.Converter(); // eslint-disable-line no-undef
 
-      this.$.markdown.innerHTML = conv.makeHtml(this.text);
+      this.innerHTML = conv.makeHtml(this.text);
     }
   });
 })();
