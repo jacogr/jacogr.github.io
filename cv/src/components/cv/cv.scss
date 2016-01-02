@@ -1,6 +1,7 @@
 @import "../../globals";
 
-:host {
+.cv {
+  margin: 1em auto;
   padding: 1em;
   display: block;
 
@@ -29,17 +30,22 @@
   @include span-columns(12);
 }
 
-.print {
+.cv.print {
+  background: white;
+
   .introduction {
-    margin-bottom: 0;
+    margin: 0;
     padding: 0;
 
     @include span-columns(12);
+
+    comp-markdown {
+      border: none;
+    }
   }
 
   .positions {
     padding: 0;
-    background: white;
   }
 }
 

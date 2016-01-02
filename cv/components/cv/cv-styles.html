@@ -3,17 +3,19 @@
 <style>
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
-:host{padding:1em;display:block;max-width:68em;margin-left:auto;margin-right:auto}
-:host::after{clear:both;content:"";display:table}
+.cv{margin:1em auto;padding:1em;display:block;max-width:68em}
+.cv::after{clear:both;content:"";display:table}
 .introduction{display:none;padding:0 1em;margin-top:1em;margin-bottom:1em}
-.introduction comp-markdown,.positions,.print .introduction{float:left;display:block;width:100%}
+.cv.print .introduction,.introduction comp-markdown,.positions{float:left;display:block;width:100%}
 .introduction comp-markdown{border:1px solid #eee;border-radius:.25em;background:#fff;padding:1em;margin-right:2.35765%}
 .introduction comp-markdown:last-child{margin-right:0}
 .positions{padding:0 1em;margin-right:2.35765%}
 .positions:last-child{margin-right:0}
-.print .introduction{margin-bottom:0;padding:0;margin-right:2.35765%}
-.print .introduction:last-child{margin-right:0}
-.print .positions{padding:0;background:#fff}
+.cv.print{background:#fff}
+.cv.print .introduction{margin:0 2.35765% 0 0;padding:0}
+.cv.print .introduction:last-child{margin-right:0}
+.cv.print .introduction comp-markdown{border:none}
+.cv.print .positions{padding:0}
 @media print{.print{border:none}
 }
 </style>

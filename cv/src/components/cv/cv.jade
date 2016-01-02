@@ -9,7 +9,7 @@ dom-module#comp-cv
   template
     style(include="cv-styles")
     
-    .cv(class$=" {{ printClass(path) }}")
+    .cv(class$="cv {{ printClass(path) }}")
       .introduction
         comp-markdown(text="{{ data.summary }}")
         
