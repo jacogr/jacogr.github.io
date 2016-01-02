@@ -1,6 +1,6 @@
 @import "../../globals";
 
-.cv {
+:host {
   margin: 1em auto;
   // padding: 1em;
   display: block;
@@ -30,7 +30,7 @@
   @include span-columns(12);
 }
 
-.cv.print {
+:host-context(.print) {
   background: white;
 
   .introduction {
@@ -46,11 +46,5 @@
 
   .positions {
     padding: 0;
-  }
-}
-
-@media print {
-  .print {
-    border: none;
   }
 }

@@ -10,9 +10,6 @@
         type: Object
       }
     },
-    printClass: function(path) {
-      return path === printPath ? 'print' : '';
-    },
     positionClass: function(path, id) {
       const viewPath = `#/${id}`;
 

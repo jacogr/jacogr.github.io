@@ -12,9 +12,6 @@
         type: Object
       }
     },
-    printClass: function printClass(path) {
-      return path === printPath ? 'print' : '';
-    },
     positionClass: function positionClass(path, id) {
       var viewPath = '#/' + id;
 

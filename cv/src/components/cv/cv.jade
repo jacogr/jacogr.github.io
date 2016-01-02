@@ -10,12 +10,11 @@ dom-module#comp-cv
   template
     style(include="cv-styles")
     
-    .cv(class$="cv {{ printClass(path) }}")
-      .introduction
-        comp-markdown(text="{{ data.summary }}")
-        
-      .positions
-        template(is="dom-repeat" items="{{ data.positions }}")
-          comp-position(id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}")
+    .introduction
+      comp-markdown(text="{{ data.summary }}")
+      
+    .positions
+      template(is="dom-repeat" items="{{ data.positions }}")
+        comp-position(id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}")
 
   script(src="cv.js")
