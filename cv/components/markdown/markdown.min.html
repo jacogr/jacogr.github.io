@@ -1,0 +1,13 @@
+<html><head><meta charset="UTF-8"><link rel="import" href="../3rdparty/polymer.min.html"><link rel="import" href="../3rdparty/showdown.min.html"></head><body><div hidden="" by-vulcanize=""><dom-module id="markdown-styles" assetpath="/">
+<template>
+<style>
+html{box-sizing:border-box}
+*,::after,::before{box-sizing:inherit}
+:host{padding:0;display:block}
+::content li{margin:.5em 0}
+::content p{margin:1em 0}
+::content h1,::content h2{font-size:1em;margin:2em 0 .5em}
+::content h1:first-child,::content h2:first-child{margin-top:1em}
+</style>
+</template>
+</dom-module></div><dom-module id="comp-markdown"><template><style include="markdown-styles"></style></template><script>"use strict";!function(){Polymer({is:"comp-markdown",properties:{text:{type:String,observer:"_textChanged"}},_textChanged:function(){var t=new showdown.Converter;this.innerHTML=t.makeHtml(this.text)}})}();</script></dom-module></body></html>

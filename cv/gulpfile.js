@@ -1,11 +1,13 @@
 'use strict';
 
 /* eslint no-var:0 */
+var _ = require('lodash');
 var path = require('path');
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 // var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
+var dirread = require('fs-readdir-recursive');
 var eslint = require('gulp-eslint');
 var ignore = require('gulp-ignore');
 var jade = require('gulp-jade');
@@ -76,27 +78,33 @@ gulp.task('component-styles', ['css'], function() {
     .pipe(gulp.dest('./components'));
 });
 
-gulp.task('index', ['html'], function() {
+gulp.task('minify', ['component-js', 'component-styles', 'component-html'], function() {
+  var excludes = _.map(dirread('./components').filter(function(file) {
+    return file.indexOf('.html') >= 0 && file.indexOf('.min.html') === -1 && file.indexOf('-styles.html') === -1;
+  }), function(file) {
+    return './components/' + file.replace('.html', '.min.html');
+  });
+
+  excludes.push('bower_components/polymer/polymer.html');
+  excludes.push('bower_components/webcomponentsjs/webcomponents-lite.min.js');
+  excludes.push('bower_components/lodash/lodash.min.js');
+  excludes.push('bower_components/showdown/dist/showdown.min.js');
+
   return gulp
-    .src('./client.html')
+    .src(['components/**/*.html', '!components/**/*.min.html', '!components/**/*-styles.html'])
     .pipe(vulcanize({
       inlineScripts: true,
       inlineCss: true,
       stripComments: true,
-      excludes: [
-        'bower_components/polymer/polymer.html',
-        'bower_components/webcomponentsjs/webcomponents-lite.min.js',
-        'bower_components/lodash/lodash.min.js',
-        'bower_components/showdown/dist/showdown.min.js'
-      ]
+      excludes: excludes
     }))
     .pipe(rename(function(p) {
-      p.basename = 'index';
+      p.basename = p.basename + '.min';
     }))
-    .pipe(gulp.dest('.'));
+    .pipe(gulp.dest('./components'));
 });
 
-gulp.task('build', ['lint', 'component-js', 'component-styles', 'component-html']);
+gulp.task('build', ['lint', 'minify']);
 
 gulp.task('watch', ['default'], function() {
   gulp.watch(['src/**/*.scss'], ['component-styles']);
