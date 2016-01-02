@@ -10,6 +10,7 @@
         type: Object
       }
     },
+
     positionClass: function(path, id) {
       const viewPath = `#/${id}`;
 
@@ -18,8 +19,10 @@
       } else if (!_.contains([printPath, summaryPath, viewPath], path)) {
         return 'hide';
       }
+
       return '';
     },
+
     showItem: function(evt) {
       const item = Polymer.dom(evt).localTarget;
       const viewPath = `#/${item.id}`;

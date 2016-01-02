@@ -7,8 +7,10 @@ const PathBehavior = (function() {
         observer: '_pathChanged'
       }
     },
+
     _pathChanged: function() {
     },
+
     ready: function() {
       window.addEventListener('hashchange', () => {
         this.path = window.location.hash;

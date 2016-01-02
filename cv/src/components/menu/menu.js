@@ -14,6 +14,7 @@
         ]
       }
     },
+
     itemClass: function(path, itempath) {
       return `item ${path === itempath ? 'selected' : ''}`;
     }

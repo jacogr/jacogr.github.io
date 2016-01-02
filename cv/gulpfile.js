@@ -13,7 +13,7 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var stylemod = require('gulp-style-modules');
 var vulcanize = require('gulp-vulcanize');
-// var uglify = require('gulp-uglify');
+var uglify = require('gulp-uglify');
 
 var errcb = function(err) {
   console.error(err.stack || err.message || err);
@@ -25,7 +25,7 @@ gulp.task('js', function() {
     .src(['src/**/*.js'])
     .pipe(babel())
     .on('error', errcb)
-    // .pipe(uglify())
+    .pipe(uglify())
     .pipe(gulp.dest('.'));
 });
 

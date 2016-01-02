@@ -7,6 +7,7 @@
         observer: '_textChanged'
       }
     },
+
     _textChanged: function() {
       const conv = new showdown.Converter(); // eslint-disable-line no-undef
 
