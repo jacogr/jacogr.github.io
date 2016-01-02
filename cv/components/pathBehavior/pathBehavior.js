@@ -1,0 +1,1 @@
+"use strict";var PathBehavior=function(){return{properties:{path:{type:String,notify:!0,observer:"_pathChanged"}},_pathChanged:function(){},ready:function(){var t=this;window.addEventListener("hashchange",function(){t.path=window.location.hash},!1),this.path=window.location.hash}}}();

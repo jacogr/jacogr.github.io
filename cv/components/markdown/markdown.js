@@ -1,0 +1,1 @@
+"use strict";!function(){Polymer({is:"comp-markdown",properties:{text:{type:String,observer:"_textChanged"}},_textChanged:function(){var t=new showdown.Converter;this.$.markdown.innerHTML=t.makeHtml(this.text)}})}();

@@ -1,0 +1,18 @@
+link(rel="import" href="../3rdparty/polymer.html")
+link(rel="import" href="../pathBehavior/pathBehavior.html")
+link(rel="import" href="menu-styles.html")
+  
+dom-module#comp-menu
+  template
+    style(include="menu-styles")
+    
+    .cv CV
+    .person
+      p {{ data.name }}
+      p {{ data.position }}
+    
+    .items
+      template(is="dom-repeat" items="{{ items }}")
+        a(href$="{{ item.url }}" class$="{{ itemClass(path, item.url) }}") {{ item.name }}
+
+  script(src="menu.js")

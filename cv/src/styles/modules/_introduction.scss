@@ -1,9 +1,0 @@
-.introduction {
-  display: none;
-}
-
-.print .introduction {
-  padding: 1em;
-
-  @include span-columns(12);
-}

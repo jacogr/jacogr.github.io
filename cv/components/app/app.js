@@ -1,0 +1,1 @@
+"use strict";!function(){var t="#/print",i="#/summary";Polymer({is:"comp-app",behaviors:[PathBehavior],_pathChanged:function(){var i=!1;this.path===t&&(i=!0,setTimeout(function(){window.print()},1e3)),this.toggleClass("print",i)},printClass:function(i){return i===t?"print":""},ready:function(){this.data=this.$.cvdata.data,""===window.location.hash&&(window.location.hash=i)}})}();

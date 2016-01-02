@@ -1,0 +1,20 @@
+<dom-module id="menu-styles">
+<template>
+<style>
+html{box-sizing:border-box}
+*,::after,::before{box-sizing:inherit}
+:host{display:none;position:relative}
+@media screen and (min-width:920px){:host{display:block;padding:.75em 1em;margin:0;background:rgba(50,50,50,.75)}
+}
+.cv,.person{display:inline-block;color:#f8f8f8}
+.cv{font-size:2.5em;font-weight:700;margin-right:.25em}
+.person p{margin:0;padding:0}
+.items{position:absolute;right:1em;bottom:0;padding:1em}
+.items .item{display:inline;cursor:pointer;color:#aaa;text-decoration:none;padding:1em;height:100%}
+.items .item.selected{color:#323232;background:#f8f8f8;border-radius:.25em .25em 0 0}
+@media print{:host{display:block}
+.no-print,:host .items{display:none!important}
+}
+</style>
+</template>
+</dom-module>
