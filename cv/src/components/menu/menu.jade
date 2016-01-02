@@ -12,7 +12,7 @@ dom-module#comp-menu
       p {{ data.position }}
     
     .items
-      a(href="#/summary" class$="{{ itemClass(path, '#/summary') }}") Summary
-      a(href="#/print" class$="{{ itemClass(path, '#/print') }}") Print
+      template(is="dom-repeat" items="{{ items }}")
+        a(href$="{{ item.url }}" class$="{{ itemClass(path, item.url) }}") {{ item.name }}
 
   script(src="menu.js")

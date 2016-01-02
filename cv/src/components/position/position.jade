@@ -6,15 +6,14 @@ dom-module#comp-position
   template
     style(include="position-styles")
         
-    //.position(ng-class="(isHidden() && 'hide') || (isExtended() && 'show')" ng-click="show()")
     .summary
-      .action.fa(ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'")
+      // .action.fa(class$="{{ isExtended() ? 'fa-level-up' : 'fa-level-down' }}")
       .title {{ data.position }}
       .company {{ data.company }}
       .sub
         .location {{ data.location }}
         .fromto {{ getDate(data) }}
       .year '{{ getShortYear(data) }}
-    comp-markdown.expanded(ng-class="isExtended() && 'show'" text="{{ data.description }}")
+    comp-markdown.expanded(text="{{ data.description }}")
       
   script(src="position.js")

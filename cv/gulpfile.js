@@ -20,15 +20,16 @@ var errcb = function(err) {
   this.emit('end');
 };
 
-gulp.task('component-js', function() {
+gulp.task('js', function() {
   return gulp
     .src(['src/**/*.js'])
     .pipe(babel())
     .on('error', errcb)
     // .pipe(uglify())
-    // .pipe(concat('client.js'))
     .pipe(gulp.dest('.'));
 });
+
+gulp.task('component-js', ['js']);
 
 gulp.task('lint', function() {
   return gulp
@@ -45,21 +46,7 @@ gulp.task('html', function() {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('component-html', ['html']); // , function() {
-//   return gulp
-//     .src(['components/**/*.html'])
-//     .pipe(vulcanize({
-//       inlineScripts: true,
-//       inlineCss: true,
-//       excludes: [
-//         'bower_components/polymer/polymer.html'
-//       ]
-//     }))
-//     .pipe(rename(function(p) {
-//       p.extname = '.min';
-//     }))
-//     .pipe(gulp.dest('./components'));
-// });
+gulp.task('component-html', ['html']);
 
 gulp.task('css', function() {
   var nm = path.join(__dirname, '/node_modules'); // eslint-disable-line no-undef
@@ -91,21 +78,21 @@ gulp.task('component-styles', ['css'], function() {
 
 gulp.task('index', ['html'], function() {
   return gulp
-      .src('./client.html')
-      .pipe(vulcanize({
-        inlineScripts: true,
-        inlineCss: true,
-        excludes: [
-          'bower_components/polymer/polymer.html',
-          'bower_components/webcomponentsjs/webcomponents-lite.min.js',
-          '../../bower_components/lodash/lodash.min.js',
-          '../../bower_components/showdown/dist/showdown.min.js'
-        ]
-      }))
-      .pipe(rename(function(path) {
-        path.basename = 'index';
-      }))
-      .pipe(gulp.dest('.'));
+    .src('./client.html')
+    .pipe(vulcanize({
+      inlineScripts: true,
+      inlineCss: true,
+      excludes: [
+        'bower_components/polymer/polymer.html',
+        'bower_components/webcomponentsjs/webcomponents-lite.min.js',
+        '../../bower_components/lodash/lodash.min.js',
+        '../../bower_components/showdown/dist/showdown.min.js'
+      ]
+    }))
+    .pipe(rename(function(p) {
+      p.basename = 'index';
+    }))
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('build', ['lint', 'component-js', 'component-styles', 'component-html', 'index']);
@@ -114,6 +101,7 @@ gulp.task('watch', ['default'], function() {
   gulp.watch(['src/**/*.scss'], ['component-styles']);
   gulp.watch(['src/**/*.jade'], ['component-html']);
   gulp.watch(['src/**/*.js'], ['component-js']);
+  gulp.watch(['client.html', 'components/**/*.*'], ['index']);
 });
 
 gulp.task('default', ['build']);
