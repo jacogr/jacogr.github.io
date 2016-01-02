@@ -6,12 +6,10 @@
 
   Polymer({
     is: 'comp-cv',
+    behaviors: [PathBehavior],
     properties: {
       data: {
         type: Object
-      },
-      path: {
-        type: String
       }
     },
     printClass: function printClass(path) {
@@ -37,15 +35,6 @@
       } else if (path === summaryPath) {
         window.location.hash = viewPath;
       }
-    },
-    ready: function ready() {
-      var _this = this;
-
-      window.addEventListener('hashchange', function () {
-        _this.path = window.location.hash;
-      }, false);
-
-      this.path = window.location.hash;
     }
   });
 })();

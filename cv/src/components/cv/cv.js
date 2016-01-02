@@ -4,12 +4,10 @@
 
   Polymer({
     is: 'comp-cv',
+    behaviors: [PathBehavior],
     properties: {
       data: {
         type: Object
-      },
-      path: {
-        type: String
       }
     },
     printClass: function(path) {
@@ -35,13 +33,6 @@
       } else if (path === summaryPath) {
         window.location.hash = viewPath;
       }
-    },
-    ready: function() {
-      window.addEventListener('hashchange', () => {
-        this.path = window.location.hash;
-      }, false);
-
-      this.path = window.location.hash;
     }
   });
 })();

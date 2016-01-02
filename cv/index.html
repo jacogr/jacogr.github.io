@@ -2,16 +2,39 @@
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
 body{background:#f8f8f8;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#323232;margin:0;-webkit-text-size-adjust:100%}
-</style><script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script><link rel="import" href="bower_components/polymer/polymer.html"><script src="bower_components/lodash/lodash.min.js"></script><script src="bower_components/showdown/dist/showdown.min.js"></script></head><body><div hidden="" by-vulcanize=""><dom-module id="markdown-styles" assetpath="components/markdown/">
+</style><script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script><link rel="import" href="bower_components/polymer/polymer.html"><script src="bower_components/lodash/lodash.min.js"></script><script src="bower_components/showdown/dist/showdown.min.js"></script><script>'use strict';
+
+var PathBehavior = {
+  properties: {
+    path: {
+      type: String,
+      notify: true,
+      observer: '_pathChanged'
+    }
+  },
+  _pathChanged: function _pathChanged() {
+    console.log('path changed');
+  },
+  ready: function ready() {
+    var _this = this;
+
+    console.log('listener added');
+    window.addEventListener('hashchange', function () {
+      _this.path = window.location.hash;
+    }, false);
+
+    this.path = window.location.hash;
+  }
+};</script></head><body><div hidden="" by-vulcanize=""><dom-module id="markdown-styles" assetpath="components/markdown/">
 <template>
 <style>
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
 #markdown{padding:0;margin:0}
-/deep/ li{margin:.5em 0}
-/deep/ p{margin:1em 0}
-/deep/ h1,/deep/ h2{font-size:1em;margin:2em 0 .5em}
-/deep/ h1:first-child,/deep/ h2:first-child{margin-top:1em}
+::content li{margin:.5em 0}
+::content p{margin:1em 0}
+::content h1,::content h2{font-size:1em;margin:2em 0 .5em}
+::content h1:first-child,::content h2:first-child{margin-top:1em}
 </style>
 </template>
 </dom-module><dom-module id="comp-markdown" assetpath="components/markdown/"><template><style include="markdown-styles"></style><div id="markdown"></div></template><script>'use strict';
@@ -88,7 +111,6 @@ html{box-sizing:border-box}
 })();</script></dom-module><dom-module id="position-styles" assetpath="components/position/">
 <template>
 <style>
-.summary .action,.summary .year{right:.5em;color:#aaa;position:absolute}
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
 :host{max-height:1000em;border-radius:.25em;cursor:pointer;color:#323232;background:#fff;border:1px solid #eee;margin-bottom:1em;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s;float:left;display:block;margin-right:2.35765%;width:100%}
@@ -111,22 +133,22 @@ html{box-sizing:border-box}
 :host:nth-child(3n+1){clear:left}
 }
 :host.hide{overflow:hidden;max-height:0;width:0;margin:0;font-size:0;border:none}
-.expanded,.print .expanded{float:left;display:block;width:100%}
 @media screen and (min-width:640px){:host.show{float:left;display:block;margin-right:2.35765%;width:100%}
 :host.show:last-child{margin-right:0}
 }
 @media screen and (min-width:920px){:host.show{float:left;display:block;margin-right:2.35765%;width:100%}
 :host.show:last-child{margin-right:0}
 }
-.print :host{color:#323232;cursor:default;text-align:left;max-height:none;background:0 0;border-color:transparent;float:left;display:block;margin-right:2.35765%;width:100%}
-.print :host:hover{background:0 0;box-shadow:none}
-.print :host:last-child{margin-right:0}
-.expanded{padding:0;max-height:0;font-size:0;margin-right:2.35765%;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s}
+:host-context(.print){color:#323232;cursor:default;text-align:left;max-height:none;background:0 0;border-color:transparent;float:left;display:block;margin-right:2.35765%;width:100%}
+:host-context(.print):hover{background:0 0;box-shadow:none}
+:host-context(.print):last-child{margin-right:0}
+.expanded{padding:0;max-height:0;font-size:0;float:left;display:block;margin-right:2.35765%;width:100%;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s}
 .expanded:last-child{margin-right:0}
 :host(.show) .expanded{max-height:1000em;font-size:inherit;padding:0 1em;margin-bottom:1.75em}
-.print .expanded{opacity:1;border-top:1px solid #eee;margin-bottom:1.5em;margin-right:2.35765%}
-.print .expanded:last-child{margin-right:0}
+:host-context(.print) .expanded{opacity:1;border-top:1px solid #eee;margin-bottom:1.5em;float:left;display:block;margin-right:2.35765%;width:100%}
+:host-context(.print) .expanded:last-child{margin-right:0}
 .summary{padding:1em;position:relative}
+.summary .action,.summary .year{right:.5em;color:#aaa;position:absolute}
 .summary .title{font-weight:700;padding:0 0 .25em}
 .summary .company{font-weight:700;padding:0 0 .5em}
 .summary .sub{font-size:.8em;color:#aaa}
@@ -134,10 +156,10 @@ html{box-sizing:border-box}
 .summary .sub .fromto{padding:0}
 .summary .year{top:.5em;width:3em;height:3em;padding:.75em 0;border-radius:1.5em;border:.25em solid #aaa;text-align:center;vertical-align:middle}
 .summary .action{bottom:.5em}
-.print .summary{padding-bottom:.5em}
-.print .summary .sub{position:absolute;bottom:1em;right:5em;text-align:right}
-.print .summary .action{display:none}
-.print .summary .year{top:1em}
+:host-context(.print) .summary{padding-bottom:.5em}
+:host-context(.print) .summary .sub{position:absolute;bottom:1em;right:5em;text-align:right}
+:host-context(.print) .summary .action{display:none}
+:host-context(.print) .summary .year{top:1em}
 </style>
 </template>
 </dom-module><dom-module id="comp-position" assetpath="components/position/"><template><style include="position-styles"></style><!--.position(ng-class="(isHidden() && 'hide') || (isExtended() && 'show')" ng-click="show()")--><div class="summary"><div ng-class="isExtended() ? 'fa-level-up' : 'fa-level-down'" class="action fa"></div><div class="title">{{ data.position }}</div><div class="company">{{ data.company }}</div><div class="sub"><div class="location">{{ data.location }}</div><div class="fromto">{{ getDate(data) }}</div></div><div class="year">'{{ getShortYear(data) }}</div></div><comp-markdown ng-class="isExtended() &amp;&amp; 'show'" text="{{ data.description }}" class="expanded"></comp-markdown></template><script>'use strict';
@@ -167,21 +189,24 @@ html{box-sizing:border-box}
 <style>
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
-:host{padding:1em;display:block;max-width:68em;margin-left:auto;margin-right:auto}
-:host::after{clear:both;content:"";display:table}
+.cv{margin:1em auto;padding:1em;display:block;max-width:68em}
+.cv::after{clear:both;content:"";display:table}
 .introduction{display:none;padding:0 1em;margin-top:1em;margin-bottom:1em}
-.introduction comp-markdown,.introduction.print,.positions{float:left;display:block;width:100%}
-.introduction.print{margin-right:2.35765%}
-.introduction.print:last-child{margin-right:0}
+.cv.print .introduction,.introduction comp-markdown,.positions{float:left;display:block;width:100%}
 .introduction comp-markdown{border:1px solid #eee;border-radius:.25em;background:#fff;padding:1em;margin-right:2.35765%}
 .introduction comp-markdown:last-child{margin-right:0}
 .positions{padding:0 1em;margin-right:2.35765%}
 .positions:last-child{margin-right:0}
-@media print{.content,.content.print{border:none}
+.cv.print{background:#fff}
+.cv.print .introduction{margin:0 2.35765% 0 0;padding:0}
+.cv.print .introduction:last-child{margin-right:0}
+.cv.print .introduction comp-markdown{border:none}
+.cv.print .positions{padding:0}
+@media print{.print{border:none}
 }
 </style>
 </template>
-</dom-module><dom-module id="comp-cv" assetpath="components/cv/"><template><style include="cv-styles"></style><div class$="introduction {{ printClass(path) }}"><comp-markdown text="{{ data.summary }}"></comp-markdown></div><div class="positions"><template is="dom-repeat" items="{{ data.positions }}"><comp-position id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}"></comp-position></template></div></template><script>'use strict';
+</dom-module><dom-module id="comp-cv" assetpath="components/cv/"><template><style include="cv-styles"></style><div class$="cv {{ printClass(path) }}" class="cv"><div class="introduction"><comp-markdown text="{{ data.summary }}"></comp-markdown></div><div class="positions"><template is="dom-repeat" items="{{ data.positions }}"><comp-position id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}"></comp-position></template></div></div></template><script>'use strict';
 
 (function () {
   var printPath = '#/print';
@@ -190,11 +215,9 @@ html{box-sizing:border-box}
   Polymer({
     is: 'comp-cv',
     properties: {
+      behaviors: [PathBehavior],
       data: {
         type: Object
-      },
-      path: {
-        type: String
       }
     },
     printClass: function printClass(path) {
@@ -220,15 +243,6 @@ html{box-sizing:border-box}
       } else if (path === summaryPath) {
         window.location.hash = viewPath;
       }
-    },
-    ready: function ready() {
-      var _this = this;
-
-      window.addEventListener('hashchange', function () {
-        _this.path = window.location.hash;
-      }, false);
-
-      this.path = window.location.hash;
     }
   });
 })();</script></dom-module><dom-module id="comp-cvdata" assetpath="components/cvdata/"><script>'use strict';
