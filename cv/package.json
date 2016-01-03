@@ -22,15 +22,19 @@
     "gulp-concat": "^2.6.0",
     "gulp-cssmin": "^0.1.7",
     "gulp-eslint": "^1.1.1",
+    "gulp-filelog": "^0.4.1",
     "gulp-ignore": "^2.0.1",
     "gulp-jade": "^1.1.0",
     "gulp-ng-annotate": "^1.1.0",
     "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.1.1",
     "gulp-style-modules": "^0.1.0",
     "gulp-uglify": "^1.5.1",
     "gulp-vulcanize": "^6.1.0",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "run-sequence": "^1.1.5",
+    "touch": "^1.0.0"
   },
   "dependencies": {
     "body-parser": "^1.14.2",
