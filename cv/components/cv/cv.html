@@ -1,7 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../3rdparty/polymer.min.html"><link rel="import" href="../3rdparty/lodash.min.html"><link rel="import" href="../markdown/markdown.min.html"><link rel="import" href="../menu/menu.min.html"><link rel="import" href="../pathBehavior/pathBehavior.min.html"><link rel="import" href="../position/position.min.html"></head><body><div hidden="" by-vulcanize=""><dom-module id="cv-styles" assetpath="/">
-<template>
-<style>
-html{box-sizing:border-box}
+<link rel="import" href="../3rdparty/polymer.html"/><link rel="import" href="../3rdparty/lodash.html"/><link rel="import" href="../markdown/markdown.html"/><link rel="import" href="../menu/menu.html"/><link rel="import" href="../pathBehavior/pathBehavior.html"/><link rel="import" href="../position/position.html"/><dom-module id="comp-cv"><template><style>html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
 :host{margin:1em auto;display:block;max-width:68em}
 :host::after{clear:both;content:"";display:table}
@@ -14,7 +11,4 @@ html{box-sizing:border-box}
 :host-context(.print) .introduction{margin:0 2.35765% 0 0;padding:0;float:left;display:block;width:100%}
 :host-context(.print) .introduction:last-child{margin-right:0}
 :host-context(.print) .introduction comp-markdown{border:none}
-:host-context(.print) .positions{padding:0}
-</style>
-</template>
-</dom-module></div><dom-module id="comp-cv"><template><style include="cv-styles"></style><div class="introduction"><comp-markdown text="{{ data.summary }}"></comp-markdown></div><div class="positions"><template is="dom-repeat" items="{{ data.positions }}"><comp-position id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}"></comp-position></template></div></template><script>"use strict";!function(){var o="#/print",i="#/summary";Polymer({is:"comp-cv",behaviors:[PathBehavior],properties:{data:{type:Object}},positionClass:function(a,t){var n="#/"+t;return _.contains([o,n],a)?"show":_.contains([o,i,n],a)?"":"hide"},showItem:function(o){var a=Polymer.dom(o).localTarget,t="#/"+a.id,n=window.location.hash;n===t?window.location.hash=i:n===i&&(window.location.hash=t)}})}();</script></dom-module></body></html>
+:host-context(.print) .positions{padding:0}</style><div class="introduction"><comp-markdown text="{{ data.summary }}"></comp-markdown></div><div class="positions"><template is="dom-repeat" items="{{ data.positions }}"><comp-position id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}"></comp-position></template></div></template><script>"use strict";!function(){var o="#/print",i="#/summary";Polymer({is:"comp-cv",behaviors:[PathBehavior],properties:{data:{type:Object}},positionClass:function(a,t){var n="#/"+t;return _.contains([o,n],a)?"show":_.contains([o,i,n],a)?"":"hide"},showItem:function(o){var a=Polymer.dom(o).localTarget,t="#/"+a.id,n=window.location.hash;n===t?window.location.hash=i:n===i&&(window.location.hash=t)}})}();</script></dom-module>

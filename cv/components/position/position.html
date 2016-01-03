@@ -1,7 +1,4 @@
-<html><head><meta charset="UTF-8"><link rel="import" href="../3rdparty/polymer.min.html"><link rel="import" href="../markdown/markdown.min.html"></head><body><div hidden="" by-vulcanize=""><dom-module id="position-styles" assetpath="/">
-<template>
-<style>
-html{box-sizing:border-box}
+<link rel="import" href="../3rdparty/polymer.html"/><link rel="import" href="../markdown/markdown.html"/><dom-module id="comp-position"><template><style>html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
 :host{max-height:1000em;border-radius:.25em;cursor:pointer;color:#323232;background:#fff;border:1px solid #eee;margin-bottom:1em;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s;float:left;display:block;margin-right:2.35765%;width:100%}
 :host:hover{background:#fff;box-shadow:0 0 .75em .25em rgba(0,0,0,.1)}
@@ -49,7 +46,4 @@ html{box-sizing:border-box}
 :host-context(.print) .summary{padding-bottom:.5em}
 :host-context(.print) .summary .sub{position:absolute;bottom:1em;right:5em;text-align:right}
 :host-context(.print) .summary .action{display:none}
-:host-context(.print) .summary .year{top:1em}
-</style>
-</template>
-</dom-module></div><dom-module id="comp-position"><template><style include="position-styles"></style><div class="summary"><div class="title">{{ data.position }}</div><div class="company">{{ data.company }}</div><div class="sub"><div class="location">{{ data.location }}</div><div class="fromto">{{ getDate(data) }}</div></div><div class="year">'{{ getShortYear(data) }}</div></div><comp-markdown text="{{ data.description }}" class="expanded"></comp-markdown></template><script>"use strict";!function(){var e=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];Polymer({is:"comp-position",properties:{data:{type:Object}},getDate:function(t){var r=e[t.start.month-1]+" "+t.start.year,n=t.end?e[t.end.month-1]+" "+t.end.year:"Current";return r+" - "+n},getShortYear:function(e){return(""+(e.end?e.end.year:(new Date).getFullYear())).slice(-2)}})}();</script></dom-module></body></html>
+:host-context(.print) .summary .year{top:1em}</style><div class="summary"><!-- .action.fa(class$="{{ isExtended() ? 'fa-level-up' : 'fa-level-down' }}")--><div class="title">{{ data.position }}</div><div class="company">{{ data.company }}</div><div class="sub"><div class="location">{{ data.location }}</div><div class="fromto">{{ getDate(data) }}</div></div><div class="year">'{{ getShortYear(data) }}</div></div><comp-markdown text="{{ data.description }}" class="expanded"></comp-markdown></template><script>"use strict";!function(){var e=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];Polymer({is:"comp-position",properties:{data:{type:Object}},getDate:function(t){var r=e[t.start.month-1]+" "+t.start.year,n=t.end?e[t.end.month-1]+" "+t.end.year:"Current";return r+" - "+n},getShortYear:function(e){return(""+(e.end?e.end.year:(new Date).getFullYear())).slice(-2)}})}();</script></dom-module>
