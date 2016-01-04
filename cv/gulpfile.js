@@ -48,26 +48,19 @@ gulp.task('html', ['css', 'js'], function() {
   return gulp
     .src(['src/**/*.jade'])
     .pipe(data(function(file) {
-      var location = '';
-      var readFile = function(name) {
-        var p = [ location, name ].join('/');
-        console.log('reading', p);
-        if (fs.existsSync(p)) {
-          return fs.readFileSync(p, 'utf-8');
-        }
-      };
-
-      var ret = { readFile: readFile };
       var comp = false;
-
-      location = _.filter(file.path.split('/'), function(p) {
+      var location = _.filter(file.path.split('/'), function(p) {
         if ((comp || p.indexOf('components') === 0) && p.indexOf('.jade') === -1) {
           comp = true;
           return true;
         }
       }).join('/');
 
-      return ret;
+      return {
+        readFile: function(name) {
+          return fs.readFileSync(path.join('.', location, name), 'utf-8');
+        }
+      };
     }))
     .pipe(jade())
     .on('error', errcb)
