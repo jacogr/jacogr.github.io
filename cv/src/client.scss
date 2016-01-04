@@ -8,14 +8,3 @@ body {
 
   -webkit-text-size-adjust: 100%; // don't adjust iPhone fonts
 }
-
-body comp-app {
-  opacity: 1;
-  display: block;
-
-  @include transition(all $anim-time);
-}
-
-body[unresolved] comp-app {
-  opacity: 0;
-}

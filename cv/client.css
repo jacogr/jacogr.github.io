@@ -1,5 +1,3 @@
 html{box-sizing:border-box}
 *,::after,::before{box-sizing:inherit}
 body{background:#f8f8f8;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#323232;margin:0;-webkit-text-size-adjust:100%}
-body comp-app{opacity:1;display:block;-webkit-transition:all .75s;-moz-transition:all .75s;transition:all .75s}
-body[unresolved] comp-app{opacity:0}
