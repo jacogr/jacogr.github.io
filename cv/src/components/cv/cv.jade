@@ -7,7 +7,7 @@ link(rel="import" href="../position/position.html")
   
 dom-module#comp-cv
   template
-    style !{files.css}
+    style !{readFile('cv.css')}
     
     .introduction
       comp-markdown(text="{{ data.summary }}")
@@ -16,4 +16,4 @@ dom-module#comp-cv
       template(is="dom-repeat" items="{{ data.positions }}")
         comp-position(id$="{{ item.id }}" data="{{ item }}" on-click="showItem" class$="{{ positionClass(path, item.id) }}")
 
-  script !{files.js}
+  script !{readFile('cv.js')}

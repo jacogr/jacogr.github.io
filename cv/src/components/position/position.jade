@@ -3,7 +3,7 @@ link(rel="import" href="../markdown/markdown.html")
   
 dom-module#comp-position
   template
-    style !{files.css}
+    style !{readFile('position.css')}
         
     .summary
       // .action.fa(class$="{{ isExtended() ? 'fa-level-up' : 'fa-level-down' }}")
@@ -15,4 +15,4 @@ dom-module#comp-position
       .year '{{ getShortYear(data) }}
     comp-markdown.expanded(text="{{ data.description }}")
       
-  script !{files.js}
+  script !{readFile('position.js')}

@@ -7,11 +7,11 @@ link(rel="import" href="../pathBehavior/pathBehavior.html")
 dom-module#comp-app
   
   template
-    style !{files.css}
+    style !{readFile('app.css')}
 
     comp-cvdata#cvdata
     
     comp-menu(data="{{ data }}")
     comp-cv(data="{{ data }}")
       
-  script !{files.js}
+  script !{readFile('app.js')}

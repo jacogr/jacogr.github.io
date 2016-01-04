@@ -8,19 +8,19 @@ var babel = require('gulp-babel');
 // var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
 var data = require('gulp-data');
-var dirread = require('fs-readdir-recursive');
+// var dirread = require('fs-readdir-recursive');
 var eslint = require('gulp-eslint');
 var fs = require('fs');
-var filelog = require('gulp-filelog');
+// var filelog = require('gulp-filelog');
 var ignore = require('gulp-ignore');
 var jade = require('gulp-jade');
-var rename = require('gulp-rename');
-var replace = require('gulp-replace');
-var serial = require('run-sequence');
+// var rename = require('gulp-rename');
+// var replace = require('gulp-replace');
+// var serial = require('run-sequence');
 var sass = require('gulp-sass');
 var stylemod = require('gulp-style-modules');
-var touch = require('touch');
-var vulcanize = require('gulp-vulcanize');
+// var touch = require('touch');
+// var vulcanize = require('gulp-vulcanize');
 var uglify = require('gulp-uglify');
 
 var errcb = function(err) {
@@ -48,23 +48,26 @@ gulp.task('html', ['css', 'js'], function() {
   return gulp
     .src(['src/**/*.jade'])
     .pipe(data(function(file) {
-      var data = { files: {} };
-      var parts = file.path.split('/components/');
-
-      if (parts[1]) {
-        var jsfile = 'components/' + parts[1].replace('.jade', '.js');
-        var cssfile = 'components/' + parts[1].replace('.jade', '.css');
-
-        if (fs.existsSync(jsfile)) {
-          data.files.js = fs.readFileSync(jsfile, 'utf-8');
+      var location = '';
+      var readFile = function(name) {
+        var p = [ location, name ].join('/');
+        console.log('reading', p);
+        if (fs.existsSync(p)) {
+          return fs.readFileSync(p, 'utf-8');
         }
+      };
 
-        if (fs.existsSync(cssfile)) {
-          data.files.css = fs.readFileSync(cssfile, 'utf-8');
+      var ret = { readFile: readFile };
+      var comp = false;
+
+      location = _.filter(file.path.split('/'), function(p) {
+        if ((comp || p.indexOf('components') === 0) && p.indexOf('.jade') === -1) {
+          comp = true;
+          return true;
         }
-      }
+      }).join('/');
 
-      return data;
+      return ret;
     }))
     .pipe(jade())
     .on('error', errcb)

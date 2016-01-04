@@ -3,7 +3,7 @@ link(rel="import" href="../pathBehavior/pathBehavior.html")
   
 dom-module#comp-menu
   template
-    style !{files.css}
+    style !{readFile('menu.css')}
     
     .cv CV
     .person
@@ -14,4 +14,4 @@ dom-module#comp-menu
       template(is="dom-repeat" items="{{ items }}")
         a(href$="{{ item.url }}" class$="{{ itemClass(path, item.url) }}") {{ item.name }}
 
-  script !{files.js}
+  script !{readFile('menu.js')}

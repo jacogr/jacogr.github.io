@@ -3,6 +3,6 @@ link(rel="import" href="../3rdparty/showdown.html")
   
 dom-module#comp-markdown
   template
-    style !{files.css}
+    style !{readFile('markdown.css')}
 
-  script !{files.js}
+  script !{readFile('markdown.js')}
