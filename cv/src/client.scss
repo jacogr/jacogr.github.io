@@ -1,10 +1,17 @@
 @import "globals";
 
+body[unresolved] {
+  opacity: 0;
+}
+
 body {
   background: $color-body-bg;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: $color-text;
   margin: 0;
+  opacity: 1;
 
   -webkit-text-size-adjust: 100%; // don't adjust iPhone fonts
+
+  @include transition(opacity $anim-time);
 }
