@@ -85,7 +85,7 @@ gulp.task('css', function() {
     .on('error', errcb)
     .pipe(ignore.exclude('*.css.map'))
     .pipe(cssmin({ keepBreaks: true }))
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest('.'));
 });
 
 gulp.task('component-styles', ['css'], function() {

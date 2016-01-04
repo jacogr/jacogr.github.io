@@ -10,14 +10,8 @@ html(lang="en")
     title Curriculum Vitae: Jaco Greeff
     
     style !{readFile('client.css')}
-      
-    script(src="bower_components/webcomponentsjs/webcomponents-lite.min.js")
-    link(rel="import" href="components/app/app.html")
     
   body
     comp-app
       
-    script.
-      if (window.location.host.substr(-10) == '.github.io' && window.location.protocol != 'https:') {
-          window.location.protocol = 'https:';
-      }
+    script !{readFile('client.js')}
