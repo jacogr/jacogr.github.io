@@ -5,21 +5,14 @@ var _ = require('lodash');
 var path = require('path');
 var gulp = require('gulp');
 var babel = require('gulp-babel');
-// var concat = require('gulp-concat');
 var cssmin = require('gulp-cssmin');
 var data = require('gulp-data');
-// var dirread = require('fs-readdir-recursive');
 var eslint = require('gulp-eslint');
 var fs = require('fs');
-// var filelog = require('gulp-filelog');
 var ignore = require('gulp-ignore');
 var jade = require('gulp-jade');
-// var rename = require('gulp-rename');
-// var replace = require('gulp-replace');
-// var serial = require('run-sequence');
 var sass = require('gulp-sass');
 var stylemod = require('gulp-style-modules');
-// var touch = require('touch');
 // var vulcanize = require('gulp-vulcanize');
 var uglify = require('gulp-uglify');
 
@@ -44,7 +37,7 @@ gulp.task('lint', function() {
     .pipe(eslint.format());
 });
 
-gulp.task('html', ['css', 'js'], function() {
+var htmlTask = function() {
   return gulp
     .src(['src/**/*.jade'])
     .pipe(data(function(file) {
@@ -65,7 +58,10 @@ gulp.task('html', ['css', 'js'], function() {
     .pipe(jade())
     .on('error', errcb)
     .pipe(gulp.dest('.'));
-});
+};
+
+gulp.task('html', htmlTask);
+gulp.task('html-deps', ['css', 'js'], htmlTask);
 
 gulp.task('css', function() {
   var nm = path.join(__dirname, '/node_modules'); // eslint-disable-line no-undef
@@ -79,7 +75,6 @@ gulp.task('css', function() {
       includePaths: [
         path.join(nm, '/bourbon/app/assets/stylesheets'),
         path.join(nm, '/bourbon-neat/app/assets/stylesheets')
-        // path.join(nm, '/font-awesome/scss')
       ]
     }))
     .on('error', errcb)
@@ -95,12 +90,12 @@ gulp.task('component-styles', ['css'], function() {
     .pipe(gulp.dest('./components'));
 });
 
-gulp.task('build', ['lint', 'html']);
+gulp.task('build', ['lint', 'html-deps']);
 
 gulp.task('watch', ['default'], function() {
-  gulp.watch(['src/**/*.scss'], ['component-styles']);
-  gulp.watch(['src/**/*.jade'], ['component-html']);
-  gulp.watch(['src/**/*.js'], ['component-js']);
+  gulp.watch(['src/**/*.scss'], ['css']);
+  gulp.watch(['src/**/*.js'], ['js']);
+  gulp.watch(['src/**/*.jade', 'components/**/*.css', 'components/**/*.js'], ['html']);
 });
 
 gulp.task('default', ['build']);
