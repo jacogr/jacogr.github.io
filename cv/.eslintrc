@@ -4,7 +4,7 @@
     "browser": true
   },
   "globals": {
-    "angular": false,
+    "Polymer": false,
     "require": false,
     "_": false
   },
